@@ -2,28 +2,59 @@ aid: outreach
 url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/apis.yml
 name: Outreach
 x-type: company
-description: >-
-  Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects, opportunities, sequences, mailings, calls, tasks, and analytics.
+description: Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects,
+  opportunities, sequences, mailings, calls, tasks, and analytics.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Sales
-  - Sales Engagement
-  - Sequences
-  - CRM
-  - Email
+- Sales
+- Sales Engagement
+- Sequences
+- CRM
+- Email
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+- name: Outreach REST API
+  description: JSON:API-flavored REST endpoints covering accounts, prospects, sequences, mailings, calls, opportunities and
+    tasks.
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sales Engagement
+  - Prospecting
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+- name: Outreach Client Extensions API
+  description: Embed UI extensions and add custom actions in the Outreach app.
+  humanURL: https://developers.outreach.io/
+  baseURL: https://api.outreach.io
+  tags:
+  - Extensions
+  - UI
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/
+- name: Outreach Data Sharing API
+  description: Bulk data sharing and integration capabilities.
+  humanURL: https://developers.outreach.io/
+  baseURL: https://api.outreach.io
+  tags:
+  - Data Sharing
+  - Integration
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/
 common:
-  - type: Website
-    url: https://www.outreach.io/
-  - type: Plans
-    url: plans/outreach-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/outreach-rate-limits.yml
-  - type: FinOps
-    url: finops/outreach-finops.yml
+- type: Website
+  url: https://www.outreach.io/
+- type: Plans
+  url: plans/outreach-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/outreach-rate-limits.yml
+- type: FinOps
+  url: finops/outreach-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
