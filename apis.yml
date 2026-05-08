@@ -1,0 +1,29 @@
+aid: outreach
+url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/apis.yml
+name: Outreach
+x-type: company
+description: >-
+  Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects, opportunities, sequences, mailings, calls, tasks, and analytics.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Sales
+  - Sales Engagement
+  - Sequences
+  - CRM
+  - Email
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.outreach.io/
+  - type: Plans
+    url: plans/outreach-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/outreach-rate-limits.yml
+  - type: FinOps
+    url: finops/outreach-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
