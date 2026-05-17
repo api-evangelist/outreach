@@ -1,7 +1,7 @@
 aid: outreach
 url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/apis.yml
 name: Outreach
-x-type: company
+kind: company
 description: Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects,
   opportunities, sequences, mailings, calls, tasks, and analytics.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
