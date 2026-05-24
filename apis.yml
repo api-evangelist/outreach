@@ -59,6 +59,8 @@ common:
     url: rate-limits/outreach-rate-limits.yml
   - type: FinOps
     url: finops/outreach-finops.yml
+  - type: LLMsTxt
+    url: https://developers.outreach.io/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
