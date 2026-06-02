@@ -12,7 +12,7 @@ tags:
   - CRM
   - Email
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - name: Outreach REST API
@@ -46,6 +46,19 @@ apis:
     properties:
     - type: Documentation
       url: https://developers.outreach.io/
+  - name: Outreach Webhooks
+    description: Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings, mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks, and users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style payloads with HMAC signature verification.
+    humanURL: https://developers.outreach.io/api/webhooks/
+    baseURL: https://api.outreach.io/api/v2
+    tags:
+    - Webhooks
+    - Events
+    - Sales Engagement
+    properties:
+    - type: Documentation
+      url: https://developers.outreach.io/api/webhooks/
+    - type: AsyncAPI
+      url: webhooks/outreach-webhooks-asyncapi.yml
 common:
   - type: GitHubOrganization
     url: https://github.com/getoutreach

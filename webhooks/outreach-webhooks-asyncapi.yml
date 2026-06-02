@@ -1,0 +1,1205 @@
+asyncapi: 2.6.0
+info:
+  title: Outreach Webhooks
+  version: '1.0.0'
+  description: |
+    AsyncAPI description of the Outreach webhook surface. Outreach delivers JSON:API
+    style event payloads to subscriber URLs registered via `POST /api/v2/webhooks`.
+    Each webhook subscribes to a single `resource` + `action` pair (wildcards `*`
+    are also supported on either field). Payload version 1 carries only changed
+    attributes; payload version 2 additionally carries a `beforeUpdate` envelope
+    with the prior values of changed attributes.
+
+    Signature verification: when a webhook is created with a `secret`, every
+    delivery includes an `Outreach-Webhook-Signature` HTTP header containing the
+    HMAC hex digest of the secret and the raw request body. Every delivery also
+    carries the webhook's `outreach-webhook-cleanup-token` header so subscribers
+    can deregister the webhook even after API access is revoked.
+
+    Delivery contract: subscribers should respond `200 OK` within 5 seconds.
+    Outreach retries up to 3 times (4 attempts total) at 1-second intervals on
+    network failures. Non-2xx HTTP responses such as 500 or 429 are treated as
+    acknowledgments and are not retried. Redirects are not followed. Hostnames
+    resolving to private IP ranges suspend a webhook for 1 hour; DNS failures
+    suspend for 1 minute. Webhooks that remain unrecovered for 7+ days are
+    permanently deactivated.
+  contact:
+    name: Outreach Developer Platform
+    url: https://developers.outreach.io/api/webhooks/
+  license:
+    name: Proprietary
+    url: https://www.outreach.io/legal
+  termsOfService: https://www.outreach.io/legal
+defaultContentType: application/json
+servers:
+  subscriber:
+    url: '{webhookUrl}'
+    protocol: https
+    description: |
+      The HTTPS endpoint registered on the webhook subscription. Outreach POSTs
+      JSON payloads to this URL. The URL is supplied by the subscriber at
+      webhook creation time via `POST https://api.outreach.io/api/v2/webhooks`.
+    variables:
+      webhookUrl:
+        description: Subscriber-controlled HTTPS endpoint that receives Outreach webhook deliveries.
+        default: https://example.com/outreach/webhook
+channels:
+  account.created:
+    description: Fires when a new Account is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onAccountCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/AccountCreated'
+  account.updated:
+    description: Fires when an Account is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onAccountUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/AccountUpdated'
+  account.destroyed:
+    description: Fires when an Account is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onAccountDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/AccountDestroyed'
+  call.created:
+    description: Fires when a Call record is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onCallCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/CallCreated'
+  call.updated:
+    description: Fires when a Call record is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onCallUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/CallUpdated'
+  call.destroyed:
+    description: Fires when a Call record is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onCallDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/CallDestroyed'
+  emailAddress.created:
+    description: Fires when a new Email Address is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onEmailAddressCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/EmailAddressCreated'
+  emailAddress.updated:
+    description: Fires when an Email Address is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onEmailAddressUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/EmailAddressUpdated'
+  emailAddress.destroyed:
+    description: Fires when an Email Address is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onEmailAddressDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/EmailAddressDestroyed'
+  import.created:
+    description: Fires when a bulk Import job is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onImportCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ImportCreated'
+  import.finished:
+    description: Fires when a bulk Import job finishes.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onImportFinished
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ImportFinished'
+  kaiaRecording.created:
+    description: Fires when a Kaia call recording is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onKaiaRecordingCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/KaiaRecordingCreated'
+  mailing.created:
+    description: Fires when a Mailing is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingCreated'
+  mailing.updated:
+    description: Fires when a Mailing is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingUpdated'
+  mailing.destroyed:
+    description: Fires when a Mailing is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingDestroyed'
+  mailing.bounced:
+    description: Fires when a Mailing bounces.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingBounced
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingBounced'
+  mailing.delivered:
+    description: Fires when a Mailing is delivered.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingDelivered
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingDelivered'
+  mailing.opened:
+    description: Fires when a Mailing is opened by the recipient.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingOpened
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingOpened'
+  mailing.replied:
+    description: Fires when a recipient replies to a Mailing.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onMailingReplied
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/MailingReplied'
+  opportunity.created:
+    description: Fires when an Opportunity is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityCreated'
+  opportunity.updated:
+    description: Fires when an Opportunity is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityUpdated'
+  opportunity.destroyed:
+    description: Fires when an Opportunity is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityDestroyed'
+  opportunityProspectRole.created:
+    description: Fires when an Opportunity Prospect Role is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityProspectRoleCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityProspectRoleCreated'
+  opportunityProspectRole.updated:
+    description: Fires when an Opportunity Prospect Role is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityProspectRoleUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityProspectRoleUpdated'
+  opportunityProspectRole.destroyed:
+    description: Fires when an Opportunity Prospect Role is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onOpportunityProspectRoleDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OpportunityProspectRoleDestroyed'
+  prospect.created:
+    description: Fires when a Prospect is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onProspectCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ProspectCreated'
+  prospect.updated:
+    description: Fires when a Prospect is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onProspectUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ProspectUpdated'
+  prospect.destroyed:
+    description: Fires when a Prospect is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onProspectDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ProspectDestroyed'
+  sequence.created:
+    description: Fires when a Sequence is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceCreated'
+  sequence.updated:
+    description: Fires when a Sequence is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceUpdated'
+  sequence.destroyed:
+    description: Fires when a Sequence is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceDestroyed'
+  sequenceState.created:
+    description: Fires when a Sequence State is created (a prospect added to a sequence).
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceStateCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceStateCreated'
+  sequenceState.updated:
+    description: Fires when a Sequence State is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceStateUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceStateUpdated'
+  sequenceState.destroyed:
+    description: Fires when a Sequence State is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceStateDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceStateDestroyed'
+  sequenceState.advanced:
+    description: Fires when a Sequence State advances to the next step.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceStateAdvanced
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceStateAdvanced'
+  sequenceState.finished:
+    description: Fires when a Sequence State finishes.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onSequenceStateFinished
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/SequenceStateFinished'
+  task.created:
+    description: Fires when a Task is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onTaskCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/TaskCreated'
+  task.updated:
+    description: Fires when a Task is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onTaskUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/TaskUpdated'
+  task.destroyed:
+    description: Fires when a Task is deleted.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onTaskDestroyed
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/TaskDestroyed'
+  task.completed:
+    description: Fires when a Task is completed.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onTaskCompleted
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/TaskCompleted'
+  user.created:
+    description: Fires when a User is created.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onUserCreated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/UserCreated'
+  user.updated:
+    description: Fires when a User is updated.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: onUserUpdated
+      bindings:
+        http:
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/UserUpdated'
+components:
+  messageTraits:
+    OutreachWebhookHeaders:
+      headers:
+        type: object
+        properties:
+          Outreach-Webhook-Signature:
+            type: string
+            description: |
+              HMAC hex digest of the configured webhook `secret` and the raw
+              request body. Present only when the webhook was created with a
+              `secret` attribute. Subscribers should recompute and compare in
+              constant time before trusting the payload.
+          outreach-webhook-cleanup-token:
+            type: string
+            description: |
+              The webhook's cleanup token. Sent on every delivery. Subscribers
+              can later POST it to `/api/v2/webhooks/cleanup` to remove the
+              webhook even if API access has been revoked.
+          Content-Type:
+            type: string
+            description: Always `application/json`.
+            default: application/json
+  messages:
+    AccountCreated:
+      name: AccountCreated
+      title: Account Created
+      summary: An account was created in Outreach.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventPayload'
+    AccountUpdated:
+      name: AccountUpdated
+      title: Account Updated
+      summary: An account was updated. With payloadVersion 2, prior values are included under `beforeUpdate`.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventPayload'
+    AccountDestroyed:
+      name: AccountDestroyed
+      title: Account Destroyed
+      summary: An account was deleted. The payload carries the last known set of attributes.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/AccountEventPayload'
+    CallCreated:
+      name: CallCreated
+      title: Call Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CallEventPayload'
+    CallUpdated:
+      name: CallUpdated
+      title: Call Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CallEventPayload'
+    CallDestroyed:
+      name: CallDestroyed
+      title: Call Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/CallEventPayload'
+    EmailAddressCreated:
+      name: EmailAddressCreated
+      title: Email Address Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/EmailAddressEventPayload'
+    EmailAddressUpdated:
+      name: EmailAddressUpdated
+      title: Email Address Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/EmailAddressEventPayload'
+    EmailAddressDestroyed:
+      name: EmailAddressDestroyed
+      title: Email Address Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/EmailAddressEventPayload'
+    ImportCreated:
+      name: ImportCreated
+      title: Import Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ImportEventPayload'
+    ImportFinished:
+      name: ImportFinished
+      title: Import Finished
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ImportEventPayload'
+    KaiaRecordingCreated:
+      name: KaiaRecordingCreated
+      title: Kaia Recording Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/KaiaRecordingEventPayload'
+    MailingCreated:
+      name: MailingCreated
+      title: Mailing Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingUpdated:
+      name: MailingUpdated
+      title: Mailing Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingDestroyed:
+      name: MailingDestroyed
+      title: Mailing Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingBounced:
+      name: MailingBounced
+      title: Mailing Bounced
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingDelivered:
+      name: MailingDelivered
+      title: Mailing Delivered
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingOpened:
+      name: MailingOpened
+      title: Mailing Opened
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    MailingReplied:
+      name: MailingReplied
+      title: Mailing Replied
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/MailingEventPayload'
+    OpportunityCreated:
+      name: OpportunityCreated
+      title: Opportunity Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityEventPayload'
+    OpportunityUpdated:
+      name: OpportunityUpdated
+      title: Opportunity Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityEventPayload'
+    OpportunityDestroyed:
+      name: OpportunityDestroyed
+      title: Opportunity Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityEventPayload'
+    OpportunityProspectRoleCreated:
+      name: OpportunityProspectRoleCreated
+      title: Opportunity Prospect Role Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityProspectRoleEventPayload'
+    OpportunityProspectRoleUpdated:
+      name: OpportunityProspectRoleUpdated
+      title: Opportunity Prospect Role Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityProspectRoleEventPayload'
+    OpportunityProspectRoleDestroyed:
+      name: OpportunityProspectRoleDestroyed
+      title: Opportunity Prospect Role Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/OpportunityProspectRoleEventPayload'
+    ProspectCreated:
+      name: ProspectCreated
+      title: Prospect Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ProspectEventPayload'
+    ProspectUpdated:
+      name: ProspectUpdated
+      title: Prospect Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ProspectEventPayload'
+    ProspectDestroyed:
+      name: ProspectDestroyed
+      title: Prospect Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ProspectEventPayload'
+    SequenceCreated:
+      name: SequenceCreated
+      title: Sequence Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceEventPayload'
+    SequenceUpdated:
+      name: SequenceUpdated
+      title: Sequence Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceEventPayload'
+    SequenceDestroyed:
+      name: SequenceDestroyed
+      title: Sequence Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceEventPayload'
+    SequenceStateCreated:
+      name: SequenceStateCreated
+      title: Sequence State Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceStateEventPayload'
+    SequenceStateUpdated:
+      name: SequenceStateUpdated
+      title: Sequence State Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceStateEventPayload'
+    SequenceStateDestroyed:
+      name: SequenceStateDestroyed
+      title: Sequence State Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceStateEventPayload'
+    SequenceStateAdvanced:
+      name: SequenceStateAdvanced
+      title: Sequence State Advanced
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceStateEventPayload'
+    SequenceStateFinished:
+      name: SequenceStateFinished
+      title: Sequence State Finished
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/SequenceStateEventPayload'
+    TaskCreated:
+      name: TaskCreated
+      title: Task Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TaskEventPayload'
+    TaskUpdated:
+      name: TaskUpdated
+      title: Task Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TaskEventPayload'
+    TaskDestroyed:
+      name: TaskDestroyed
+      title: Task Destroyed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TaskEventPayload'
+    TaskCompleted:
+      name: TaskCompleted
+      title: Task Completed
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/TaskEventPayload'
+    UserCreated:
+      name: UserCreated
+      title: User Created
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/UserEventPayload'
+    UserUpdated:
+      name: UserUpdated
+      title: User Updated
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/OutreachWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/UserEventPayload'
+  schemas:
+    EventMeta:
+      type: object
+      description: Metadata envelope appended to every webhook delivery.
+      required:
+        - deliveredAt
+        - eventName
+      properties:
+        deliveredAt:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when Outreach delivered the event.
+        eventName:
+          type: string
+          description: Dotted event name in the form `resource.action` (e.g. `prospect.updated`).
+    JsonApiResource:
+      type: object
+      description: |
+        Generic JSON:API resource envelope used by Outreach for the `data` and
+        `beforeUpdate` blocks. For `created` and `updated` actions, `attributes`
+        contains only the fields that were created or changed. For `destroyed`
+        actions, `attributes` contains the last known set of attributes.
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          description: Resource type (e.g. `account`, `prospect`, `mailing`).
+        id:
+          type: string
+          description: Resource identifier as a string per JSON:API convention.
+        attributes:
+          type: object
+          additionalProperties: true
+          description: Resource attributes as defined by the Outreach REST API for the given type.
+        relationships:
+          type: object
+          additionalProperties: true
+          description: JSON:API relationship references as defined by the Outreach REST API.
+        links:
+          type: object
+          additionalProperties: true
+          description: Optional JSON:API links object.
+    EventEnvelopeBase:
+      type: object
+      description: |
+        Base envelope shared by all Outreach webhook events. Payload version 1
+        delivers `data` plus `meta`. Payload version 2 additionally delivers
+        `beforeUpdate` carrying the prior values of attributes that changed.
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          $ref: '#/components/schemas/JsonApiResource'
+        beforeUpdate:
+          allOf:
+            - $ref: '#/components/schemas/JsonApiResource'
+          description: |
+            Only present when the webhook was registered with `payloadVersion: 2`
+            and the event is an update. Holds the prior values of changed
+            attributes.
+        meta:
+          $ref: '#/components/schemas/EventMeta'
+    AccountEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [account]
+    CallEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [call]
+    EmailAddressEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [emailAddress]
+    ImportEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [import]
+    KaiaRecordingEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [kaiaRecording]
+    MailingEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [mailing]
+    OpportunityEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [opportunity]
+    OpportunityProspectRoleEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [opportunityProspectRole]
+    ProspectEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [prospect]
+    SequenceEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [sequence]
+    SequenceStateEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [sequenceState]
+    TaskEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [task]
+    UserEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/EventEnvelopeBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [user]
