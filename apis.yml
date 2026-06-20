@@ -4,7 +4,7 @@ name: Outreach
 kind: company
 description: Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects,
   opportunities, sequences, mailings, calls, tasks, and analytics.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Sales
   - Sales Engagement
