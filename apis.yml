@@ -72,7 +72,7 @@ common:
     url: rate-limits/outreach-rate-limits.yml
   - type: FinOps
     url: finops/outreach-finops.yml
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developers.outreach.io/llms.txt
 maintainers:
   - FN: Kin Lane
