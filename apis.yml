@@ -60,6 +60,12 @@ apis:
     - type: AsyncAPI
       url: webhooks/outreach-webhooks-asyncapi.yml
 common:
+  - type: TrustCenter
+    url: security/outreach-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/outreach-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/outreach-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/getoutreach
   - type: LinkedIn
@@ -74,6 +80,8 @@ common:
     url: finops/outreach-finops.yml
   - type: LlmsText
     url: https://developers.outreach.io/llms.txt
+  - url: https://www.outreach.ai/blog
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
