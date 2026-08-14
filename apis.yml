@@ -72,6 +72,8 @@ apis:
     - type: AsyncAPI
       url: webhooks/outreach-webhooks-asyncapi.yml
 common:
+  - type: Authentication
+    url: authentication/outreach-authentication.yml
   - type: TrustCenter
     url: security/outreach-trust-center.yml
   - type: VulnerabilityDisclosure
