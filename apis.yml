@@ -2,100 +2,226 @@ aid: outreach
 url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/apis.yml
 name: Outreach
 kind: company
-description: Outreach is a sales engagement platform unifying email, calling, social, and meetings. APIs expose prospects,
-  opportunities, sequences, mailings, calls, tasks, and analytics.
+description: >-
+  Outreach is a sales execution and revenue platform for go-to-market teams, unifying email, calling, social
+  and meetings into sequenced outbound motions with AI agents layered on top. Its public developer surface is
+  a JSON API 1.0 REST API at api.outreach.io/api/v2 covering accounts, prospects, opportunities, sequences,
+  sequence states, mailings, calls, tasks, teams, users, imports and webhooks across 51 tagged resources and
+  253 operations, authorized by OAuth 2.0 with a scope-per-resource permission model and a separate
+  server-to-server JWT token for unattended integrations. Outreach also runs a remote Model Context Protocol
+  server at api.outreach.io/mcp with 41 tools, authorized by OAuth 2.1 with PKCE and Dynamic Client
+  Registration, plus a client extensibility SDK for embedding web widgets inside the Outreach app, an
+  event-driven webhook surface with HMAC-signed deliveries, and Outreach Data Sharing over Snowflake and
+  Delta Sharing.
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: paid
+  onboarding: sales
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
+  label: Sales-gated
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+  - https://www.outreach.ai/pricing
+  generated: '2026-08-13'
+  method: searched
+  note: Four published plan tiers (Amplify Essentials, Core, Plus, Pro) with published API-call and AI-credit
+    entitlements but no published prices — every tier is contact-sales.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/outreach.png
 tags:
-  - Sales
-  - Sales Engagement
-  - Sequences
-  - CRM
-  - Email
+- Sales
+- Sales Engagement
+- Sequences
+- CRM
+- Email
+- Revenue Operations
+- Sales Execution
+- Prospecting
+- Agents
+- MCP
 created: '2026-05-08'
-modified: '2026-05-30'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
-  - name: Outreach REST API
-    description: JSON:API-flavored REST endpoints covering accounts, prospects, sequences, mailings, calls, opportunities and
-      tasks.
-    humanURL: https://developers.outreach.io/api/
-    baseURL: https://api.outreach.io/api/v2
-    tags:
-    - Sales Engagement
-    - Prospecting
-    properties:
-    - type: Documentation
-      url: https://developers.outreach.io/api/
-  - name: Outreach Client Extensions API
-    description: Embed UI extensions and add custom actions in the Outreach app.
-    humanURL: https://developers.outreach.io/
-    baseURL: https://api.outreach.io
-    tags:
-    - Extensions
-    - UI
-    properties:
-    - type: Documentation
-      url: https://developers.outreach.io/
-  - name: Outreach Data Sharing API
-    description: Bulk data sharing and integration capabilities.
-    humanURL: https://developers.outreach.io/
-    baseURL: https://api.outreach.io
-    tags:
-    - Data Sharing
-    - Integration
-    properties:
-    - type: Documentation
-      url: https://developers.outreach.io/
-  - name: Outreach Webhooks
-    description: Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings, mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks, and users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style payloads with HMAC signature verification.
-    humanURL: https://developers.outreach.io/api/webhooks/
-    baseURL: https://api.outreach.io/api/v2
-    tags:
-    - Webhooks
-    - Events
-    - Sales Engagement
-    properties:
-    - type: Documentation
-      url: https://developers.outreach.io/api/webhooks/
-    - type: AsyncAPI
-      url: webhooks/outreach-webhooks-asyncapi.yml
+- name: Outreach REST API
+  description: >-
+    JSON API 1.0 REST API covering accounts, prospects, opportunities, sequences, sequence states, mailings,
+    calls, tasks, teams, users, notes, imports, batch actions and webhooks — 147 paths and 253 operations
+    over 51 tagged resources, authorized by OAuth 2.0 bearer token or a server-to-server JWT.
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sales Engagement
+  - Prospecting
+  - JSON API
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: OpenAPI
+    url: openapi/outreach-openapi.yml
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: Overlay
+    url: overlays/outreach-openapi-overlay.yaml
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- name: Outreach MCP Server
+  description: >-
+    Remote Model Context Protocol server exposing Outreach as 41 agent tools (27 read, 11 write, 3 schema
+    introspection) over streamable HTTP, authorized by OAuth 2.1 with PKCE and RFC 7591 Dynamic Client
+    Registration. Tool permissions inherit the authenticated Outreach user's RBAC profile and every call is
+    attributed to that user in Outreach activity history.
+  humanURL: https://developers.outreach.io/mcp-server
+  baseURL: https://api.outreach.io/mcp
+  tags:
+  - MCP
+  - Agents
+  - Sales Engagement
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/mcp-server
+  - type: MCPServer
+    url: mcp/outreach-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/outreach-tool-crosswalk.yml
+- name: Outreach Client Extensions API
+  description: >-
+    Client extensibility surface for embedding a web application inside the Outreach client — shell, tab and
+    tile web-widget extensions, a text-editor extension, activity-feed custom events and a mailing-links
+    custom tracker — brokered by the @getoutreach/extensibility-sdk JavaScript SDK, which resolves an
+    OutreachContext carrying user, org, account, prospect and opportunity data into the hosted iframe.
+  humanURL: https://developers.outreach.io/client-extensions
+  baseURL: https://api.outreach.io
+  tags:
+  - Extensions
+  - UI
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/client-extensions
+  - type: Components
+    url: components/outreach-components.yml
+- name: Outreach Data Sharing
+  description: >-
+    Read-only access to an organization's Outreach data through Snowflake secure data sharing and Delta
+    Sharing, in a ready-to-query format with no data copy or custom pipeline. Roughly 60 documented tables
+    covering accounts, prospects, opportunities, sequences, calls, mailings, meetings, Kaia meeting
+    intelligence, forecasts and funnel insights.
+  humanURL: https://developers.outreach.io/data-sharing
+  baseURL: https://api.outreach.io
+  tags:
+  - Data Sharing
+  - Integration
+  - Analytics
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/data-sharing
+  - type: ChangeLog
+    url: https://developers.outreach.io/data-sharing/release-notes
+- name: Outreach Webhooks
+  description: >-
+    Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings,
+    mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks and
+    users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style payloads
+    with HMAC signature verification.
+  humanURL: https://developers.outreach.io/api/webhooks/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Webhooks
+  - Events
+  - Sales Engagement
+  properties:
+  - type: Documentation
+    url: https://developers.outreach.io/api/webhooks/
+  - type: AsyncAPI
+    url: webhooks/outreach-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: webhooks/outreach-webhooks-asyncapi.yml
 common:
-  - type: Authentication
-    url: authentication/outreach-authentication.yml
-  - type: TrustCenter
-    url: security/outreach-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/outreach-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/outreach-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/getoutreach
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/outreach-saas
-  - type: Website
-    url: https://www.outreach.io/
-  - type: Plans
-    url: plans/outreach-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/outreach-rate-limits.yml
-  - type: FinOps
-    url: finops/outreach-finops.yml
-  - type: LlmsText
-    url: https://developers.outreach.io/llms.txt
-  - url: https://www.outreach.ai/blog
-    type: Blog
+- type: AgenticAccess
+  url: agentic-access/outreach-agentic-access.yml
+- type: Authentication
+  url: authentication/outreach-authentication.yml
+- type: OAuthScopes
+  url: scopes/outreach-scopes.yml
+- type: TrustCenter
+  url: security/outreach-trust-center.yml
+- type: Compliance
+  url: https://www.outreach.ai/platform/trust
+- type: VulnerabilityDisclosure
+  url: security/outreach-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.outreach.ai/responsible-disclosure
+- type: DomainSecurity
+  url: security/outreach-domain-security.yml
+- type: WellKnown
+  url: well-known/outreach-well-known.yml
+- type: Conformance
+  url: conformance/outreach-conformance.yml
+- type: Lifecycle
+  url: lifecycle/outreach-lifecycle.yml
+- type: StatusPage
+  url: https://status.outreach.io
+- type: Deprecation
+  url: https://developers.outreach.io/api/deprecated-features
+- type: ChangeLog
+  url: changelog/outreach-changelog.yml
+- type: Packages
+  url: packages/outreach-packages.yml
+- type: SDKs
+  url: packages/outreach-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: GitHubOrganization
+  url: https://github.com/getoutreach
+- type: LinkedIn
+  url: https://www.linkedin.com/company/outreach-saas
+- type: Website
+  url: https://www.outreach.ai/
+- type: DeveloperPortal
+  url: https://developers.outreach.io/
+- type: Documentation
+  url: https://developers.outreach.io/api/
+- type: APIReference
+  url: https://developers.outreach.io/api/reference
+- type: GettingStarted
+  url: https://developers.outreach.io/api/getting-started
+- type: Support
+  url: https://support.outreach.io/support/home
+- type: Pricing
+  url: https://www.outreach.ai/pricing
+- type: SignUp
+  url: https://www.outreach.ai/request-demo
+- type: Login
+  url: https://accounts.outreach.io/
+- type: TermsOfService
+  url: https://www.outreach.ai/terms
+- type: PrivacyPolicy
+  url: https://www.outreach.ai/privacy-statement
+- type: Plans
+  url: plans/outreach-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/outreach-rate-limits.yml
+- type: FinOps
+  url: finops/outreach-finops.yml
+- type: LLMsTxt
+  url: llms/outreach-llms.txt
+- type: LlmsText
+  url: https://developers.outreach.io/llms.txt
+- url: https://www.outreach.ai/resources/blog
+  type: Blog
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
