@@ -1,0 +1,132 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/getting-started
+docs:
+- https://developers.outreach.io/api/getting-started
+- https://developers.outreach.io/api/oauth
+- https://developers.outreach.io/api/s2s-access
+- https://developers.outreach.io/mcp-server/authentication
+provider: Outreach
+providerId: outreach
+summary:
+  types:
+  - oauth2
+  - http
+  api_key_in: []
+  oauth2_flows:
+  - authorizationCode
+  primary: OAuth 2.0 authorization code (REST) / OAuth 2.1 + PKCE + DCR (MCP)
+  api_keys_supported: false
+  note: >-
+    Derived from the OpenAPI this profile is thin — the spec declares only two HTTP bearer schemes
+    (`bearerAuth`, `s2sAuthToken`) and no oauth2 scheme at all, which understates the real model. Upgraded
+    from the provider's own auth documentation: the REST API is OAuth 2.0 authorization-code only, the MCP
+    server is OAuth 2.1 with PKCE and Dynamic Client Registration, and S2S is a separate JWT
+    application-identity token. Outreach issues no static API keys; an application must never ask a user for
+    one.
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  in: header
+  parameter: Authorization
+  applies_to: All 253 operations (declared as the global `security` requirement in the OpenAPI)
+  token_source: OAuth 2.0 authorization code flow
+  sources:
+  - openapi/_original/outreach-openapi.json
+- name: s2sAuthToken
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  in: header
+  parameter: Authorization
+  applies_to: 63 of 253 operations declare `s2sAuthToken` alongside `bearerAuth`
+  token_source: Server-to-server token exchange, signed with a customer-registered RSA public key
+  sources:
+  - openapi/_original/outreach-openapi.json
+  - https://developers.outreach.io/api/s2s-access
+- name: OAuth 2.1 (MCP)
+  type: oauth2
+  flow: authorizationCode
+  pkce: S256
+  dynamic_client_registration: true
+  applies_to: https://api.outreach.io/mcp
+  sources:
+  - https://api.outreach.io/.well-known/oauth-authorization-server
+  - https://developers.outreach.io/mcp-server/authentication
+oauth2:
+  flow: authorizationCode
+  authorization_url: https://api.outreach.io/oauth/authorize
+  token_url: https://api.outreach.io/oauth/token
+  response_type: code
+  state_parameter: supported and recommended for CSRF protection
+  refresh: grant_type=refresh_token
+  token_response_fields:
+  - access_token
+  - token_type
+  - expires_in
+  - refresh_token
+  - scope
+  - created_at
+  access_token_ttl_seconds: 7200
+  refresh_token_ttl_days: 14
+  max_active_refresh_tokens: 100
+  mint_throttle: one access token per user/application per 60 seconds; 429 beyond that
+  credential_environments:
+  - name: development
+    provisioning: immediate
+    review: none
+    limits: Usable without limitation by up to 10 users from the owning org; other users (or more than 10
+      from the owning org) must re-authorize weekly. Consent screen warns the app is unreviewed.
+  - name: production
+    provisioning: after the publishing process and review
+    limits: none stated
+  secret_handling: OAuth client secrets are displayed once at generation and cannot be redisplayed; use
+    Regenerate to mint new ones.
+  scopes: scopes/outreach-scopes.yml
+mcp_oauth:
+  authorization_server: https://api.outreach.io
+  metadata: https://api.outreach.io/.well-known/oauth-authorization-server
+  protected_resource_metadata: https://api.outreach.io/.well-known/oauth-protected-resource
+  authorization_endpoint: https://api.outreach.io/mcpOAuth/authorize
+  token_endpoint: https://api.outreach.io/mcpOAuth/token
+  registration_endpoint: https://api.outreach.io/mcpOAuth/register
+  registration_spec: RFC 7591 Dynamic Client Registration
+  code_challenge_methods_supported: [S256]
+  token_endpoint_auth_methods_supported: [client_secret_post]
+  grant_types_supported: [authorization_code, refresh_token]
+  scopes_supported: [prospects.all]
+  challenge: 'POST to the MCP endpoint without a token returns 401 with WWW-Authenticate: Bearer
+    resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource" (RFC 9728)'
+  enterprise_control: DCR means any MCP client can self-register; Outreach directs enterprises to restrict
+    which clients may connect using IDP-level group restrictions, device trust or conditional access.
+s2s:
+  purpose: Server-side access without an interactive consent flow
+  identity: application + organization, NOT a user
+  key_registration: customer uploads one or more PEM-encoded RSA public keys in the developer portal
+  key_generation: openssl genrsa -out outreach_private_key.pem 2048
+  scope_subset: true
+  limitations: Read operations work broadly; some writes require additional data (e.g. an authorizer user
+    id) and some writes are unsupported entirely because there is no user actor.
+  docs: https://developers.outreach.io/api/s2s-access
+request_headers:
+  authorization: 'Bearer <access_token>'
+  content_type: application/vnd.api+json
+error_responses:
+- status: 403
+  id: unauthorizedOauthScope
+  meaning: token lacks the required scope
+- status: 403
+  id: unauthorizedRequest
+  meaning: token has the scope but the user's governance permissions do not allow the action
+- status: 429
+  id: rateLimitExceeded
+  meaning: includes token minting more than once per 60 seconds
+security_posture:
+  short_lived_tokens: 'Since 2021-01-01 all issued tokens are short-lived; tokens older than 1.5 years were
+    deleted.'
+  revocation: Revoking the customer's authorization grant invalidates tokens; for MCP, disabling the user at
+    the IDP immediately revokes access.
+  audit: MCP tool calls are attributed to the authenticated user in Outreach activity history.
+  advisory: https://developers.outreach.io/guides/warning

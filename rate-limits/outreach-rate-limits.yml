@@ -4,8 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Outreach
 providerId: outreach
 created: '2026-05-08'
-modified: '2026-05-08'
-reconciled: false
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/getting-started#rate-limiting
+reconciled: true
 tags:
 - Sales
 - Sales Engagement
@@ -15,23 +18,85 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: Placeholder rate-limit artifact for Outreach. Replace with real limits once researched.
-notes: "Initial scaffold \u2014 limits have not yet been reconciled."
+description: >-
+  Published rate limits for the Outreach REST API. Outreach rate-limits primarily on a per-user basis at
+  10,000 requests per hour, with tighter org-level limits on Kaia recordings/transcripts, a token-minting
+  throttle on the OAuth token endpoint, and a separate annual API-call entitlement attached to each
+  commercial plan (250,000 to 1,000,000 calls depending on tier — see plans/outreach-plans-pricing.yml).
+notes: >-
+  Harvested from the provider's own Getting Started documentation and pricing page. Outreach explicitly
+  reserves the right to adjust limits at any time. Limits were not observed on a live unauthenticated
+  response — every api.outreach.io route returns 401 without a token — so the values and headers below are
+  the documented contract, not a probe.
 sources:
-- https://www.outreach.io/
-- https://developers.outreach.io/
-- https://developers.outreach.io/api/
+- https://developers.outreach.io/api/getting-started#rate-limiting
+- https://developers.outreach.io/api/getting-started#token-availability
+- https://www.outreach.ai/pricing
 responseCodes:
   throttled: 429
+  maintenance: 503
+headers:
+- name: X-RateLimit-Limit
+  description: Maximum number of requests permitted per time period.
+- name: X-RateLimit-Remaining
+  description: Requests remaining within the current time period.
+- name: X-RateLimit-Reset
+  description: When the rate-limit counter resets. Aliased as the Retry-After header.
+- name: Retry-After
+  description: Alias of X-RateLimit-Reset on 429; on 503 carries an ISO-8601 timestamp for the end of the
+    maintenance window.
+header_coverage: All responses include the three X-RateLimit-* headers.
+limit_count: 4
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+- name: REST API default
+  scope: per-user
+  metric: requests
+  limit: 10000
+  window: hour
+  status_on_exhaustion: 429
+  error_id: rateLimitExceeded
+  source: https://developers.outreach.io/api/getting-started#rate-limiting
+- name: Kaia recordings and transcripts (burst)
+  scope: per-org
+  metric: requests
+  limit: 3
+  window: second
+  source: https://developers.outreach.io/api/getting-started#rate-limiting
+- name: Kaia recordings and transcripts (daily)
+  scope: per-org
+  metric: requests
+  limit: 6000
+  window: day
+  source: https://developers.outreach.io/api/getting-started#rate-limiting
+- name: OAuth access-token minting
+  scope: per-user-per-application
+  metric: token requests
+  limit: 1
+  window: 60 seconds
+  status_on_exhaustion: 429
+  notes: Applications must cache the access token for its full 2-hour life rather than re-minting.
+  source: https://developers.outreach.io/api/getting-started#token-availability
+quotas:
+- name: Active refresh tokens
+  scope: per-user-per-application
+  limit: 100
+  source: https://developers.outreach.io/api/getting-started#token-availability
+- name: Plan API call entitlement
+  scope: per-subscription
+  limit: 250000 - 1000000 per plan tier
+  notes: Amplify Essentials/Core 250,000; Amplify Plus 500,000; Amplify Pro 1,000,000. See
+    plans/outreach-plans-pricing.yml.
+  source: https://www.outreach.ai/pricing
+- name: Offset pagination ceiling
+  scope: per-request
+  limit: max offset 10,000; max page limit 1,000
+  source: https://developers.outreach.io/api/making-requests#offset-pagination-deprecated
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+- name: Backoff strategy
+  description: Honor X-RateLimit-Reset / Retry-After before retrying. Outreach reserves the right to adjust
+    API rate limits at any time to safeguard platform performance.
+- name: Endpoint-specific rules
+  description: Some endpoints (bulk/batch API, Kaia) apply special rules beyond the per-user default.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,12 @@
+{
+    "resource": "https://api.outreach.io/mcp",
+    "authorization_servers": [
+        "https://api.outreach.io"
+    ],
+    "scopes_supported": [
+        "prospects.all"
+    ],
+    "bearer_methods_supported": [
+        "header"
+    ]
+}

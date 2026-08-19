@@ -1,0 +1,94 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every apis.yml host
+provider: Outreach
+providerId: outreach
+summary:
+  hosts_probed: 3
+  paths_probed_per_host: 8
+  documents_found: 2
+  note: >-
+    Outreach serves a real, standards-conformant OAuth discovery pair on its API host — RFC 8414
+    authorization-server metadata and RFC 9728 protected-resource metadata — which is how the MCP endpoint
+    (https://api.outreach.io/mcp) was established without guessing. Nothing else is served: no security.txt
+    on any host, no OpenID Connect discovery, no api-catalog, no ai-plugin.json, and no A2A agent card at
+    either the canonical or the legacy path. api.outreach.io answers unmatched /.well-known/* paths with a
+    clean JSON 404 (`{"error":"404","error_description":"route not found"}`), not an HTML shell, so these
+    absences are real 404s rather than SPA catch-alls.
+hosts:
+- host: https://api.outreach.io
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    spec: RFC 8414
+    file: outreach-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    spec: RFC 9728
+    file: outreach-oauth-protected-resource.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.outreach.io
+  note: 301s to https://www.outreach.ai; every /.well-known/* path returns 404 with an HTML body reading
+    "Invalid .well-known request".
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://developers.outreach.io
+  note: >-
+    The developer portal is hosted on Redocly. Its /.well-known/oauth-authorization-server returns 200 but
+    the issuer is https://auth.cloud.redocly.com — that is the DOCS PLATFORM's authorization server, not
+    Outreach's, so it is NOT recorded as an Outreach-served document and no pointer is emitted for it.
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    owner: Redocly (auth.cloud.redocly.com)
+    counted: false
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+security_txt: false
+security_txt_note: >-
+  No RFC 9116 security.txt is served on any Outreach host, despite Outreach running a published responsible
+  disclosure programme at https://www.outreach.ai/responsible-disclosure. That is a one-file gap the provider
+  could close.
+agent_card: false
+agent_card_note: No A2A agent card at /.well-known/agent-card.json or the legacy /.well-known/agent.json on
+  any host. No a2a/ artifact was written.

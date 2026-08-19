@@ -1,0 +1,77 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/deprecated-features
+provider: Outreach
+providerId: outreach
+versioning:
+  scheme: uri-path
+  current: v2
+  base: https://api.outreach.io/api/v2
+  docs: https://developers.outreach.io/api/making-requests
+  note: >-
+    Outreach has run a single public major version (v2) for the life of the developer portal. Behaviour
+    changes are shipped inside v2 with a dated deprecation notice rather than by minting a new version path.
+deprecation:
+  policy_url: https://developers.outreach.io/api/deprecated-features
+  policy: >-
+    Outreach publishes a dated "Deprecated features" page. Each notice states what changes, the effective
+    date, who is affected first (new OAuth applications ahead of existing ones), and the migration path.
+    Existing integrations have historically been given a grace period — the October 2024 count-default change
+    gave existing applications three months from the notification email; the May 2023 relationship
+    filter/sort deprecations were announced with a five-month runway to 2023-10-31.
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: No RFC 8594 `Sunset` or `Deprecation` response headers are documented, and none are declared in the
+    OpenAPI. Deprecation is communicated by dated documentation page and by email to app owners.
+  notices:
+  - date: '2026-07'
+    effective: '2026-10-01'
+    change: The `contactHistogram` attribute is removed from the default `prospects` payload.
+    migration: Request it explicitly via `fields[prospect]=firstName,lastName,contactHistogram`.
+    breaking: true
+  - date: '2024-10'
+    effective: '2025-02-12'
+    change: Collection queries stop counting by default; `meta.count` becomes null unless `count=true`.
+    migration: Add `&count=true` where the `meta.count` value is required.
+    breaking: true
+    scope: New OAuth applications registered after 2024-10-13 immediately; existing applications after a
+      3-month grace period.
+  - date: '2024-03'
+    effective: '2024-09'
+    change: The original Audit Log API is deprecated in favour of a new Audit Log API (beta at announcement).
+    migration: Move to the new Audit Log API.
+    breaking: true
+  - date: '2023-05'
+    effective: '2023-10-31'
+    change: Three behaviours deprecated — sorting by a relationship's attribute, including related objects in
+      create/update responses, and filtering by some relationships' non-id attributes.
+    migration: Split into two requests (fetch related ids first), or sort locally after including the
+      attribute.
+    breaking: true
+deprecated_operations: []
+deprecated_operations_note: >-
+  The published OpenAPI (openapi/_original/outreach-openapi.json) marks no operation with `deprecated: true`
+  across its 253 operations. Every deprecation Outreach has announced is at the level of a query-parameter
+  behaviour or a single attribute, not an endpoint, so none of them are visible in the machine-readable
+  contract. That is a real gap: a client generated from the spec has no way to see the 2026-10-01
+  `contactHistogram` change.
+status_page: https://status.outreach.io
+status_page_note: First-party status page at status.outreach.io. Maintenance windows are announced there and
+  the API returns 503 with error id `scheduledServerMaintenance` and a Retry-After timestamp during them.
+sla:
+  url: null
+  uptime_target: null
+  note: No public uptime SLA is published; service commitments sit inside the customer agreement at
+    https://www.outreach.ai/terms.
+support:
+  portal: https://support.outreach.io/support/home
+  platform_contact: platform@outreach.io
+  product_feedback: product-feedback@outreach.io
+security_advisories:
+- date: '2025-10-10'
+  title: Security Advisory on Developer Portal
+  url: https://developers.outreach.io/guides/warning
+  summary: Guidance to partners to review least-privilege scopes, monitor integration logs and harden API
+    integrations following the Salesforce partner compromise.
+changelog: changelog/outreach-changelog.yml

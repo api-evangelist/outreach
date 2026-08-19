@@ -1,0 +1,51 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/_original/outreach-openapi.json + https://developers.outreach.io/
+provider: Outreach
+providerId: outreach
+notes: >-
+  Packaged operating instructions for the marquee Outreach flows. Every REST operation named in these skills
+  was verified against the saved OpenAPI by path and method; the spec declares no operationIds, so operations
+  are addressed as `METHOD /path`. Every MCP tool named was verified against Outreach's published Tool
+  Catalog.
+skills:
+- file: outreach-enroll-prospect-in-sequence.md
+  name: Enroll a prospect in an Outreach sequence
+  api: openapi/outreach-openapi.yml
+  operations:
+  - POST /accounts
+  - POST /prospects
+  - GET /sequences
+  - POST /sequenceStates
+  - GET /sequenceStates
+  - POST /batches/actions/prospectsAddToSequence
+- file: outreach-read-collections-safely.md
+  name: Read Outreach collections safely at scale
+  api: openapi/outreach-openapi.yml
+  operations:
+  - GET /prospects
+  - GET /accounts
+  - GET /opportunities
+  - GET /tasks
+  - GET /mailings
+  - GET /sequenceStates
+- file: outreach-subscribe-to-webhooks.md
+  name: Subscribe to Outreach webhooks
+  api: openapi/outreach-openapi.yml
+  operations:
+  - POST /webhooks
+  - GET /webhooks
+  - GET /webhooks/{id}
+  - PATCH /webhooks/{id}
+  - DELETE /webhooks/{id}
+- file: outreach-connect-mcp-agent.md
+  name: Connect an agent to the Outreach MCP server
+  api: mcp/outreach-mcp.yml
+  tools:
+  - current_user
+  - prospect_search
+  - prospect_create
+  - sequence_search
+  - sequence_add_prospects
+  - account_answer_question
+  - input_fields_fetch

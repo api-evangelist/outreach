@@ -1,0 +1,1818 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/outreach-openapi.json
+provider: Outreach
+providerId: outreach
+notes: Derived from the JSON:API relationship objects declared in the Outreach REST API OpenAPI (components.schemas.<entity>Relationships).
+  Outreach implements JSON API 1.0, so every relationship is expressed as either a resource-identifier object (to-one)
+  or a related link / array (to-many); the target type is read from the relationship resource-identifier `type`
+  value in the spec. Related resources are traversed at request time with the `include` query parameter and trimmed
+  with `fields[<type>]` sparse fieldsets.
+id_convention: integer, org-scoped, exposed as JSON:API `data.id`
+traversal:
+  include_param: include
+  sparse_fieldsets_param: fields[<type>]
+  filter_param: filter[<attribute>]
+  relationship_filter: filter[<relationship>][id]
+entity_count: 121
+relationship_count: 359
+entities:
+- entity: account
+  schema: components.schemas.account
+  relationships:
+  - name: assignedTeams
+    type: has_many
+    target: team
+    via: assignedTeams
+  - name: assignedUsers
+    type: has_many
+    target: user
+    via: assignedUsers
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: defaultPluginMapping
+    type: has_one
+    target: pluginMapping
+    via: defaultPluginMapping
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: primaryRecordTeam
+    type: has_one
+    target: team
+    via: primaryRecordTeam
+  - name: recordTeamMembers
+    type: has_many
+    target: user
+    via: recordTeamMembers
+  - name: recordTeams
+    type: has_many
+    target: team
+    via: recordTeams
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: accountNote
+  schema: components.schemas.accountNote
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+- entity: accountProspectRelationship
+  schema: components.schemas.accountProspectRelationshipRelationships
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: creator
+    type: has_one
+    target: plugin
+    via: creator
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: updater
+    type: has_one
+    target: plugin
+    via: updater
+- entity: accountTeamMember
+  schema: components.schemas.accountTeamMemberRelationships
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: jobRole
+    type: has_one
+    target: jobRole
+    via: jobRole
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: address
+  schema: components.schemas.addressRelationships
+  relationships: []
+- entity: attachment
+  schema: components.schemas.attachmentRelationships
+  relationships: []
+- entity: auditLog
+  schema: components.schemas.auditLog
+  relationships: []
+- entity: batch
+  schema: components.schemas.batch
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: batchItem
+  schema: components.schemas.batchItem
+  relationships:
+  - name: batch
+    type: has_one
+    target: batch
+    via: batch
+- entity: blockedNumber
+  schema: components.schemas.blockedNumberRelationships
+  relationships: []
+- entity: calendar
+  schema: components.schemas.calendarRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: meetingType
+    type: has_one
+    target: meetingType
+    via: meetingType
+  - name: schedule
+    type: has_one
+    target: schedule
+    via: schedule
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: calendarEvent
+  schema: components.schemas.calendarEventRelationships
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: booker
+    type: has_one
+    target: user
+    via: booker
+  - name: calendar
+    type: has_one
+    target: calendar
+    via: calendar
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: kaiaCrmRecording
+    type: has_one
+    target: kaiaCrmRecording
+    via: kaiaCrmRecording
+  - name: meeting
+    type: has_one
+    target: meeting
+    via: meeting
+  - name: meetingType
+    type: has_one
+    target: meetingType
+    via: meetingType
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: prospects
+    type: has_many
+    target: prospect
+    via: prospects
+  - name: user
+    type: has_one
+    target: user
+    via: user
+  - name: users
+    type: has_many
+    target: user
+    via: users
+- entity: calendarEventAttendee
+  schema: components.schemas.calendarEventAttendeeRelationships
+  relationships:
+  - name: calendarEvent
+    type: has_one
+    target: calendarEvent
+    via: calendarEvent
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: calendarUrl
+  schema: components.schemas.calendarUrlRelationships
+  relationships: []
+- entity: call
+  schema: components.schemas.call
+  relationships:
+  - name: associatedId
+    type: has_one
+    target: account
+    via: associatedId
+  - name: callDisposition
+    type: has_one
+    target: callDisposition
+    via: callDisposition
+  - name: callPurpose
+    type: has_one
+    target: callPurpose
+    via: callPurpose
+  - name: kaiaCrmRecording
+    type: has_one
+    target: kaiaCrmRecording
+    via: kaiaCrmRecording
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: outboundVoicemail
+    type: has_one
+    target: outboundVoicemail
+    via: outboundVoicemail
+  - name: phone
+    type: has_one
+    target: phone
+    via: phone
+  - name: phoneNumber
+    type: has_one
+    target: phoneNumber
+    via: phoneNumber
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: task
+    type: has_one
+    target: task
+    via: task
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: callDisposition
+  schema: components.schemas.callDisposition
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: callPurpose
+  schema: components.schemas.callPurpose
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: complianceRequest
+  schema: components.schemas.complianceRequest
+  relationships:
+  - name: requester
+    type: has_one
+    target: user
+    via: requester
+- entity: contentCategory
+  schema: components.schemas.contentCategory
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: teams
+    type: has_many
+    target: team
+    via: teams
+- entity: contentCategoryMembership
+  schema: components.schemas.contentCategoryMembership
+  relationships:
+  - name: content
+    type: has_one
+    target: sequence
+    via: content
+  - name: contentCategory
+    type: has_one
+    target: contentCategory
+    via: contentCategory
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: contentCategoryOwnership
+  schema: components.schemas.contentCategoryOwnership
+  relationships:
+  - name: contentCategory
+    type: has_one
+    target: contentCategory
+    via: contentCategory
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: team
+    via: owner
+- entity: crmFieldPermission
+  schema: components.schemas.crmFieldPermissionRelationships
+  relationships:
+  - name: crmProfile
+    type: has_one
+    target: crmProfile
+    via: crmProfile
+- entity: crmProfile
+  schema: components.schemas.crmProfileRelationships
+  relationships: []
+- entity: currencyType
+  schema: components.schemas.currencyTypeRelationships
+  relationships: []
+- entity: customDuty
+  schema: components.schemas.customDuty
+  relationships: []
+- entity: customValidation
+  schema: components.schemas.customValidationRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: datedConversionRate
+  schema: components.schemas.datedConversionRateRelationships
+  relationships: []
+- entity: duty
+  schema: components.schemas.duty
+  relationships: []
+- entity: emailAddress
+  schema: components.schemas.emailAddress
+  relationships:
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+- entity: event
+  schema: components.schemas.event
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: call
+    type: has_one
+    target: call
+    via: call
+  - name: mailing
+    type: has_one
+    target: mailing
+    via: mailing
+  - name: note
+    type: has_one
+    target: note
+    via: note
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: plugin
+    type: has_one
+    target: plugin
+    via: plugin
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: task
+    type: has_one
+    target: task
+    via: task
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: experiment
+  schema: components.schemas.experimentRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: sequenceA
+    type: has_one
+    target: sequence
+    via: sequenceA
+  - name: sequenceB
+    type: has_one
+    target: sequence
+    via: sequenceB
+- entity: export
+  schema: components.schemas.exportRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: externalRecordType
+  schema: components.schemas.externalRecordTypeRelationships
+  relationships: []
+- entity: favorite
+  schema: components.schemas.favorite
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: target
+    type: has_one
+    target: account
+    via: target
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: featureFlag
+  schema: components.schemas.featureFlagRelationships
+  relationships: []
+- entity: featureFlagParticipation
+  schema: components.schemas.featureFlagParticipationRelationships
+  relationships:
+  - name: featureFlag
+    type: has_one
+    target: featureFlag
+    via: featureFlag
+- entity: gmailMessageMetadatum
+  schema: components.schemas.gmailMessageMetadatumRelationships
+  relationships:
+  - name: mailings
+    type: has_many
+    target: mailing
+    via: mailings
+- entity: import
+  schema: components.schemas.import
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: inboxSetting
+  schema: components.schemas.inboxSettingRelationships
+  relationships:
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: jobRole
+  schema: components.schemas.jobRoleRelationships
+  relationships: []
+- entity: kaiaCrmRecording
+  schema: components.schemas.kaiaCrmRecordingRelationships
+  relationships:
+  - name: prospects
+    type: has_many
+    target: prospect
+    via: prospects
+- entity: kaiaRecording
+  schema: components.schemas.kaiaRecording
+  relationships: []
+- entity: kaiaVoiceImport
+  schema: components.schemas.kaiaVoiceImport
+  relationships: []
+- entity: mailAlias
+  schema: components.schemas.mailAlias
+  relationships:
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+- entity: mailbox
+  schema: components.schemas.mailbox
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: mailboxContact
+  schema: components.schemas.mailboxContactRelationships
+  relationships:
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+- entity: mailing
+  schema: components.schemas.mailing
+  relationships:
+  - name: attachments
+    type: has_many
+    target: attachment
+    via: attachments
+  - name: calendar
+    type: has_one
+    target: calendar
+    via: calendar
+  - name: followUpSequence
+    type: has_one
+    target: sequence
+    via: followUpSequence
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: recipients
+    type: has_many
+    target: recipient
+    via: recipients
+  - name: schedule
+    type: has_one
+    target: schedule
+    via: schedule
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: task
+    type: has_one
+    target: task
+    via: task
+  - name: tasks
+    type: has_many
+    target: task
+    via: tasks
+  - name: template
+    type: has_one
+    target: template
+    via: template
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: meeting
+  schema: components.schemas.meetingRelationships
+  relationships:
+  - name: meetingAttendees
+    type: has_many
+    target: calendarEventAttendee
+    via: meetingAttendees
+  - name: primaryEvent
+    type: has_one
+    target: calendarEvent
+    via: primaryEvent
+- entity: meetingField
+  schema: components.schemas.meetingFieldRelationships
+  relationships: []
+- entity: meetingType
+  schema: components.schemas.meetingTypeRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: team
+    type: has_one
+    target: team
+    via: team
+- entity: messengerGroup
+  schema: components.schemas.messengerGroupRelationships
+  relationships:
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: modelSchemaVersion
+  schema: components.schemas.modelSchemaVersionRelationships
+  relationships: []
+- entity: note
+  schema: components.schemas.noteRelationships
+  relationships:
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+- entity: opportunity
+  schema: components.schemas.opportunity
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: assignedTeams
+    type: has_many
+    target: team
+    via: assignedTeams
+  - name: assignedUsers
+    type: has_many
+    target: user
+    via: assignedUsers
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: defaultPluginMapping
+    type: has_one
+    target: pluginMapping
+    via: defaultPluginMapping
+  - name: externalCreator
+    type: has_one
+    target: user
+    via: externalCreator
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: opportunityHealthFactors
+    type: has_many
+    target: opportunityHealthFactor
+    via: opportunityHealthFactors
+  - name: opportunityLineItems
+    type: has_many
+    target: opportunityLineItem
+    via: opportunityLineItems
+  - name: opportunityStage
+    type: has_one
+    target: opportunityStage
+    via: opportunityStage
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: primaryProspect
+    type: has_one
+    target: prospect
+    via: primaryProspect
+  - name: stage
+    type: has_one
+    target: opportunityStage
+    via: stage
+  - name: territory
+    type: has_one
+    target: territory
+    via: territory
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: opportunityFieldHistory
+  schema: components.schemas.opportunityFieldHistoryRelationships
+  relationships: []
+- entity: opportunityHealthFactor
+  schema: components.schemas.opportunityHealthFactorRelationships
+  relationships:
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+- entity: opportunityHistory
+  schema: components.schemas.opportunityHistoryRelationships
+  relationships: []
+- entity: opportunityLineItem
+  schema: components.schemas.opportunityLineItemRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: externalCreator
+    type: has_one
+    target: user
+    via: externalCreator
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: opportunityProspectRole
+  schema: components.schemas.opportunityProspectRole
+  relationships:
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+- entity: opportunitySplit
+  schema: components.schemas.opportunitySplitRelationships
+  relationships:
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: splitOwner
+    type: has_one
+    target: user
+    via: splitOwner
+  - name: splitType
+    type: has_one
+    target: opportunitySplitType
+    via: splitType
+- entity: opportunitySplitFieldHistory
+  schema: components.schemas.opportunitySplitFieldHistoryRelationships
+  relationships: []
+- entity: opportunitySplitType
+  schema: components.schemas.opportunitySplitTypeRelationships
+  relationships: []
+- entity: opportunityStage
+  schema: components.schemas.opportunityStage
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: opportunityTeamMembership
+  schema: components.schemas.opportunityTeamMembershipRelationships
+  relationships:
+  - name: jobRole
+    type: has_one
+    target: jobRole
+    via: jobRole
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: team
+    type: has_one
+    target: team
+    via: team
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: orgSetting
+  schema: components.schemas.orgSetting
+  relationships: []
+- entity: outboundVoicemail
+  schema: components.schemas.outboundVoicemailRelationships
+  relationships:
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: outlookAddInEwsItem
+  schema: components.schemas.outlookAddInEwsItemRelationships
+  relationships:
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+- entity: permissionGrant
+  schema: components.schemas.permissionGrantRelationships
+  relationships: []
+- entity: persona
+  schema: components.schemas.persona
+  relationships: []
+- entity: phone
+  schema: components.schemas.phoneRelationships
+  relationships:
+  - name: address
+    type: has_one
+    target: address
+    via: address
+  - name: phoneIdentity
+    type: has_one
+    target: phoneIdentity
+    via: phoneIdentity
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: phoneIdentity
+  schema: components.schemas.phoneIdentityRelationships
+  relationships:
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+- entity: phoneNumber
+  schema: components.schemas.phoneNumber
+  relationships:
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+- entity: phoneNumberPrediction
+  schema: components.schemas.phoneNumberPredictionRelationships
+  relationships:
+  - name: referralPrediction
+    type: has_one
+    target: referralPrediction
+    via: referralPrediction
+- entity: plugin
+  schema: components.schemas.pluginRelationships
+  relationships: []
+- entity: pluginErrorLogPreSignedUrl
+  schema: components.schemas.pluginErrorLogPreSignedUrlRelationships
+  relationships: []
+- entity: pluginMapping
+  schema: components.schemas.pluginMappingRelationships
+  relationships:
+  - name: plugin
+    type: has_one
+    target: plugin
+    via: plugin
+- entity: product
+  schema: components.schemas.product
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: profile
+  schema: components.schemas.profile
+  relationships: []
+- entity: prospect
+  schema: components.schemas.prospect
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: activeSequenceStates
+    type: has_many
+    target: sequenceState
+    via: activeSequenceStates
+  - name: assignedTeams
+    type: has_many
+    target: team
+    via: assignedTeams
+  - name: assignedUsers
+    type: has_many
+    target: user
+    via: assignedUsers
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: defaultPluginMapping
+    type: has_one
+    target: pluginMapping
+    via: defaultPluginMapping
+  - name: emailAddresses
+    type: has_many
+    target: emailAddress
+    via: emailAddresses
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: opportunities
+    type: has_many
+    target: opportunity
+    via: opportunities
+  - name: opportunityProspectRoles
+    type: has_many
+    target: opportunityProspectRole
+    via: opportunityProspectRoles
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: persona
+    type: has_one
+    target: persona
+    via: persona
+  - name: phoneNumbers
+    type: has_many
+    target: phoneNumber
+    via: phoneNumbers
+  - name: stage
+    type: has_one
+    target: stage
+    via: stage
+  - name: trashedByAccount
+    type: has_one
+    target: account
+    via: trashedByAccount
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: prospectNote
+  schema: components.schemas.prospectNote
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+- entity: purchase
+  schema: components.schemas.purchase
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: product
+    type: has_one
+    target: product
+    via: product
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: recipient
+  schema: components.schemas.recipient
+  relationships:
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: recordActorAssignment
+  schema: components.schemas.recordActorAssignmentRelationships
+  relationships:
+  - name: actor
+    type: has_one
+    target: user
+    via: actor
+  - name: jobRole
+    type: has_one
+    target: jobRole
+    via: jobRole
+  - name: record
+    type: has_one
+    target: account
+    via: record
+- entity: referralPrediction
+  schema: components.schemas.referralPredictionRelationships
+  relationships:
+  - name: gmailMessageMetadatum
+    type: has_one
+    target: gmailMessageMetadatum
+    via: gmailMessageMetadatum
+  - name: phoneNumberPredictions
+    type: has_many
+    target: phoneNumberPrediction
+    via: phoneNumberPredictions
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+- entity: returnDatePrediction
+  schema: components.schemas.returnDatePredictionRelationships
+  relationships:
+  - name: gmailMessageMetadatum
+    type: has_one
+    target: gmailMessageMetadatum
+    via: gmailMessageMetadatum
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+- entity: role
+  schema: components.schemas.role
+  relationships:
+  - name: childRoles
+    type: has_many
+    target: role
+    via: childRoles
+  - name: parentRole
+    type: has_one
+    target: role
+    via: parentRole
+- entity: ruleset
+  schema: components.schemas.ruleset
+  relationships:
+  - name: bouncedStage
+    type: has_one
+    target: stage
+    via: bouncedStage
+  - name: callTaskPriority
+    type: has_one
+    target: taskPriority
+    via: callTaskPriority
+  - name: callTaskPriorityFromClicks
+    type: has_one
+    target: taskPriority
+    via: callTaskPriorityFromClicks
+  - name: callTaskPriorityFromOpens
+    type: has_one
+    target: taskPriority
+    via: callTaskPriorityFromOpens
+  - name: completedStage
+    type: has_one
+    target: stage
+    via: completedStage
+  - name: deliveredStage
+    type: has_one
+    target: stage
+    via: deliveredStage
+  - name: finishedStage
+    type: has_one
+    target: stage
+    via: finishedStage
+  - name: optedOutStage
+    type: has_one
+    target: stage
+    via: optedOutStage
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: repliedStage
+    type: has_one
+    target: stage
+    via: repliedStage
+  - name: startedStage
+    type: has_one
+    target: stage
+    via: startedStage
+- entity: schedule
+  schema: components.schemas.scheduleRelationships
+  relationships:
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+- entity: sequence
+  schema: components.schemas.sequence
+  relationships:
+  - name: contentCategoryMemberships
+    type: has_many
+    target: contentCategoryMembership
+    via: contentCategoryMemberships
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: ruleset
+    type: has_one
+    target: ruleset
+    via: ruleset
+  - name: schedule
+    type: has_one
+    target: schedule
+    via: schedule
+  - name: sequenceSteps
+    type: has_many
+    target: sequenceStep
+    via: sequenceSteps
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: sequenceState
+  schema: components.schemas.sequenceState
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: activeStepMailings
+    type: has_many
+    target: mailing
+    via: activeStepMailings
+  - name: activeStepTasks
+    type: has_many
+    target: task
+    via: activeStepTasks
+  - name: batchItemCreator
+    type: has_one
+    target: batchItem
+    via: batchItemCreator
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceStateRecipients
+    type: has_many
+    target: sequenceStateRecipient
+    via: sequenceStateRecipients
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: sequenceStateRecipient
+  schema: components.schemas.sequenceStateRecipientRelationships
+  relationships:
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+- entity: sequenceStep
+  schema: components.schemas.sequenceStep
+  relationships:
+  - name: callPurpose
+    type: has_one
+    target: callPurpose
+    via: callPurpose
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: schedule
+    type: has_one
+    target: schedule
+    via: schedule
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceTemplates
+    type: has_many
+    target: sequenceTemplate
+    via: sequenceTemplates
+  - name: taskPriority
+    type: has_one
+    target: taskPriority
+    via: taskPriority
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: sequenceStepOverride
+  schema: components.schemas.sequenceStepOverrideRelationships
+  relationships: []
+- entity: sequenceTemplate
+  schema: components.schemas.sequenceTemplate
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: template
+    type: has_one
+    target: template
+    via: template
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: smartView
+  schema: components.schemas.smartViewRelationships
+  relationships:
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+- entity: smartViewNotification
+  schema: components.schemas.smartViewNotificationRelationships
+  relationships:
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: smartView
+    type: has_one
+    target: smartView
+    via: smartView
+- entity: snippet
+  schema: components.schemas.snippet
+  relationships:
+  - name: contentCategoryMemberships
+    type: has_many
+    target: contentCategoryMembership
+    via: contentCategoryMemberships
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: stage
+  schema: components.schemas.stage
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: survey
+  schema: components.schemas.surveyRelationships
+  relationships:
+  - name: surveyQuestions
+    type: has_many
+    target: surveyQuestion
+    via: surveyQuestions
+  - name: surveyUserResponses
+    type: has_many
+    target: surveyUserResponse
+    via: surveyUserResponses
+- entity: surveyQuestion
+  schema: components.schemas.surveyQuestionRelationships
+  relationships:
+  - name: survey
+    type: has_one
+    target: survey
+    via: survey
+  - name: surveyQuestionOptions
+    type: has_many
+    target: surveyQuestionOption
+    via: surveyQuestionOptions
+  - name: surveyUserResponses
+    type: has_many
+    target: surveyUserResponse
+    via: surveyUserResponses
+- entity: surveyQuestionOption
+  schema: components.schemas.surveyQuestionOptionRelationships
+  relationships:
+  - name: surveyQuestion
+    type: has_one
+    target: surveyQuestion
+    via: surveyQuestion
+  - name: surveyUserResponses
+    type: has_many
+    target: surveyUserResponse
+    via: surveyUserResponses
+- entity: surveyUserResponse
+  schema: components.schemas.surveyUserResponseRelationships
+  relationships:
+  - name: survey
+    type: has_one
+    target: survey
+    via: survey
+  - name: surveyQuestion
+    type: has_one
+    target: surveyQuestion
+    via: surveyQuestion
+  - name: surveyQuestionOption
+    type: has_one
+    target: surveyQuestionOption
+    via: surveyQuestionOption
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: tag
+  schema: components.schemas.tagRelationships
+  relationships: []
+- entity: task
+  schema: components.schemas.task
+  relationships:
+  - name: account
+    type: has_one
+    target: account
+    via: account
+  - name: call
+    type: has_one
+    target: call
+    via: call
+  - name: completer
+    type: has_one
+    target: user
+    via: completer
+  - name: creator
+    type: has_one
+    target: sequenceStep
+    via: creator
+  - name: defaultPluginMapping
+    type: has_one
+    target: pluginMapping
+    via: defaultPluginMapping
+  - name: mailing
+    type: has_one
+    target: mailing
+    via: mailing
+  - name: opportunity
+    type: has_one
+    target: opportunity
+    via: opportunity
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: prospect
+    type: has_one
+    target: prospect
+    via: prospect
+  - name: prospectAccount
+    type: has_one
+    target: account
+    via: prospectAccount
+  - name: prospectContacts
+    type: has_many
+    target: emailAddress
+    via: prospectContacts
+  - name: prospectOwner
+    type: has_one
+    target: user
+    via: prospectOwner
+  - name: prospectPhoneNumbers
+    type: has_many
+    target: phoneNumber
+    via: prospectPhoneNumbers
+  - name: prospectStage
+    type: has_one
+    target: stage
+    via: prospectStage
+  - name: sequence
+    type: has_one
+    target: sequence
+    via: sequence
+  - name: sequenceSequenceSteps
+    type: has_many
+    target: sequenceStep
+    via: sequenceSequenceSteps
+  - name: sequenceState
+    type: has_one
+    target: sequenceState
+    via: sequenceState
+  - name: sequenceStateSequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStateSequenceStep
+  - name: sequenceStateSequenceStepOverrides
+    type: has_many
+    target: sequenceStepOverride
+    via: sequenceStateSequenceStepOverrides
+  - name: sequenceStateStartingTemplate
+    type: has_one
+    target: template
+    via: sequenceStateStartingTemplate
+  - name: sequenceStep
+    type: has_one
+    target: sequenceStep
+    via: sequenceStep
+  - name: sequenceStepOverrideTemplates
+    type: has_many
+    target: template
+    via: sequenceStepOverrideTemplates
+  - name: sequenceTemplate
+    type: has_one
+    target: sequenceTemplate
+    via: sequenceTemplate
+  - name: sequenceTemplateTemplate
+    type: has_one
+    target: template
+    via: sequenceTemplateTemplate
+  - name: subject
+    type: has_one
+    target: account
+    via: subject
+  - name: taskDisposition
+    type: has_one
+    target: taskDisposition
+    via: taskDisposition
+  - name: taskPriority
+    type: has_one
+    target: taskPriority
+    via: taskPriority
+  - name: taskPurpose
+    type: has_one
+    target: taskPurpose
+    via: taskPurpose
+  - name: taskTheme
+    type: has_one
+    target: taskTheme
+    via: taskTheme
+  - name: team
+    type: has_one
+    target: team
+    via: team
+  - name: template
+    type: has_one
+    target: template
+    via: template
+- entity: taskDisposition
+  schema: components.schemas.taskDisposition
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: taskPriority
+  schema: components.schemas.taskPriority
+  relationships: []
+- entity: taskPurpose
+  schema: components.schemas.taskPurpose
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+- entity: taskTheme
+  schema: components.schemas.taskThemeRelationships
+  relationships: []
+- entity: team
+  schema: components.schemas.team
+  relationships:
+  - name: contentCategories
+    type: has_many
+    target: contentCategory
+    via: contentCategories
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: roleAssignedUsers
+    type: has_many
+    target: user
+    via: roleAssignedUsers
+  - name: teamMemberships
+    type: has_many
+    target: teamMembership
+    via: teamMemberships
+  - name: teamRecords
+    type: has_many
+    target: teamRecord
+    via: teamRecords
+  - name: teamSettings
+    type: has_one
+    target: teamSettings
+    via: teamSettings
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+  - name: users
+    type: has_many
+    target: user
+    via: users
+- entity: teamMembership
+  schema: components.schemas.teamMembershipRelationships
+  relationships:
+  - name: team
+    type: has_one
+    target: team
+    via: team
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: teamRecord
+  schema: components.schemas.teamRecordRelationships
+  relationships:
+  - name: record
+    type: has_one
+    target: role
+    via: record
+  - name: team
+    type: has_one
+    target: team
+    via: team
+- entity: teamSettings
+  schema: components.schemas.teamSettingsRelationships
+  relationships:
+  - name: profile
+    type: has_one
+    target: profile
+    via: profile
+  - name: team
+    type: has_one
+    target: team
+    via: team
+- entity: template
+  schema: components.schemas.template
+  relationships:
+  - name: attachments
+    type: has_many
+    target: attachment
+    via: attachments
+  - name: contentCategoryMemberships
+    type: has_many
+    target: contentCategoryMembership
+    via: contentCategoryMemberships
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: owner
+    type: has_one
+    target: user
+    via: owner
+  - name: recipients
+    type: has_many
+    target: recipient
+    via: recipients
+  - name: sequenceTemplates
+    type: has_many
+    target: sequenceTemplate
+    via: sequenceTemplates
+  - name: statsTarget
+    type: has_one
+    target: template
+    via: statsTarget
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: territory
+  schema: components.schemas.territoryRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: forecastManager
+    type: has_one
+    target: user
+    via: forecastManager
+  - name: parentTerritory
+    type: has_one
+    target: territory
+    via: parentTerritory
+  - name: territoryModel
+    type: has_one
+    target: territoryModel
+    via: territoryModel
+  - name: territoryType
+    type: has_one
+    target: territoryType
+    via: territoryType
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+- entity: territoryModel
+  schema: components.schemas.territoryModelRelationships
+  relationships: []
+- entity: territoryType
+  schema: components.schemas.territoryTypeRelationships
+  relationships: []
+- entity: user
+  schema: components.schemas.user
+  relationships:
+  - name: calendar
+    type: has_one
+    target: calendar
+    via: calendar
+  - name: contentCategories
+    type: has_many
+    target: contentCategory
+    via: contentCategories
+  - name: contentCategoryOwnerships
+    type: has_many
+    target: contentCategoryOwnership
+    via: contentCategoryOwnerships
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: directAssignedTeams
+    type: has_many
+    target: team
+    via: directAssignedTeams
+  - name: favorites
+    type: has_many
+    target: favorite
+    via: favorites
+  - name: jobRole
+    type: has_one
+    target: jobRole
+    via: jobRole
+  - name: mailbox
+    type: has_one
+    target: mailbox
+    via: mailbox
+  - name: mailboxes
+    type: has_many
+    target: mailbox
+    via: mailboxes
+  - name: outboundVoicemails
+    type: has_many
+    target: outboundVoicemail
+    via: outboundVoicemails
+  - name: phone
+    type: has_one
+    target: phone
+    via: phone
+  - name: phones
+    type: has_many
+    target: phone
+    via: phones
+  - name: profile
+    type: has_one
+    target: profile
+    via: profile
+  - name: recipients
+    type: has_many
+    target: recipient
+    via: recipients
+  - name: role
+    type: has_one
+    target: role
+    via: role
+  - name: roleAssignedTeams
+    type: has_many
+    target: team
+    via: roleAssignedTeams
+  - name: smsPhone
+    type: has_one
+    target: phone
+    via: smsPhone
+  - name: teams
+    type: has_many
+    target: team
+    via: teams
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+  - name: voicemailPrompts
+    type: has_many
+    target: voicemailPrompt
+    via: voicemailPrompts
+- entity: userTerritoryAssociation
+  schema: components.schemas.userTerritoryAssociationRelationships
+  relationships:
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: territory
+    type: has_one
+    target: territory
+    via: territory
+  - name: updater
+    type: has_one
+    target: user
+    via: updater
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: voicePlugin
+  schema: components.schemas.voicePluginRelationships
+  relationships: []
+- entity: voicemailPrompt
+  schema: components.schemas.voicemailPromptRelationships
+  relationships:
+  - name: user
+    type: has_one
+    target: user
+    via: user
+- entity: webhook
+  schema: components.schemas.webhook
+  relationships:
+  - name: authorizer
+    type: has_one
+    target: user
+    via: authorizer
+  - name: creator
+    type: has_one
+    target: user
+    via: creator
+  - name: updater
+    type: has_one
+    target: user
+    via: updater

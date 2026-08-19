@@ -1,0 +1,88 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/client-extensions/javascript-sdk
+provider: Outreach
+providerId: outreach
+summary:
+  official_count: 1
+  community_count: 1
+  languages:
+  - typescript
+  - ruby
+  note: >-
+    Outreach ships exactly one current first-party client library, and it is not a REST API SDK — it is the
+    browser-side Client Extensibility SDK that a web-widget extension uses to talk to the Outreach host
+    application. There is no first-party server SDK for the REST API in any language: npm, PyPI, RubyGems,
+    Packagist, crates.io, NuGet and Maven Central were all checked and carry no Outreach-published client.
+    Integrators are expected to call the JSON:API surface directly, or use the MCP server.
+registries_checked:
+- registry: npm
+  result: no first-party package. `@getoutreach/extensibility-sdk` is NOT published to npm (404 on
+    registry.npmjs.org); the package named `outreach` is an unrelated 2019 message-queue library.
+- registry: rubygems
+  result: one community gem (omniauth-outreach)
+- registry: pypi
+  result: none
+- registry: packagist
+  result: none
+- registry: nuget
+  result: none
+- registry: maven-central
+  result: none
+- registry: crates.io
+  result: none
+- registry: pkg.go.dev
+  result: none for the product API
+packages:
+- language: typescript
+  registry: github
+  name: '@getoutreach/extensibility-sdk'
+  url: https://github.com/getoutreach/extensibility-sdk
+  install: npm install github:getoutreach/extensibility-sdk
+  official: true
+  license: MIT
+  version: 1.4.5
+  published: null
+  version_source: package.json on the default branch
+  published_note: >-
+    No registry metadata endpoint exists for this package — it is installed straight from GitHub, is not
+    published to npm, and the repository carries ZERO git tags and ZERO GitHub releases. The version above
+    was read from package.json on the default branch; its last commit touching package.json was
+    2026-07-02, and the repository was last pushed 2026-08-10, so the code is actively maintained even
+    though nothing is released. A consumer running `npm install github:getoutreach/extensibility-sdk` gets
+    whatever is on the default branch at that moment — the distribution is unpinned and unversioned in
+    practice.
+  scope: Client extensibility only — initialises a web-widget/tab/tile/shell extension inside the Outreach
+    app and returns the OutreachContext. It is not a REST API client.
+  docs: https://developers.outreach.io/client-extensions/javascript-sdk
+- language: ruby
+  registry: rubygems
+  name: omniauth-outreach
+  url: https://rubygems.org/gems/omniauth-outreach
+  install: gem install omniauth-outreach
+  official: false
+  license: MIT
+  version: 0.1.2
+  published: '2024-04-25'
+  downloads: 6362
+  scope: OmniAuth OAuth2 strategy for the Outreach OAuth flow. Authored by a third party (Tiaki YEN); a
+    repository of the same name exists in the getoutreach GitHub org but the gem is not published by
+    Outreach and declares no first-party ownership.
+retired:
+- name: '@getoutreach/clientxtsdk'
+  url: https://github.com/getoutreach/clientxtsdk
+  status: archived
+  superseded_by: '@getoutreach/extensibility-sdk'
+  note: Archived 2022 — the predecessor of the extensibility SDK.
+- name: outreach-platform-sdk
+  url: https://github.com/getoutreach/outreach-platform-sdk
+  status: archived
+  language: java
+  note: Archived 2017. "The home of our platform API documentation, example code, and SDK." No successor
+    server SDK was ever shipped.
+gaps:
+- No first-party REST API client library in any language, for an API that has been at v2 for the life of the
+  developer portal.
+- The one current first-party package is distributed only as a GitHub dependency with no tags, no releases
+  and no registry presence, so consumers cannot pin a version or receive a security advisory through any
+  package ecosystem.

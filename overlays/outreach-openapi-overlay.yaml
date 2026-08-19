@@ -1,0 +1,98 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Outreach REST API
+  version: 1.0.0
+extends: openapi/outreach-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Authored from the harvested spec at https://api.outreach.io/api/v2/schema/openapi.json plus the Outreach
+  developer documentation. Captures API Evangelist annotations WITHOUT mutating the harvested contract in
+  openapi/_original/. Every value below is traceable to a provider-published statement or to a live probe
+  recorded in this repo.
+actions:
+  - target: $.info
+    description: Identify the contract and record the discovery path, which was not obvious.
+    update:
+      x-apievangelist-provider: outreach
+      x-apievangelist-source: https://api.outreach.io/api/v2/schema/openapi.json
+      x-apievangelist-discovery: >-
+        Named in the developer portal at https://developers.outreach.io/api/reference. The docs host
+        (developers.outreach.io, a Redocly portal) returns 404 for /openapi.json; the real spec is served
+        from the API host under /api/v2/schema/openapi.json and is publicly readable without a token even
+        though every other route on that host returns 401.
+      x-apievangelist-harvested: '2026-08-13'
+  - target: $.info
+    description: The harvested spec carries no version, contact, license or terms. Record the published ones.
+    update:
+      x-apievangelist-api-version: v2
+      x-apievangelist-contact:
+        name: Outreach Developer Platform
+        url: https://developers.outreach.io/
+        email: platform@outreach.io
+      x-apievangelist-terms: https://www.outreach.ai/terms
+      x-apievangelist-privacy: https://www.outreach.ai/privacy-statement
+      x-apievangelist-status-page: https://status.outreach.io
+      x-apievangelist-support: https://support.outreach.io/support/home
+  - target: $.info
+    description: Record the cross-cutting runtime semantics captured in conventions/ and errors/.
+    update:
+      x-apievangelist-standard: JSON API 1.0
+      x-apievangelist-media-type: application/vnd.api+json
+      x-apievangelist-pagination:
+        style: cursor
+        params: ['page[size]', 'page[after]', 'page[before]', 'count']
+        deprecated_style: offset
+        default_page_size: 50
+        max_page_limit: 1000
+        max_offset: 10000
+      x-apievangelist-rate-limits:
+        default: 10000 requests per hour per user
+        headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After]
+        exhausted_status: 429
+      x-apievangelist-idempotency:
+        supported: false
+      x-apievangelist-error-format: json-api-1.0
+      x-apievangelist-artifacts:
+        conventions: conventions/outreach-conventions.yml
+        errors: errors/outreach-error-codes.yml
+        authentication: authentication/outreach-authentication.yml
+        scopes: scopes/outreach-scopes.yml
+        lifecycle: lifecycle/outreach-lifecycle.yml
+        rate_limits: rate-limits/outreach-rate-limits.yml
+        data_model: data-model/outreach-data-model.yml
+        mcp: mcp/outreach-mcp.yml
+        crosswalk: mcp/outreach-tool-crosswalk.yml
+        webhooks: webhooks/outreach-webhooks-asyncapi.yml
+  - target: $.info
+    description: Record the contract-quality gaps found in the harvested spec, so consumers are not surprised.
+    update:
+      x-apievangelist-spec-gaps:
+        operation_ids: 0 of 253 operations declare an operationId, so no generated client can name a method
+        descriptions: 52 of 253 operations carry a description (all 253 carry a summary)
+        examples: no request or response examples anywhere in the spec
+        error_responses: only 404 and 422 are declared; 400/401/403/415/429/503 are documented in prose only
+        oauth2: no oauth2 securityScheme and no per-operation scope requirements, despite OAuth being the
+          only supported REST authorization model
+        deprecated_flags: no operation is marked deprecated, including attributes with announced sunset
+          dates
+        info_block: no version, contact, license or termsOfService
+  - target: $.servers
+    description: Confirm the production base URL matches every other published source.
+    update:
+      x-apievangelist-verified: '2026-08-13'
+  - target: $.components.securitySchemes.bearerAuth
+    description: Name the flow that mints this bearer token; the spec models it as an opaque HTTP bearer.
+    update:
+      x-apievangelist-token-source: OAuth 2.0 authorization code
+      x-apievangelist-authorization-url: https://api.outreach.io/oauth/authorize
+      x-apievangelist-token-url: https://api.outreach.io/oauth/token
+      x-apievangelist-access-token-ttl: 7200
+      x-apievangelist-refresh-token-ttl-days: 14
+      x-apievangelist-scope-grammar: <pluralResource>.<read|write|delete|all>
+  - target: $.components.securitySchemes.s2sAuthToken
+    description: Distinguish the server-to-server application token from the user token.
+    update:
+      x-apievangelist-identity: application + organization (no user actor)
+      x-apievangelist-docs: https://developers.outreach.io/api/s2s-access
+      x-apievangelist-scope-subset: true

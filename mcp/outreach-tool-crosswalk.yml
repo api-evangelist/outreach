@@ -1,0 +1,394 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/outreach-mcp.yml + openapi/_original/outreach-openapi.json
+provider: Outreach
+providerId: outreach
+notes: >-
+  Binds each published Outreach MCP tool to the REST operation(s) that back it. Two caveats govern every
+  confidence value here. First, the Outreach OpenAPI declares NO operationId on any of its 253 operations,
+  so REST operations are addressed by `METHOD /path` — the only stable identifier the contract offers.
+  Second, `tools/list` on https://api.outreach.io/mcp is OAuth-gated (401), so tools were mapped from the
+  published Tool Catalog by name and description rather than from live input schemas. Nothing below was
+  invented: every REST path was grepped out of the saved spec and every tool name comes from Outreach's
+  own catalog page.
+
+surfaces:
+  openapi:
+    file: openapi/_original/outreach-openapi.json
+    source: https://api.outreach.io/api/v2/schema/openapi.json
+    gated: false
+    operations: 253
+    paths: 147
+    operation_ids: 0
+  mcp:
+    url: https://api.outreach.io/mcp
+    gated: true
+    gate: OAuth 2.1 + DCR; tools/list returns 401 with RFC 9728 challenge
+    tools: 41
+  graphql:
+    endpoint: null
+    note: Outreach publishes no public GraphQL surface.
+  json_schema:
+    file: json-schema/outreach-hyper-schema.json
+    source: https://api.outreach.io/api/v2/schema.json
+    note: Draft-07 hyper-schema for the same resources; with an Authorization header it additionally
+      includes the org's custom objects.
+
+crosswalk:
+- tool: account_get_by_id
+  category: read
+  rest:
+  - GET /accounts/{id}
+  binding: rest
+  confidence: high
+- tool: account_search
+  category: read
+  rest:
+  - GET /accounts
+  binding: rest
+  confidence: high
+  note: REST equivalent is the collection query with filter[]/sort/page params.
+- tool: account_search_by_external_id
+  category: read
+  rest:
+  - GET /accounts
+  binding: rest
+  confidence: medium
+  note: Backed by the same collection query filtered on an external-id attribute (custom or
+    externalSource/externalId); the spec does not name a dedicated external-id route.
+- tool: account_create
+  category: write
+  rest:
+  - POST /accounts
+  binding: rest
+  confidence: high
+- tool: account_delete
+  category: write
+  rest:
+  - DELETE /accounts/{id}
+  binding: rest
+  confidence: high
+- tool: opportunity_get_by_id
+  category: read
+  rest:
+  - GET /opportunities/{id}
+  binding: rest
+  confidence: high
+- tool: opportunity_search
+  category: read
+  rest:
+  - GET /opportunities
+  binding: rest
+  confidence: high
+- tool: opportunity_search_by_external_id
+  category: read
+  rest:
+  - GET /opportunities
+  binding: rest
+  confidence: medium
+- tool: opportunity_create
+  category: write
+  rest:
+  - POST /opportunities
+  binding: rest
+  confidence: high
+- tool: opportunity_delete
+  category: write
+  rest:
+  - DELETE /opportunities/{id}
+  binding: rest
+  confidence: high
+- tool: opportunity_stage_fetch
+  category: read
+  rest:
+  - GET /opportunityStages
+  binding: rest
+  confidence: high
+- tool: prospect_get_by_id
+  category: read
+  rest:
+  - GET /prospects/{id}
+  binding: rest
+  confidence: high
+- tool: prospect_search
+  category: read
+  rest:
+  - GET /prospects
+  binding: rest
+  confidence: high
+- tool: prospect_search_by_external_id
+  category: read
+  rest:
+  - GET /prospects
+  binding: rest
+  confidence: medium
+- tool: prospect_create
+  category: write
+  rest:
+  - POST /prospects
+  binding: rest
+  confidence: high
+- tool: prospect_delete
+  category: write
+  rest:
+  - DELETE /prospects/{id}
+  binding: rest
+  confidence: high
+- tool: sequence_search
+  category: read
+  rest:
+  - GET /sequences
+  binding: rest
+  confidence: high
+- tool: sequence_state_search
+  category: read
+  rest:
+  - GET /sequenceStates
+  binding: rest
+  confidence: high
+- tool: sequence_add_prospects
+  category: write
+  rest:
+  - POST /sequenceStates
+  - POST /batches/actions/prospectsAddToSequence
+  binding: rest
+  confidence: medium
+  note: >-
+    Fans out. A single enrollment is POST /sequenceStates; the tool accepts multiple prospect ids and
+    returns a batch response envelope, which matches the bulk batch action rather than the single create.
+- tool: sequence_states_destroy
+  category: write
+  rest:
+  - DELETE /sequenceStates/{id}
+  - POST /batches/actions/prospectsFinishAll
+  binding: rest
+  confidence: medium
+  note: Returns a batch envelope, so likely batch-backed for multi-id calls.
+- tool: task_search
+  category: read
+  rest:
+  - GET /tasks
+  binding: rest
+  confidence: high
+- tool: task_create
+  category: write
+  rest:
+  - POST /tasks
+  binding: rest
+  confidence: high
+- tool: task_priority_fetch
+  category: read
+  rest:
+  - GET /taskPriorities
+  binding: rest
+  confidence: high
+- tool: stage_fetch
+  category: read
+  rest:
+  - GET /stages
+  binding: rest
+  confidence: high
+- tool: team_get_by_id
+  category: read
+  rest:
+  - GET /teams/{id}
+  binding: rest
+  confidence: high
+- tool: team_search
+  category: read
+  rest:
+  - GET /teams
+  binding: rest
+  confidence: high
+- tool: user_get_by_id
+  category: read
+  rest:
+  - GET /users/{id}
+  binding: rest
+  confidence: high
+- tool: user_search
+  category: read
+  rest:
+  - GET /users
+  binding: rest
+  confidence: high
+- tool: emails_search
+  category: read
+  rest:
+  - GET /mailings
+  binding: rest
+  confidence: medium
+  note: Mailings are the sent-email resource; the tool filters by account or opportunity.
+- tool: kaia_meeting_fetch
+  category: read
+  rest:
+  - GET /kaiaRecordings/{id}
+  binding: rest
+  confidence: medium
+- tool: kaia_meeting_search
+  category: read
+  rest:
+  - GET /kaiaRecordings
+  binding: rest
+  confidence: medium
+- tool: job_role_fetch
+  category: read
+  rest:
+  - GET /profiles
+  - GET /roles
+  binding: rest
+  confidence: low
+  note: >-
+    Ambiguous — Outreach exposes both /roles (RBAC roles) and a Data Sharing job_roles table. The tool
+    description ("SDR, AE, CSM") reads as the go-to-market job role, which has no clean REST route.
+- tool: current_user
+  category: read
+  rest:
+  - GET /users
+  binding: rest
+  confidence: low
+  note: The documented "who am I" surface is the API root GET https://api.outreach.io/api/v2, which is not
+    declared as a path in the OpenAPI.
+- tool: current_org
+  category: read
+  rest:
+  - GET /orgSettings/{id}
+  binding: rest
+  confidence: low
+  note: Same gap — the root endpoint returns org attributes but is not in the spec.
+
+mcp_only:
+- tool: task_theme_search
+  reason: No /taskThemes path exists in the published OpenAPI. Task themes appear in the Data Sharing data
+    dictionary (task_themes) but are not exposed by the REST contract.
+- tool: calendar_events_fetch
+  reason: No calendar-event resource is declared in the REST OpenAPI. Calendars/meetings appear only in the
+    Data Sharing data dictionary.
+- tool: account_answer_question
+  reason: Server-side LLM composite over records, transcripts and related data. No REST equivalent; persists
+    to the account Q&A chat history in the Outreach web app.
+- tool: opportunity_answer_question
+  reason: Server-side LLM composite. No REST equivalent.
+- tool: filter_fields_fetch
+  reason: Runtime schema introspection. The REST analogue is the static hyper-schema at
+    GET /api/v2/schema.json plus GET /api/v2/types, not a per-resource filterable-field endpoint.
+- tool: filter_schema_fetch
+  reason: Runtime schema introspection; no REST equivalent.
+- tool: input_fields_fetch
+  reason: Runtime schema introspection; closest REST analogue is GET /api/v2/types for custom-field
+    validations, which is narrower.
+- tool: prepare_for_meeting
+  reason: AI briefing composite named in the docs but absent from the Tool Catalog table; no REST route.
+
+rest_only:
+- capability: Mailboxes and mail aliases
+  operations:
+  - GET /mailboxes
+  - POST /mailboxes
+  - GET /mailboxes/{id}
+  - PATCH /mailboxes/{id}
+  - DELETE /mailboxes/{id}
+  - POST /mailboxes/{id}/actions/testSend
+  - POST /mailboxes/{id}/actions/testSync
+  - POST /mailboxes/{id}/actions/linkEwsMasterAccount
+  - POST /mailboxes/{id}/actions/unlinkEwsMasterAccount
+  - GET /mailAliases
+- capability: Bulk / batch operations
+  operations:
+  - GET /batches
+  - GET /batches/{id}
+  - POST /batches/{id}/actions/cancel
+  - POST /batches/{id}/actions/confirm
+  - POST /batches/actions/accountsBulkModify
+  - POST /batches/actions/prospectsBulkModify
+  - POST /batches/actions/prospectsAddTags
+  - POST /batches/actions/accountAddTags
+  - POST /batches/actions/prospectsAssignOwner
+  - POST /batches/actions/accountsAssignOwner
+  note: 27 batch action routes in total; the MCP surface exposes none of them directly.
+- capability: Imports and CSV upload
+  operations:
+  - POST /imports/actions/generateUploadLink
+  - POST /imports/actions/validateUpload
+  - POST /imports/actions/prospectsImport
+  - POST /imports/actions/accountsImport
+  - POST /imports/actions/bulkUpsert
+  - POST /imports/actions/customObjectBulkUpsert
+- capability: Task lifecycle actions
+  operations:
+  - POST /tasks/{id}/actions/markComplete
+  - POST /tasks/{id}/actions/snooze
+  - POST /tasks/{id}/actions/advance
+  - POST /tasks/{id}/actions/deliver
+  - POST /tasks/{id}/actions/reschedule
+  - POST /tasks/{id}/actions/reassignOwner
+  - POST /tasks/{id}/actions/updateNote
+  - POST /tasks/{id}/actions/logMeetInPerson
+  - POST /tasks/{id}/actions/updateOpportunityAssociation
+  note: The MCP surface can create a task but cannot complete, snooze or advance one.
+- capability: Sequence lifecycle actions
+  operations:
+  - POST /sequences/{id}/actions/activate
+  - POST /sequenceStates/{id}/actions/pause
+  - POST /sequenceStates/{id}/actions/resume
+  - POST /sequenceStates/{id}/actions/finish
+  - GET /sequenceSteps
+  - GET /sequenceTemplates
+  - POST /sequenceTemplates/{id}/actions/activate
+  - POST /sequenceTemplates/{id}/actions/deactivate
+- capability: Webhook management
+  operations:
+  - GET /webhooks
+  - POST /webhooks
+  - GET /webhooks/{id}
+  - PATCH /webhooks/{id}
+  - DELETE /webhooks/{id}
+- capability: Compliance and audit
+  operations:
+  - GET /auditLogs
+  - GET /complianceRequests
+  - POST /complianceRequests
+- capability: Notes, favorites, content categories, snippets, templates
+  operations:
+  - GET /accountNotes
+  - POST /accountNotes
+  - GET /prospectNotes
+  - GET /favorites
+  - GET /contentCategories
+  - GET /snippets
+  - GET /templates
+- capability: Revenue objects — products, purchases, opportunity line items
+  operations:
+  - GET /products
+  - GET /purchases
+  - GET /opportunityProspectRoles
+- capability: Calls, call dispositions and purposes, phone numbers
+  operations:
+  - GET /calls
+  - POST /calls
+  - GET /callDispositions
+  - GET /callPurposes
+  - GET /phoneNumbers
+- capability: Events, personas, profiles, roles, rulesets, org settings
+  operations:
+  - GET /events
+  - GET /personas
+  - GET /profiles
+  - GET /roles
+  - GET /rulesets
+  - GET /orgSettings/{id}
+
+coverage:
+  tools_named: 41
+  tools_bound_to_rest: 33
+  tools_bound_high_confidence: 22
+  mcp_only: 8
+  rest_operations_total: 253
+  rest_operations_with_a_tool: 33
+  rest_operation_coverage_pct: 13
+  note: >-
+    The MCP surface is a deliberately narrow projection of the REST core — roughly one in eight REST
+    operations has a tool. The write surface is the sharpest divergence: MCP exposes create and delete for
+    four entity types and nothing else, while REST exposes 27 batch actions, 9 task actions, 4 sequence-state
+    actions and the entire import pipeline. Conversely MCP adds three schema-introspection tools and two
+    LLM question-answering tools that have no REST equivalent at all.

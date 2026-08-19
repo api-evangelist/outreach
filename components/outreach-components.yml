@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/client-extensions
+provider: Outreach
+providerId: outreach
+notes: >-
+  Outreach's embeddable surface runs in the opposite direction to most component libraries: rather than
+  shipping UI widgets a developer embeds in their own app, Outreach lets a developer embed THEIR web app
+  inside the Outreach client at defined extension points. The loader is the Client Extensibility SDK, which
+  brokers context (user, org, account, prospect, opportunity, locale, theme) into the hosted iframe.
+loader:
+  name: '@getoutreach/extensibility-sdk'
+  install: npm install github:getoutreach/extensibility-sdk
+  global: window.outreach
+  entrypoint: extensibilitySdk.init() -> Promise<OutreachContext>
+  requirement: init() must be called as early as possible (DOMContentLoaded or equivalent) and resolved
+    before any other SDK interaction or redirect.
+  package: packages/outreach-packages.yml
+  docs: https://developers.outreach.io/client-extensions/javascript-sdk
+context_object:
+  name: OutreachContext
+  fields:
+  - locale
+  - theme (Light | Dark)
+  - account
+  - user
+  - organization
+  - opportunity
+  - prospect
+  - config
+families:
+- family: Web widget extensions
+  docs: https://developers.outreach.io/client-extensions/web-widget-extensions
+  components:
+  - name: Shell extension
+    description: Launches the widget as a full-page application embedded into Outreach.
+  - name: Tab extension
+    description: Adds a custom tab carrying the widget to the Prospect, Opportunity or Account detail page.
+  - name: Tile extension
+    description: Adds a tile the end user can place on their Prospect or Account overview page.
+- family: Text editor extension
+  docs: https://developers.outreach.io/client-extensions/text-editor-extension
+  components:
+  - name: Text editor extension
+    description: Adds a button to the Outreach built-in text editor that launches the widget; the widget
+      returns an HTML string (and optionally an adjusted subject) via enhanceTextEditor() for injection into
+      the message.
+- family: Activity feed
+  docs: https://developers.outreach.io/client-extensions/activity-feed-custom-events
+  components:
+  - name: Activity feed custom events
+    description: Pushes a custom event into the prospect activity feed.
+- family: Mailing instrumentation
+  docs: https://developers.outreach.io/client-extensions/mailing-links-custom-tracker
+  components:
+  - name: Mailing links custom tracker
+    description: Replaces embedded links in Outreach mailings with the partner's own tracking URLs.
+- family: App surfaces
+  docs: https://developers.outreach.io/client-extensions/app-homepage
+  components:
+  - name: App homepage
+    description: A landing surface for the installed app inside Outreach.
+  - name: App installation settings
+    description: Collects user-specific configuration at install time; surfaced back to the extension as
+      OutreachContext.config.
+    docs: https://developers.outreach.io/client-extensions/app-installation-settings
+  - name: Application lifecycle webhooks
+    description: Install/uninstall lifecycle callbacks for the app itself, distinct from the data webhooks
+      in webhooks/outreach-webhooks-asyncapi.yml.
+    docs: https://developers.outreach.io/client-extensions/app-lifecycle-webhooks
+development:
+  local: https://developers.outreach.io/client-extensions/local-development
+  first_extension: https://developers.outreach.io/client-extensions/your-first-outreach-extension
+  publishing: https://developers.outreach.io/guides/managing-apps

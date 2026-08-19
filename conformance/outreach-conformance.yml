@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api
+provider: Outreach
+providerId: outreach
+notes: >-
+  Standards conformance for the Outreach REST API, MCP server and webhook surface. Claims marked
+  `conforms: true` are each backed either by an explicit provider statement, by the saved OpenAPI, or by a
+  live probe recorded in well-known/outreach-well-known.yml. Compliance certifications come from the
+  Outreach trust centre and are recorded separately in security/outreach-trust-center.yml.
+standards:
+- id: json-api-1.0
+  name: JSON API 1.0
+  conforms: true
+  evidence: >-
+    "Our API is based on REST principles and implements the JSON API 1.0 specification." Media type
+    application/vnd.api+json is required on every request and used on all 506 response bodies in the
+    OpenAPI; resource objects use type/id/attributes/relationships, errors use the JSON:API error object,
+    and include/fields[]/filter[]/sort/page[] follow the spec.
+  source: https://developers.outreach.io/api
+- id: openapi-3.0.3
+  name: OpenAPI 3.0.3
+  conforms: true
+  evidence: >-
+    https://api.outreach.io/api/v2/schema/openapi.json declares openapi 3.0.3, with 147 paths, 253
+    operations, 225 component schemas and 51 tags.
+  source: https://developers.outreach.io/api/reference
+- id: json-schema-draft-07
+  name: JSON Schema draft-07 (hyper-schema)
+  conforms: true
+  evidence: >-
+    https://api.outreach.io/api/v2/schema.json declares $schema
+    http://json-schema.org/draft-07/hyper-schema#.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  evidence: Authorization-code flow with state, refresh tokens and scopes at
+    https://api.outreach.io/oauth/authorize and /oauth/token.
+- id: oauth2.1
+  name: OAuth 2.1 (draft) with PKCE
+  conforms: true
+  evidence: >-
+    MCP authorization; code_challenge_methods_supported lists S256 in the authorization-server metadata.
+  scope: MCP surface only
+- id: rfc8414
+  name: RFC 8414 — OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: 'GET https://api.outreach.io/.well-known/oauth-authorization-server returns 200 with issuer,
+    authorization_endpoint, token_endpoint, registration_endpoint, scopes_supported,
+    code_challenge_methods_supported.'
+  probed: '2026-08-13'
+- id: rfc9728
+  name: RFC 9728 — OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: 'GET https://api.outreach.io/.well-known/oauth-protected-resource returns 200 with resource,
+    authorization_servers, scopes_supported, bearer_methods_supported; the MCP endpoint returns 401 with a
+    WWW-Authenticate challenge naming that metadata URL.'
+  probed: '2026-08-13'
+- id: rfc7591
+  name: RFC 7591 — OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  evidence: Registration endpoint advertised at https://api.outreach.io/mcpOAuth/register; Outreach
+    documents DCR as the mechanism that lets MCP clients connect without pre-registration.
+- id: mcp-2025-03-26
+  name: Model Context Protocol, revision 2025-03-26
+  conforms: true
+  evidence: '"Outreach MCP implements the Model Context Protocol 2025-03-26 revision and above" — tool
+    annotations, DCR, OAuth 2.1, streamable HTTP, self-describing schemas via tools/list, structured error
+    codes.'
+  source: https://developers.outreach.io/mcp-server
+- id: rfc7519
+  name: RFC 7519 — JSON Web Token
+  conforms: true
+  evidence: >-
+    Both OpenAPI security schemes declare bearerFormat JWT; the S2S flow signs an assertion with a
+    customer-registered RSA key.
+- id: asyncapi-2.6
+  name: AsyncAPI 2.6.0
+  conforms: partial
+  evidence: >-
+    Outreach publishes no AsyncAPI document. API Evangelist authored
+    webhooks/outreach-webhooks-asyncapi.yml from the published webhook documentation; the webhook SURFACE
+    is real and provider-documented, the AsyncAPI description of it is not provider-published.
+- id: hmac-webhook-signing
+  name: HMAC webhook signature verification
+  conforms: true
+  evidence: >-
+    Every delivery carries an Outreach-Webhook-Signature header containing the HMAC hex digest of the
+    subscription secret and the raw request body.
+  source: https://developers.outreach.io/api/webhooks
+- id: rfc9457
+  name: RFC 9457 — Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors use the JSON:API error object (an errors[] array with id/title/detail/source.pointer), not
+    application/problem+json. No problem+json content type appears anywhere in the OpenAPI.
+- id: rfc8594
+  name: RFC 8594 — Sunset HTTP header
+  conforms: false
+  evidence: No Sunset or Deprecation response headers are documented or declared in the spec; deprecation is
+    announced only on a dated documentation page.
+- id: rfc9116
+  name: RFC 9116 — security.txt
+  conforms: false
+  evidence: 404 on /.well-known/security.txt across api.outreach.io, www.outreach.io and
+    developers.outreach.io on 2026-08-13, despite a published responsible-disclosure programme.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: 404 on /.well-known/agent-card.json and /.well-known/agent.json across all three hosts.
+- id: oidc
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: 404 on /.well-known/openid-configuration on every host.
+- id: rfc9727
+  name: RFC 9727 — API catalog (/.well-known/api-catalog)
+  conforms: false
+  evidence: 404 on every host.
+- id: idempotency-key
+  name: IETF idempotency key
+  conforms: false
+  evidence: No idempotency header or parameter in the documentation or the OpenAPI.
+- id: delta-sharing
+  name: Delta Sharing
+  conforms: true
+  evidence: Outreach Data Sharing exposes the org's data via Delta Sharing and Snowflake secure data sharing
+    with an identical schema across providers.
+  source: https://developers.outreach.io/data-sharing
+compliance_programme:
+  published: true
+  url: https://www.outreach.ai/platform/trust
+  certifications:
+  - SOC 2
+  - ISO 27001
+  - HIPAA
+  - GDPR
+  detail: security/outreach-trust-center.yml

@@ -1,0 +1,183 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/getting-started#authorization
+docs:
+- https://developers.outreach.io/api/getting-started#authorization
+- https://developers.outreach.io/api/s2s-access
+- https://developers.outreach.io/api/oauth
+provider: Outreach
+providerId: outreach
+notes: >-
+  The published OpenAPI declares NO oauth2 securityScheme — it models only `bearerAuth` and `s2sAuthToken`
+  as plain HTTP bearer JWTs — so `derive-oauth-scopes.py` finds zero scopes. The scope model is real and
+  fully documented in prose, and the OAuth 2.1 authorization-server metadata at
+  https://api.outreach.io/.well-known/oauth-authorization-server declares its own `scopes_supported`. This
+  file therefore comes from the docs, not the spec. Outreach does not publish a single enumerated table of
+  every OAuth scope; the authoritative list is rendered in the Outreach app's "API access" configuration
+  tab, which is behind a customer login. Only scopes Outreach actually names in public are recorded below —
+  nothing was extrapolated across resources.
+grammar:
+  form: <pluralResource>.<level>
+  levels:
+  - read
+  - write
+  - delete
+  - all
+  additive: false
+  additive_note: Scopes are NOT additive — `prospects.write` grants no read access. `all` implies
+    read + write + delete.
+  request_form: space-separated, URL-encoded, in the `scope` query parameter of /oauth/authorize
+  on_missing_scope: 403 with error id `unauthorizedOauthScope`
+  post_scope_check: OAuth scope is the front gate only; the user's Outreach governance/RBAC profile is
+    evaluated separately and returns 403 `unauthorizedRequest` on failure.
+schemes:
+- name: OAuth 2.0 (REST API)
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.outreach.io/oauth/authorize
+    tokenUrl: https://api.outreach.io/oauth/token
+    refresh: grant_type=refresh_token against the same token URL
+  credentials: separate development and production client credentials per Outreach app
+  source: https://developers.outreach.io/api/oauth
+- name: OAuth 2.1 + Dynamic Client Registration (MCP server)
+  flows:
+  - flow: authorizationCode
+    pkce: S256
+    authorizationUrl: https://api.outreach.io/mcpOAuth/authorize
+    tokenUrl: https://api.outreach.io/mcpOAuth/token
+    registrationUrl: https://api.outreach.io/mcpOAuth/register
+  source: https://api.outreach.io/.well-known/oauth-authorization-server
+- name: S2S application token
+  type: JWT signed with a customer-registered RSA public key
+  note: Server-to-server; carries application identity, not user identity. Scope set is a strict subset of
+    the OAuth scopes.
+  source: https://developers.outreach.io/api/s2s-access
+scopes:
+- scope: prospects.all
+  description: Full read, write and delete access to prospects.
+  declared_in:
+  - authorization-server metadata (scopes_supported)
+  - S2S available scopes
+  - docs example
+  surfaces:
+  - rest
+  - mcp
+  - s2s
+- scope: prospects.read
+  description: Read access to prospects.
+  surfaces:
+  - rest
+  - s2s
+- scope: prospects.write
+  description: Write access to prospects.
+  surfaces:
+  - rest
+  - s2s
+- scope: prospects.delete
+  description: Delete access to prospects.
+  surfaces:
+  - rest
+  - s2s
+- scope: accounts.all
+  surfaces: [rest, s2s]
+- scope: accounts.read
+  surfaces: [rest, s2s]
+- scope: accounts.write
+  surfaces: [rest, s2s]
+- scope: accounts.delete
+  surfaces: [rest, s2s]
+- scope: auditLogs.read
+  surfaces: [rest, s2s]
+- scope: calls.all
+  surfaces: [rest, s2s]
+- scope: calls.read
+  surfaces: [rest, s2s]
+- scope: calls.write
+  surfaces: [rest, s2s]
+- scope: calls.delete
+  surfaces: [rest, s2s]
+- scope: events.all
+  surfaces: [rest, s2s]
+- scope: events.read
+  surfaces: [rest, s2s]
+- scope: events.write
+  surfaces: [rest, s2s]
+- scope: imports.all
+  surfaces: [rest, s2s]
+- scope: imports.read
+  surfaces: [rest, s2s]
+- scope: imports.write
+  surfaces: [rest, s2s]
+- scope: kaiaRecordings.read
+  surfaces: [rest, s2s]
+- scope: mailings.read
+  surfaces: [rest, s2s]
+- scope: opportunities.all
+  surfaces: [rest, s2s]
+- scope: opportunities.read
+  surfaces: [rest, s2s]
+- scope: opportunities.write
+  surfaces: [rest, s2s]
+- scope: opportunities.delete
+  surfaces: [rest, s2s]
+- scope: sequenceStates.all
+  surfaces: [rest, s2s]
+- scope: sequenceStates.read
+  surfaces: [rest, s2s]
+- scope: sequenceStates.write
+  surfaces: [rest, s2s]
+- scope: sequenceStates.delete
+  surfaces: [rest, s2s]
+- scope: sequences.all
+  surfaces: [rest, s2s]
+- scope: sequences.read
+  surfaces: [rest, s2s]
+- scope: sequences.write
+  surfaces: [rest, s2s]
+- scope: sequences.delete
+  surfaces: [rest, s2s]
+- scope: snippets.read
+  surfaces: [rest, s2s]
+- scope: tasks.all
+  surfaces: [rest, s2s]
+- scope: tasks.read
+  surfaces: [rest, s2s]
+- scope: tasks.write
+  surfaces: [rest, s2s]
+- scope: tasks.delete
+  surfaces: [rest, s2s]
+- scope: templates.read
+  surfaces: [rest, s2s]
+- scope: users.read
+  surfaces: [rest, s2s]
+- scope: webhooks.all
+  surfaces: [rest, s2s]
+- scope: webhooks.read
+  surfaces: [rest, s2s]
+- scope: webhooks.write
+  surfaces: [rest, s2s]
+- scope: webhooks.delete
+  surfaces: [rest, s2s]
+- scope: batches.read
+  description: Required alongside the target resource's write scope to run bulk/batch actions.
+  surfaces: [rest]
+  source: https://developers.outreach.io/api/bulk-api
+- scope: batches.write
+  description: Required alongside the target resource's write scope to run bulk/batch actions.
+  surfaces: [rest]
+  source: https://developers.outreach.io/api/bulk-api
+scope_source_note: >-
+  Every scope above is published by Outreach. The `<resource>.<level>` rows for accounts, auditLogs, calls,
+  events, imports, kaiaRecordings, mailings, opportunities, prospects, sequenceStates, sequences, snippets,
+  tasks, templates, users and webhooks are the S2S "Available scopes" table transcribed verbatim from
+  https://developers.outreach.io/api/s2s-access — Outreach states S2S scopes are a SUBSET of the OAuth
+  scopes, so each also exists on the OAuth surface. `batches.read`/`batches.write` come from the Bulk API
+  page. `prospects.all` is additionally declared machine-readably in the authorization-server metadata.
+gaps:
+- The REST API exposes 51 tagged resources but only 16 resource families appear in any published scope list;
+  scopes for the remaining resources exist but are enumerated only inside the authenticated app-configuration
+  UI.
+- The OpenAPI declares no oauth2 securityScheme and no per-operation scope requirements, so a generated
+  client cannot tell which scope any given call needs.
+- The MCP authorization-server metadata advertises only the prospects.all scope in scopes_supported, which
+  does not cover the 41 tools it serves (accounts, opportunities, sequences, tasks, teams, users, Kaia).

@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/making-requests
+docs:
+- https://developers.outreach.io/api/making-requests#error-responses
+- https://developers.outreach.io/api/getting-started#authorization
+provider: Outreach
+providerId: outreach
+format: json-api-1.0
+notes: >-
+  Outreach does NOT use RFC 9457 problem+json. It implements the JSON API 1.0 error object: on failure the
+  response body carries a top-level `errors` array instead of `data`, and every member of that array has a
+  stable machine-readable `id`, a human `title`, and a per-occurrence `detail`. Errors that reference a
+  specific request field additionally carry a JSON Pointer at `source.pointer`. The `id` values below are
+  the ones Outreach publishes verbatim in its documentation; the HTTP status distribution is derived from
+  the published OpenAPI (openapi/_original/outreach-openapi.json), which declares 422 on 207 operations and
+  404 on 46 operations across 253 operations. The spec itself declares no 401/403/415/429/503 responses even
+  though the documentation describes all of them, so this catalog is the union of the two sources.
+envelope:
+  container: errors
+  shape: array of error objects
+  fields:
+  - name: id
+    description: Stable machine-readable error identifier (camelCase).
+  - name: title
+    description: Short human-readable summary of the error class.
+  - name: detail
+    description: Specific detail about this occurrence. Some responses use the plural `details`.
+  - name: source.pointer
+    description: JSON Pointer into the request document identifying the offending member.
+  example: |
+    {
+      "errors": [
+        {
+          "id": "validationError",
+          "title": "Validation Error",
+          "detail": "Name can't be blank.",
+          "source": { "pointer": "/data/attributes/name" }
+        }
+      ]
+    }
+problems:
+- id: unauthorizedOauthScope
+  status: 403
+  title: Unauthorized OAuth Scope
+  detail: Your authorization does not include the required scope 'prospects.read'.
+  cause: The access token was not granted the OAuth scope the operation requires.
+  remediation: Re-run the authorization flow requesting the required scope; scopes are not additive
+    (`prospects.write` does not grant read).
+  source: https://developers.outreach.io/api/getting-started#authorization
+- id: unauthorizedRequest
+  status: 403
+  title: Unauthorized Request
+  detail: You are not authorized to perform that request.
+  cause: The token carries the OAuth scope but the authenticated user's Outreach governance/RBAC settings
+    do not permit the action on that record.
+  remediation: Have an Outreach administrator adjust the user's profile/governance permissions. Scope alone
+    is the front gate, not the authorization decision.
+  source: https://developers.outreach.io/api/getting-started#authorization
+- id: unsupportedMediaType
+  status: 415
+  title: Unsupported Media Type
+  detail: Expected Content-Type header to be 'application/vnd.api+json'.
+  cause: The request omitted or used the wrong JSON:API media type.
+  remediation: Send the header Content-Type application/vnd.api+json on every request.
+  source: https://developers.outreach.io/api/making-requests#content-negotiation
+- id: resourceNotFound
+  status: 404
+  title: Resource Not Found
+  detail: Could not find 'prospect' with ID '1'.
+  cause: The addressed resource does not exist, or is not visible to the authenticated user.
+  remediation: Verify the id and that the caller's governance permissions expose the record.
+  spec_operations: 46
+  source: https://developers.outreach.io/api/making-requests#fetch-an-individual-resource
+- id: validationError
+  status: 422
+  title: Validation Error
+  detail: Name can't be blank.
+  cause: The submitted resource object failed model validation. Carries `source.pointer` naming the field.
+  remediation: Read `source.pointer` and correct the named attribute. Also returned by action endpoints
+    (`POST /{resource}/{id}/actions/{action}`) when the action cannot be performed.
+  spec_operations: 207
+  source: https://developers.outreach.io/api/making-requests#create-a-new-resource
+- id: rateLimitExceeded
+  status: 429
+  title: Rate Limit Exceeded
+  detail: You have exceeded your permitted rate limit of 10,000; please try again at 2017-01-01T00:00:00.
+  cause: The per-user hourly request budget (or a per-product limit such as Kaia) was exhausted. Also
+    returned when an application requests a new access token for the same user more than once per 60 seconds.
+  remediation: Honor `X-RateLimit-Reset` / `Retry-After`; cache access tokens for their full 2-hour life.
+  source: https://developers.outreach.io/api/getting-started#rate-limiting
+- id: scheduledServerMaintenance
+  status: 503
+  title: Scheduled Server Maintenance
+  detail: Scheduled server maintenance is under way; please try again at 2017-01-01T00:00:00.
+  cause: The API is offline for a maintenance window.
+  remediation: Retry after the ISO-8601 timestamp in the `Retry-After` header. Windows are announced at
+    https://status.outreach.io.
+  source: https://developers.outreach.io/api/getting-started#maintenance
+- id: null
+  status: 400
+  title: Bad Request
+  detail: Returned when an action request is given additional, unacceptable query parameters.
+  cause: Unsupported `actionParams[...]` supplied to a resource action endpoint.
+  remediation: Consult the Batch/action reference for the parameters each action accepts.
+  source: https://developers.outreach.io/api/making-requests#other-actions-on-a-resource
+status_codes_in_spec:
+  '404': 46
+  '422': 207
+gaps:
+- The OpenAPI declares only 404 and 422 error responses; 400/401/403/415/429/503 are documented in prose but
+  absent from the machine-readable contract, so a generated client will not model them.
+- Error `id` values are documented by example rather than as an enumerated registry, so this catalog is the
+  complete published set and not necessarily the complete implemented set.

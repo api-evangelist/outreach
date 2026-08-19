@@ -1,0 +1,94 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.outreach.io/api/deprecated-features
+provider: Outreach
+providerId: outreach
+scheme: dated notices (no semantic version)
+current_version: v2
+notes: >-
+  Outreach publishes no single unified API changelog. Change history is split across two dated surfaces: the
+  REST API's "Deprecated features" page, which carries only breaking/behaviour changes, and the Data Sharing
+  "Release notes" page, which carries schema additions to the shared data model. Additive REST API changes
+  (new resources, new attributes) are not announced on either page. Both surfaces are captured below.
+surfaces:
+- name: REST API deprecated features
+  url: https://developers.outreach.io/api/deprecated-features
+  covers: breaking and behaviour changes only
+- name: Data Sharing release notes
+  url: https://developers.outreach.io/data-sharing/release-notes
+  covers: additive schema changes to the Snowflake / Delta Sharing data model
+- name: MCP server documentation
+  url: https://developers.outreach.io/mcp-server
+  covers: undated — tool catalog is versioned only by the count in the page heading
+gaps:
+- No RSS/Atom feed or machine-readable changelog is published for either surface.
+- No dated changelog exists for additive REST API changes; new resources appear in the OpenAPI without a
+  notice.
+- The Tool Catalog page heading says "41 tools" while the overview page and Authentication page both say
+  "32 tools" and "all 32 tools" — the MCP surface is self-inconsistent as published on 2026-08-13.
+entries:
+- date: '2026-07'
+  surface: rest-api
+  breaking: true
+  effective: '2026-10-01'
+  highlights:
+  - '`contactHistogram` removed from the default Prospect payload; must be requested via fields[prospect].'
+- date: '2025-12'
+  surface: data-sharing
+  breaking: false
+  highlights:
+  - Added email_message_synced_event table.
+- date: '2025-10-10'
+  surface: developer-portal
+  breaking: false
+  highlights:
+  - Security advisory to partners on least-privilege scopes and integration monitoring.
+- date: '2025-08'
+  surface: data-sharing
+  breaking: true
+  highlights:
+  - Added kaia_coach_cards_activity table; added unique fields to kaia_* tables.
+  - Renamed columns in kaia_coach_cards_activity table.
+- date: '2025-07'
+  surface: data-sharing
+  breaking: false
+  highlights:
+  - Added rulesets, sequence_templates and record_actor_assignments tables.
+- date: '2025-01'
+  surface: data-sharing
+  breaking: false
+  highlights:
+  - Added send_disabled_at and sync_disabled_at columns to mailboxes.
+- date: '2024-11'
+  surface: data-sharing
+  breaking: false
+  highlights:
+  - Added funnel_insights, funnel_insights_prospects, team_memberships_history, call_purposes,
+    phone_numbers, forecasts, forecast_calls and forecast_configs tables.
+  - Added ruleset_id to Sequences; engagement_score and locality to Accounts.
+- date: '2024-10'
+  surface: rest-api
+  breaking: true
+  effective: '2025-02-12'
+  highlights:
+  - Collection queries stop counting by default; pass count=true to keep meta.count.
+- date: '2024-05'
+  surface: data-sharing
+  breaking: true
+  highlights:
+  - Kaia Meeting Reactions and Kaia Meeting Topics generally available.
+  - Added roles table and users.role_id; deprecated users.role.
+- date: '2024-03'
+  surface: rest-api
+  breaking: true
+  effective: '2024-09'
+  highlights:
+  - Original Audit Log API deprecated in favour of a new Audit Log API (beta).
+- date: '2023-05'
+  surface: rest-api
+  breaking: true
+  effective: '2023-10-31'
+  highlights:
+  - Sorting by a relationship's attribute deprecated.
+  - Including related objects in create/update responses removed.
+  - Filtering by some relationships' non-id attributes deprecated.

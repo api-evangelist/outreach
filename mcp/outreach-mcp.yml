@@ -1,0 +1,372 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://developers.outreach.io/mcp-server
+provider: Outreach
+providerId: outreach
+docs:
+- https://developers.outreach.io/mcp-server
+- https://developers.outreach.io/mcp-server/authentication
+- https://developers.outreach.io/mcp-server/tool-catalog
+- https://developers.outreach.io/mcp-server/tool-annotations
+- https://developers.outreach.io/mcp-server/tool-responses
+- https://developers.outreach.io/mcp-server/usage-guide
+- https://developers.outreach.io/mcp-server/best-practices
+- https://developers.outreach.io/mcp-server/sample-interactions
+
+deployment:
+  mode: remote
+  endpoint: https://api.outreach.io/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    The endpoint is not printed in the documentation — the getting-started checklist tells the reader to
+    "get the Outreach MCP server URL (prod or staging)" from Outreach. It was established from the
+    provider's own RFC 9728 protected-resource metadata: GET
+    https://api.outreach.io/.well-known/oauth-protected-resource returns 200 with
+    {"resource":"https://api.outreach.io/mcp", ...}, and POST to that URL returns 401 with
+    `WWW-Authenticate: Bearer resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource"`.
+    No endpoint was guessed. `mcp.outreach.io` does not resolve.
+
+server:
+  name: outreach
+  transport: streamable-http
+  url: https://api.outreach.io/mcp
+  protocol_version: '2025-03-26'
+  protocol_note: Outreach states it implements MCP revision 2025-03-26 "and above".
+  spec_features:
+  - tool annotations (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+  - Dynamic Client Registration (RFC 7591)
+  - OAuth 2.1 with PKCE
+  - streamable HTTP transport
+  - self-describing schemas via tools/list
+  - resource-aware error responses with structured error codes
+  clients_claimed:
+  - Claude
+  - ChatGPT
+  - Microsoft Copilot
+  - Gemini
+  - VS Code
+  - Cursor
+
+authorization:
+  model: OAuth 2.1 authorization code with PKCE + Dynamic Client Registration
+  authorization_server: https://api.outreach.io
+  metadata: https://api.outreach.io/.well-known/oauth-authorization-server
+  protected_resource_metadata: https://api.outreach.io/.well-known/oauth-protected-resource
+  authorization_endpoint: https://api.outreach.io/mcpOAuth/authorize
+  token_endpoint: https://api.outreach.io/mcpOAuth/token
+  registration_endpoint: https://api.outreach.io/mcpOAuth/register
+  scopes_supported:
+  - prospects.all
+  grant_types_supported:
+  - authorization_code
+  - refresh_token
+  code_challenge_methods_supported:
+  - S256
+  token_endpoint_auth_methods_supported:
+  - client_secret_post
+  permissions: Tool calls inherit the authenticated Outreach user's profile-level RBAC; tool calls are
+    attributed to that user in Outreach activity history; disabling the user at the IDP revokes access.
+
+introspection:
+  tools_list_probed: true
+  tools_list_status: 401
+  tools_list_note: >-
+    `tools/list` is auth-gated. POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to
+    https://api.outreach.io/mcp returns HTTP 401 with an RFC 9728 challenge, so the live `inputSchema` for
+    each tool could not be captured anonymously. The tool names, groupings and annotations below are
+    transcribed from Outreach's published Tool Catalog page — names and semantics are real, input schemas
+    require an authenticated tools/list call.
+
+tool_count: 41
+tool_count_note: >-
+  Outreach's own pages disagree. The Tool Catalog page is titled "Tool Catalog (41 tools)" and enumerates
+  27 read + 11 write + 3 schema = 41. The MCP overview and Authentication pages both say 32 ("browse all 32
+  available tools", "all 32 tools work transparently"), and the Tool Annotations page links a
+  "Read & Discovery (21 tools)" anchor that no longer exists. 41 is the count that matches the enumerated
+  table, so it is used here. Two further tools are named in the docs but absent from the catalog table:
+  `prepare_for_meeting` (Sample Interactions, Tool Annotations) is documented as invokable but unlisted.
+
+annotations:
+  openWorldHint: >-
+    Contradictory in the docs — the Tool Catalog says "All tools advertise openWorldHint: false" and the
+    Tool Annotations page says "All Outreach MCP tools have openWorldHint: true because they reach
+    Outreach's backend". Recorded as unresolved rather than guessed.
+  idempotentHint: mirrors readOnlyHint — read-only tools are idempotent, write tools are not.
+
+tools:
+- name: account_get_by_id
+  category: read
+  description: Fetch a single account's full record
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: account_search
+  category: read
+  description: Find accounts by name, owner, or filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: account_search_by_external_id
+  category: read
+  description: Find an account by ID from an external system (e.g., your CRM)
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: calendar_events_fetch
+  category: read
+  description: List calendar events
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: current_org
+  category: read
+  description: Get the authenticated user's organization
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: current_user
+  category: read
+  description: Get the authenticated user's id and email
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: emails_search
+  category: read
+  description: Find emails by account or opportunity
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: job_role_fetch
+  category: read
+  description: List configured job roles (e.g., SDR, AE, CSM)
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: kaia_meeting_fetch
+  category: read
+  description: Fetch meeting summaries/transcripts by instance ID
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: kaia_meeting_search
+  category: read
+  description: Search recorded meetings (Kaia transcripts)
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: opportunity_get_by_id
+  category: read
+  description: Fetch a single opportunity's full record
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: opportunity_search
+  category: read
+  description: Find opportunities by stage, status, account, or filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: opportunity_search_by_external_id
+  category: read
+  description: Find an opportunity by external ID
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: opportunity_stage_fetch
+  category: read
+  description: List configured opportunity stages
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: prospect_get_by_id
+  category: read
+  description: Fetch a single prospect's full record
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: prospect_search
+  category: read
+  description: Find prospects by name, account, owner, or filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: prospect_search_by_external_id
+  category: read
+  description: Find a prospect by external ID
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: sequence_search
+  category: read
+  description: Find sequences by name, state, or filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: sequence_state_search
+  category: read
+  description: Find prospect-sequence enrollments
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: stage_fetch
+  category: read
+  description: List configured prospect stages
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: task_priority_fetch
+  category: read
+  description: List configured task priority lookup values
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: task_search
+  category: read
+  description: Find tasks by supported filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: task_theme_search
+  category: read
+  description: Find task themes configured for the organization
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: team_get_by_id
+  category: read
+  description: Fetch a single team by its unique identifier
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: team_search
+  category: read
+  description: Find teams by supported filters
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: user_get_by_id
+  category: read
+  description: Fetch a single user's full record
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: user_search
+  category: read
+  description: Find users by name or email
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: true
+- name: account_answer_question
+  category: write
+  description: Ask a natural-language question about an account (analyzes records, transcripts, and related
+    data)
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+  note: Advertised as a write because the question is persisted to the account Q&A chat history in Outreach.
+- name: account_create
+  category: write
+  description: Create a new account
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: account_delete
+  category: write
+  description: Delete an account
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
+- name: opportunity_answer_question
+  category: write
+  description: Ask a natural-language question about an opportunity (analyzes records, transcripts, and
+    related data)
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: opportunity_create
+  category: write
+  description: Create a new opportunity
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: opportunity_delete
+  category: write
+  description: Delete an opportunity
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
+- name: prospect_create
+  category: write
+  description: Create a new prospect
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: prospect_delete
+  category: write
+  description: Delete a prospect
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
+- name: sequence_add_prospects
+  category: write
+  description: Enroll prospects in a sequence
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: sequence_states_destroy
+  category: write
+  description: Remove prospects from a sequence
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
+- name: task_create
+  category: write
+  description: Create a new task
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
+- name: filter_fields_fetch
+  category: schema
+  description: Discover filterable fields for a resource type
+  readOnlyHint: true
+  idempotentHint: true
+- name: filter_schema_fetch
+  category: schema
+  description: Fetch the complete filter schema for an entity type
+  readOnlyHint: true
+  idempotentHint: true
+- name: input_fields_fetch
+  category: schema
+  description: Discover required/optional fields for create operations
+  readOnlyHint: true
+  idempotentHint: true
+
+undocumented_in_catalog:
+- name: prepare_for_meeting
+  description: AI-generated meeting briefing — named in Sample Interactions and Tool Annotations but absent
+    from the Tool Catalog table.
+
+response_shapes:
+  search: '{count, <resource>: [...]}'
+  get_by_id: '{<resource>: {...}}'
+  create: '{<resource>: {id, ...}}'
+  delete: '{id: "<deleted_id>"}'
+  batch: '{batch: {state, total, failures, ...}}'
+  schema: '{standard_fields: [...], custom_fields: [...]}'
+
+x-evidence:
+- fetched: '2026-08-13'
+  url: https://api.outreach.io/.well-known/oauth-protected-resource
+  http_status: 200
+  note: 'body: {"resource":"https://api.outreach.io/mcp","authorization_servers":["https://api.outreach.io"],"scopes_supported":["prospects.all"],"bearer_methods_supported":["header"]}'
+- fetched: '2026-08-13'
+  url: https://api.outreach.io/.well-known/oauth-authorization-server
+  http_status: 200
+- fetched: '2026-08-13'
+  url: https://api.outreach.io/mcp
+  http_status: 401
+  method: POST tools/list
+  note: 'WWW-Authenticate: Bearer resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource"'
+crosswalk: mcp/outreach-tool-crosswalk.yml
