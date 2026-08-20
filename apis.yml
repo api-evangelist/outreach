@@ -53,6 +53,10 @@ apis:
   tags:
   - Sales Engagement
   - Prospecting
+  - JSON:API
+  tags_raw:
+  - Sales Engagement
+  - Prospecting
   - JSON API
   properties:
   - type: Documentation
@@ -134,6 +138,10 @@ apis:
   humanURL: https://developers.outreach.io/api/webhooks/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Webhook
+  - Event
+  - Sales Engagement
+  tags_raw:
   - Webhooks
   - Events
   - Sales Engagement
