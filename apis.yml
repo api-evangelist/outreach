@@ -43,46 +43,12 @@ created: '2026-05-08'
 modified: '2026-08-13'
 specificationVersion: '0.23'
 apis:
-- name: Outreach REST API
-  description: >-
-    JSON API 1.0 REST API covering accounts, prospects, opportunities, sequences, sequence states, mailings,
-    calls, tasks, teams, users, notes, imports, batch actions and webhooks — 147 paths and 253 operations
-    over 51 tagged resources, authorized by OAuth 2.0 bearer token or a server-to-server JWT.
-  humanURL: https://developers.outreach.io/api/
-  baseURL: https://api.outreach.io/api/v2
-  tags:
-  - Sales Engagement
-  - Prospecting
-  - JSON:API
-  tags_raw:
-  - Sales Engagement
-  - Prospecting
-  - JSON API
-  properties:
-  - type: Documentation
-    url: https://developers.outreach.io/api/
-  - type: OpenAPI
-    url: openapi/outreach-openapi.yml
-  - type: APIReference
-    url: https://developers.outreach.io/api/reference
-  - type: GettingStarted
-    url: https://developers.outreach.io/api/getting-started
-  - type: JSONSchema
-    url: json-schema/outreach-hyper-schema.json
-  - type: Overlay
-    url: overlays/outreach-openapi-overlay.yaml
-  - type: DataModel
-    url: data-model/outreach-data-model.yml
-  - type: ErrorCatalog
-    url: errors/outreach-error-codes.yml
-  - type: Conventions
-    url: conventions/outreach-conventions.yml
 - name: Outreach MCP Server
   description: >-
     Remote Model Context Protocol server exposing Outreach as 41 agent tools (27 read, 11 write, 3 schema
     introspection) over streamable HTTP, authorized by OAuth 2.1 with PKCE and RFC 7591 Dynamic Client
-    Registration. Tool permissions inherit the authenticated Outreach user's RBAC profile and every call is
-    attributed to that user in Outreach activity history.
+    Registration. Tool permissions inherit the authenticated Outreach user's RBAC profile and every call
+    is attributed to that user in Outreach activity history.
   humanURL: https://developers.outreach.io/mcp-server
   baseURL: https://api.outreach.io/mcp
   tags:
@@ -98,8 +64,8 @@ apis:
     url: mcp/outreach-tool-crosswalk.yml
 - name: Outreach Client Extensions API
   description: >-
-    Client extensibility surface for embedding a web application inside the Outreach client — shell, tab and
-    tile web-widget extensions, a text-editor extension, activity-feed custom events and a mailing-links
+    Client extensibility surface for embedding a web application inside the Outreach client — shell, tab
+    and tile web-widget extensions, a text-editor extension, activity-feed custom events and a mailing-links
     custom tracker — brokered by the @getoutreach/extensibility-sdk JavaScript SDK, which resolves an
     OutreachContext carrying user, org, account, prospect and opportunity data into the hosted iframe.
   humanURL: https://developers.outreach.io/client-extensions
@@ -116,8 +82,8 @@ apis:
   description: >-
     Read-only access to an organization's Outreach data through Snowflake secure data sharing and Delta
     Sharing, in a ready-to-query format with no data copy or custom pipeline. Roughly 60 documented tables
-    covering accounts, prospects, opportunities, sequences, calls, mailings, meetings, Kaia meeting
-    intelligence, forecasts and funnel insights.
+    covering accounts, prospects, opportunities, sequences, calls, mailings, meetings, Kaia meeting intelligence,
+    forecasts and funnel insights.
   humanURL: https://developers.outreach.io/data-sharing
   baseURL: https://api.outreach.io
   tags:
@@ -132,9 +98,9 @@ apis:
 - name: Outreach Webhooks
   description: >-
     Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings,
-    mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks and
-    users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style payloads
-    with HMAC signature verification.
+    mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks
+    and users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style
+    payloads with HMAC signature verification.
   humanURL: https://developers.outreach.io/api/webhooks/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -152,7 +118,2311 @@ apis:
     url: webhooks/outreach-webhooks-asyncapi.yml
   - type: Webhooks
     url: webhooks/outreach-webhooks-asyncapi.yml
+- aid: outreach:outreach-account-api
+  name: Outreach Account API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/account" />
+
+
+    ## Account Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/accountRelationships" />
+
+
+    ## Account Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Account has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Account Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-account-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-account-note-api
+  name: Outreach Account Note API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/accountNote" />
+
+
+    ## Account Note Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/accountNoteRelationships" />
+
+
+    ## ⌵ Account Note Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Account Note
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-account-note-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-audit-log-api
+  name: Outreach Audit Log API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/auditLog" />
+
+
+    ## Audit Log Custom Filters
+
+
+    | **NAME**| **VALUE TYPE** | **VALUE KIND** | **VALUE LENGTH** |
+
+    | --- | --- | --- | --- |
+
+    | agentEmail | string| single| N/A|
+
+    | agentIpAddress | string| single| N/A|
+
+
+
+    ## ⌵ Audit Log Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Audit Log
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-batch-api
+  name: Outreach Batch API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/batch" />
+
+
+    ## Batch Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/batchRelationships" />
+
+
+    ## Batch Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Batch Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-batch-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-batch-item-api
+  name: Outreach Batch Item API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/batchItem" />
+
+
+    ## Batch Item Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/batchItemRelationships" />
+
+
+    ## ⌵ Batch Item Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Batch Item
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-batch-item-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-call-api
+  name: Outreach Call API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/call" />
+
+
+    ## Call Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/callRelationships" />
+
+
+    ## Call Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Call has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Call Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Call
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-call-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-call-disposition-api
+  name: Outreach Call Disposition API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/callDisposition" />
+
+
+    ## Call Disposition Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/callDispositionRelationships" />
+
+
+    ## Call Disposition Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Call Disposition Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Call Disposition
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-call-disposition-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-call-purpose-api
+  name: Outreach Call Purpose API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/callPurpose" />
+
+
+    ## Call Purpose Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/callPurposeRelationships" />
+
+
+    ## Call Purpose Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Call Purpose Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Call Purpose
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-call-purpose-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-compliance-request-api
+  name: Outreach Compliance Request API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/complianceRequest" />
+
+
+    ## Compliance Request Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/complianceRequestRelationships" />
+
+
+    ## ⌵ Compliance Request Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Compliance Request
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-compliance-request-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-content-category-api
+  name: Outreach Content Category API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategory" />
+
+
+    ## Content Category Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryRelationships" />
+
+
+    ## Content Category Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Content Category Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Content Category
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-content-category-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-content-category-membership-api
+  name: Outreach Content Category Membership API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryMembership" />
+
+
+    ## Content Category Membership Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryMembershipRelationships" />
+
+
+    ## Content Category Membership Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Content Category Membership Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Content Category Membership
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-content-category-membership-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-content-category-ownership-api
+  name: Outreach Content Category Ownership API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryOwnership" />
+
+
+    ## Content Category Ownership Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryOwnershipRelationships" />
+
+
+    ## Content Category Ownership Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Content Category Ownership Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Content Category Ownership
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-content-category-ownership-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-custom-duty-api
+  name: Outreach Custom Duty API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/customDuty" />
+
+
+    ## ⌵ Custom Duty Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Custom Duty
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-custom-duty-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-duty-api
+  name: Outreach Duty API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/duty" />
+
+
+    ## ⌵ Duty Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Duty
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-duty-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-email-address-api
+  name: Outreach Email Address API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/emailAddress" />
+
+
+    ## Email Address Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/emailAddressRelationships" />
+
+
+    ## Email Address Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Email Address Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Email Address
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-email-address-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-event-api
+  name: Outreach Event API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/event" />
+
+
+    ## Event Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/eventRelationships" />
+
+
+    ## Event Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  dataConnections | The set of connections a given Event has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Event Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Event
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-event-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-favorite-api
+  name: Outreach Favorite API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/favorite" />
+
+
+    ## Favorite Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/favoriteRelationships" />
+
+
+    ## Favorite Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Favorite Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Favorite
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-favorite-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-import-api
+  name: Outreach Import API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/import" />
+
+
+    ## Import Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/importRelationships" />
+
+
+    ## Import Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Import Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Import
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-import-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-kaia-recording-api
+  name: Outreach Kaia Recording API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaRecording" />
+
+
+    ## Kaia Recording Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaRecordingRelationships" />
+
+
+    ## ⌵ Kaia Recording Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Kaia Recording
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-kaia-recording-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-kaia-voice-import-api
+  name: Outreach Kaia Voice Import API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaVoiceImport" />
+
+
+    ## ⌵ Kaia Voice Import Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Kaia Voice Import
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-kaia-voice-import-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-mail-alias-api
+  name: Outreach Mail Alias API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailAlias" />
+
+
+    ## Mail Alias Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/mailAliasRelationships" />
+
+
+    ## ⌵ Mail Alias Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Mail Alias
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-mail-alias-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-mailbox-api
+  name: Outreach Mailbox API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailbox" />
+
+
+    ## Mailbox Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/mailboxRelationships" />
+
+
+    ## Mailbox Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Mailbox Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Mailbox
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-mailbox-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-mailing-api
+  name: Outreach Mailing API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailing" />
+
+
+    ## Mailing Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/mailingRelationships" />
+
+
+    ## Mailing Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Mailing has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Mailing Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Mailing
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-mailing-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-opportunity-api
+  name: Outreach Opportunity API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunity" />
+
+
+    ## Opportunity Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityRelationships" />
+
+
+    ## Opportunity Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Opportunity has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Opportunity Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Opportunity
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-opportunity-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-opportunity-prospect-role-api
+  name: Outreach Opportunity Prospect Role API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityProspectRole" />
+
+
+    ## Opportunity Prospect Role Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityProspectRoleRelationships" />
+
+
+    ## Opportunity Prospect Role Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Opportunity Prospect Role Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Opportunity Prospect Role
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-opportunity-prospect-role-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-opportunity-stage-api
+  name: Outreach Opportunity Stage API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityStage" />
+
+
+    ## Opportunity Stage Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityStageRelationships" />
+
+
+    ## Opportunity Stage Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Opportunity Stage has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Opportunity Stage Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Opportunity Stage
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-opportunity-stage-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-org-setting-api
+  name: Outreach Org Setting API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/orgSetting" />
+
+
+    ## ⌵ Org Setting Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Org Setting
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-org-setting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-persona-api
+  name: Outreach Persona API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/persona" />
+
+
+    ## Persona Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/personaRelationships" />
+
+
+    ## Persona Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Persona Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Persona
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-persona-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-phone-number-api
+  name: Outreach Phone Number API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/phoneNumber" />
+
+
+    ## Phone Number Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/phoneNumberRelationships" />
+
+
+    ## Phone Number Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Phone Number Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Phone Number
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-phone-number-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-product-api
+  name: Outreach Product API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/product" />
+
+
+    ## Product Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/productRelationships" />
+
+
+    ## Product Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Product has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Product Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-product-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-profile-api
+  name: Outreach Profile API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/profile" />
+
+
+    ## Profile Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Profile Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-profile-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-prospect-api
+  name: Outreach Prospect API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/prospect" />
+
+
+    ## Prospect Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/prospectRelationships" />
+
+
+    ## Prospect Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Prospect has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Prospect Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Prospect
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-prospect-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-prospect-note-api
+  name: Outreach Prospect Note API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/prospectNote" />
+
+
+    ## Prospect Note Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/prospectNoteRelationships" />
+
+
+    ## ⌵ Prospect Note Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Prospect Note
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-prospect-note-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-purchase-api
+  name: Outreach Purchase API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/purchase" />
+
+
+    ## Purchase Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/purchaseRelationships" />
+
+
+    ## Purchase Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Purchase has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Purchase Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Purchase
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-purchase-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-recipient-api
+  name: Outreach Recipient API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/recipient" />
+
+
+    ## Recipient Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/recipientRelationships" />
+
+
+    ## Recipient Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Recipient Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Recipient
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-recipient-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-role-api
+  name: Outreach Role API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/role" />
+
+
+    ## Role Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/roleRelationships" />
+
+
+    ## Role Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Role Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-role-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-ruleset-api
+  name: Outreach Ruleset API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/ruleset" />
+
+
+    ## Ruleset Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/rulesetRelationships" />
+
+
+    ## Ruleset Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Ruleset Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Ruleset
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-ruleset-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-sequence-api
+  name: Outreach Sequence API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequence" />
+
+
+    ## Sequence Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceRelationships" />
+
+
+    ## Sequence Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sequence
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-sequence-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-sequence-state-api
+  name: Outreach Sequence State API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceState" />
+
+
+    ## Sequence State Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStateRelationships" />
+
+
+    ## Sequence State Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence State Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sequence State
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-sequence-state-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-sequence-step-api
+  name: Outreach Sequence Step API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStep" />
+
+
+    ## Sequence Step Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStepRelationships" />
+
+
+    ## Sequence Step Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence Step Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sequence Step
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-sequence-step-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-sequence-template-api
+  name: Outreach Sequence Template API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceTemplate" />
+
+
+    ## Sequence Template Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceTemplateRelationships" />
+
+
+    ## Sequence Template Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence Template Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Sequence Template
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-sequence-template-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-snippet-api
+  name: Outreach Snippet API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/snippet" />
+
+
+    ## Snippet Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/snippetRelationships" />
+
+
+    ## Snippet Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Snippet Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Snippet
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-snippet-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-stage-api
+  name: Outreach Stage API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/stage" />
+
+
+    ## Stage Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/stageRelationships" />
+
+
+    ## Stage Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Stage has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Stage Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Stage
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-stage-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-task-api
+  name: Outreach Task API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/task" />
+
+
+    ## Task Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/taskRelationships" />
+
+
+    ## Task Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Task has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ Task Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Task
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-task-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-task-disposition-api
+  name: Outreach Task Disposition API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskDisposition" />
+
+
+    ## Task Disposition Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/taskDispositionRelationships" />
+
+
+    ## Task Disposition Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Task Disposition Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Task Disposition
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-task-disposition-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-task-priority-api
+  name: Outreach Task Priority API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskPriority" />
+
+
+    ## Task Priority Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/taskPriorityRelationships" />
+
+
+    ## ⌵ Task Priority Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Task Priority
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-task-priority-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-task-purpose-api
+  name: Outreach Task Purpose API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskPurpose" />
+
+
+    ## Task Purpose Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/taskPurposeRelationships" />
+
+
+    ## Task Purpose Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Task Purpose Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Task Purpose
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-task-purpose-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-team-api
+  name: Outreach Team API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/team" />
+
+
+    ## Team Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/teamRelationships" />
+
+
+    ## Team Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Team Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-team-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-template-api
+  name: Outreach Template API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/template" />
+
+
+    ## Template Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/templateRelationships" />
+
+
+    ## Template Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Template Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Template
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-template-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-user-api
+  name: Outreach User API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/user" />
+
+
+    ## User Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/userRelationships" />
+
+
+    ## User Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given User has to external sources. | provideDataConnections
+    |
+
+
+
+    ## ⌵ User Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-webhook-api
+  name: Outreach Webhook API
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/webhook" />
+
+
+    ## Webhook Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/webhookRelationships" />
+
+
+    ## Webhook Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Webhook Actions
+  humanURL: https://developers.outreach.io/api/
+  baseURL: https://api.outreach.io/api/v2
+  tags:
+  - Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-webhook-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
 common:
+- type: Overlay
+  url: overlays/outreach-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/outreach-agentic-access.yml
 - type: Authentication
