@@ -13,6 +13,18 @@ description: >-
   Registration, plus a client extensibility SDK for embedding web widgets inside the Outreach app, an
   event-driven webhook surface with HMAC-signed deliveries, and Outreach Data Sharing over Snowflake and
   Delta Sharing.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: sales
@@ -2421,6 +2433,9 @@ apis:
   - type: Conventions
     url: conventions/outreach-conventions.yml
 common:
+- type: CapabilityMap
+  url: capabilities/outreach-capability-edges.yml
+  name: Outreach Business Capability Map
 - type: Overlay
   url: overlays/outreach-openapi-overlay.yaml
 - type: AgenticAccess
