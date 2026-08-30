@@ -1,0 +1,1879 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Purchase API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/purchase" />
+
+
+    ## Purchase Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/purchaseRelationships" />
+
+
+    ## Purchase Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Purchase has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Purchase Actions
+
+
+    '
+  name: Purchase
+  x-internal: false
+paths:
+  /purchases:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/purchaseResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Purchases
+      tags:
+      - Purchase
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/purchase'
+                    relationships:
+                      $ref: '#/components/schemas/purchaseRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/purchaseResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Purchase
+      tags:
+      - Purchase
+      x-internal: false
+  /purchases/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Delete an Existing Purchase by ID
+      tags:
+      - Purchase
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/purchaseResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Purchase by ID
+      tags:
+      - Purchase
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/purchase'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/purchaseRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/purchase'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/purchaseRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a Purchase
+      tags:
+      - Purchase
+      x-internal: false
+components:
+  schemas:
+    purchaseRelationships:
+      properties:
+        account:
+          description: The associated account. You can use only the attribute id to filter purcahses by account id (e.g. filter[account][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of this task.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the purchase. You can use only the attribute id to filter purchases by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        product:
+          description: The associated product. You can use only the attribute id to filter purcahses by product id (e.g. filter[product][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - product
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    purchaseResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/purchase'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/purchaseRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    purchase:
+      description: 'Contains all the list of products which are related to the accounts.
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the task was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        currency:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            It tells you what type of currency we are using to purchase'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom1:
+          description: '
+
+
+            The value of the purchases first custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom2:
+          description: '
+
+
+            The value of the purchases second custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom3:
+          description: '
+
+
+            The value of the purchases third custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom4:
+          description: '
+
+
+            The value of the purchases fourth custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom5:
+          description: '
+
+
+            The value of the purchases fifth custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom6:
+          description: '
+
+
+            The value of the purchases sixth custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom7:
+          description: '
+
+
+            The value of the purchases seventh custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom8:
+          description: '
+
+
+            The value of the purchases eight custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom9:
+          description: '
+
+
+            The value of the purchases ninth custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom10:
+          description: '
+
+
+            The value of the purchases 10th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom11:
+          description: '
+
+
+            The value of the purchases 11th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom12:
+          description: '
+
+
+            The value of the purchases 12th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom13:
+          description: '
+
+
+            The value of the purchases 13th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom14:
+          description: '
+
+
+            The value of the purchases 14th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom15:
+          description: '
+
+
+            The value of the purchases 15th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom16:
+          description: '
+
+
+            The value of the purchases 16th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom17:
+          description: '
+
+
+            The value of the purchases 17th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom18:
+          description: '
+
+
+            The value of the purchases 18th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom19:
+          description: '
+
+
+            The value of the purchases 19th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom20:
+          description: '
+
+
+            The value of the purchases 20th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom21:
+          description: '
+
+
+            The value of the purchases 21st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom22:
+          description: '
+
+
+            The value of the purchases 22nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom23:
+          description: '
+
+
+            The value of the purchases 23rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom24:
+          description: '
+
+
+            The value of the purchases 24th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom25:
+          description: '
+
+
+            The value of the purchases 25th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom26:
+          description: '
+
+
+            The value of the purchases 26th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom27:
+          description: '
+
+
+            The value of the purchases 27th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom28:
+          description: '
+
+
+            The value of the purchases 28th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom29:
+          description: '
+
+
+            The value of the purchases 29th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom30:
+          description: '
+
+
+            The value of the purchases 30th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom31:
+          description: '
+
+
+            The value of the purchases 31st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom32:
+          description: '
+
+
+            The value of the purchases 32nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom33:
+          description: '
+
+
+            The value of the purchases 33rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom34:
+          description: '
+
+
+            The value of the purchases 34th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom35:
+          description: '
+
+
+            The value of the purchases 35th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom36:
+          description: '
+
+
+            The value of the purchases 36th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom37:
+          description: '
+
+
+            The value of the purchases 37th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom38:
+          description: '
+
+
+            The value of the purchases 38th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom39:
+          description: '
+
+
+            The value of the purchases 39th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom40:
+          description: '
+
+
+            The value of the purchases 40th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom41:
+          description: '
+
+
+            The value of the purchases 41st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom42:
+          description: '
+
+
+            The value of the purchases 42nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom43:
+          description: '
+
+
+            The value of the purchases 43rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom44:
+          description: '
+
+
+            The value of the purchases 44th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom45:
+          description: '
+
+
+            The value of the purchases 45th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom46:
+          description: '
+
+
+            The value of the purchases 46th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom47:
+          description: '
+
+
+            The value of the purchases 47th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom48:
+          description: '
+
+
+            The value of the purchases 48th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom49:
+          description: '
+
+
+            The value of the purchases 49th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom50:
+          description: '
+
+
+            The value of the purchases 50th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom51:
+          description: '
+
+
+            The value of the purchases 51st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom52:
+          description: '
+
+
+            The value of the purchases 52nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom53:
+          description: '
+
+
+            The value of the purchases 53rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom54:
+          description: '
+
+
+            The value of the purchases 54th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom55:
+          description: '
+
+
+            The value of the purchases 55th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom56:
+          description: '
+
+
+            The value of the purchases 56th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom57:
+          description: '
+
+
+            The value of the purchases 57th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom58:
+          description: '
+
+
+            The value of the purchases 58th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom59:
+          description: '
+
+
+            The value of the purchases 59th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom60:
+          description: '
+
+
+            The value of the purchases 60th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom61:
+          description: '
+
+
+            The value of the purchases 61st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom62:
+          description: '
+
+
+            The value of the purchases 62nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom63:
+          description: '
+
+
+            The value of the purchases 63rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom64:
+          description: '
+
+
+            The value of the purchases 64th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom65:
+          description: '
+
+
+            The value of the purchases 65th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom66:
+          description: '
+
+
+            The value of the purchases 66th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom67:
+          description: '
+
+
+            The value of the purchases 67th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom68:
+          description: '
+
+
+            The value of the purchases 68th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom69:
+          description: '
+
+
+            The value of the purchases 69th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom70:
+          description: '
+
+
+            The value of the purchases 70th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom71:
+          description: '
+
+
+            The value of the purchases 71st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom72:
+          description: '
+
+
+            The value of the purchases 72nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom73:
+          description: '
+
+
+            The value of the purchases 73rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom74:
+          description: '
+
+
+            The value of the purchases 74th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom75:
+          description: '
+
+
+            The value of the purchases 75th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom76:
+          description: '
+
+
+            The value of the purchases 76th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom77:
+          description: '
+
+
+            The value of the purchases 77th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom78:
+          description: '
+
+
+            The value of the purchases 78th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom79:
+          description: '
+
+
+            The value of the purchases 79th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom80:
+          description: '
+
+
+            The value of the purchases 80th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom81:
+          description: '
+
+
+            The value of the purchases 81st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom82:
+          description: '
+
+
+            The value of the purchases 82nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom83:
+          description: '
+
+
+            The value of the purchases 83rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom84:
+          description: '
+
+
+            The value of the purchases 84th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom85:
+          description: '
+
+
+            The value of the purchases 85th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom86:
+          description: '
+
+
+            The value of the purchases 86th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom87:
+          description: '
+
+
+            The value of the purchases 87th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom88:
+          description: '
+
+
+            The value of the purchases 88th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom89:
+          description: '
+
+
+            The value of the purchases 89th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom90:
+          description: '
+
+
+            The value of the purchases 90th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom91:
+          description: '
+
+
+            The value of the purchases 91st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom92:
+          description: '
+
+
+            The value of the purchases 92nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom93:
+          description: '
+
+
+            The value of the purchases 93rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom94:
+          description: '
+
+
+            The value of the purchases 94th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom95:
+          description: '
+
+
+            The value of the purchases 95th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom96:
+          description: '
+
+
+            The value of the purchases 96th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom97:
+          description: '
+
+
+            The value of the purchases 97th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom98:
+          description: '
+
+
+            The value of the purchases 98th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom99:
+          description: '
+
+
+            The value of the purchases 99th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom100:
+          description: '
+
+
+            The value of the purchases 100th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom101:
+          description: '
+
+
+            The value of the purchases 101st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom102:
+          description: '
+
+
+            The value of the purchases 102nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom103:
+          description: '
+
+
+            The value of the purchases 103rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom104:
+          description: '
+
+
+            The value of the purchases 104th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom105:
+          description: '
+
+
+            The value of the purchases 105th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom106:
+          description: '
+
+
+            The value of the purchases 106th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom107:
+          description: '
+
+
+            The value of the purchases 107th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom108:
+          description: '
+
+
+            The value of the purchases 108th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom109:
+          description: '
+
+
+            The value of the purchases 109th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom110:
+          description: '
+
+
+            The value of the purchases 110th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom111:
+          description: '
+
+
+            The value of the purchases 111th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom112:
+          description: '
+
+
+            The value of the purchases 112th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom113:
+          description: '
+
+
+            The value of the purchases 113th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom114:
+          description: '
+
+
+            The value of the purchases 114th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom115:
+          description: '
+
+
+            The value of the purchases 115th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom116:
+          description: '
+
+
+            The value of the purchases 116th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom117:
+          description: '
+
+
+            The value of the purchases 117th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom118:
+          description: '
+
+
+            The value of the purchases 118th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom119:
+          description: '
+
+
+            The value of the purchases 119th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom120:
+          description: '
+
+
+            The value of the purchases 120th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom121:
+          description: '
+
+
+            The value of the purchases 121st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom122:
+          description: '
+
+
+            The value of the purchases 122nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom123:
+          description: '
+
+
+            The value of the purchases 123rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom124:
+          description: '
+
+
+            The value of the purchases 124th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom125:
+          description: '
+
+
+            The value of the purchases 125th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom126:
+          description: '
+
+
+            The value of the purchases 126th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom127:
+          description: '
+
+
+            The value of the purchases 127th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom128:
+          description: '
+
+
+            The value of the purchases 128th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom129:
+          description: '
+
+
+            The value of the purchases 129th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom130:
+          description: '
+
+
+            The value of the purchases 130th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom131:
+          description: '
+
+
+            The value of the purchases 131st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom132:
+          description: '
+
+
+            The value of the purchases 132nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom133:
+          description: '
+
+
+            The value of the purchases 133rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom134:
+          description: '
+
+
+            The value of the purchases 134th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom135:
+          description: '
+
+
+            The value of the purchases 135th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom136:
+          description: '
+
+
+            The value of the purchases 136th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom137:
+          description: '
+
+
+            The value of the purchases 137th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom138:
+          description: '
+
+
+            The value of the purchases 138th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom139:
+          description: '
+
+
+            The value of the purchases 139th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom140:
+          description: '
+
+
+            The value of the purchases 140th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom141:
+          description: '
+
+
+            The value of the purchases 141st custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom142:
+          description: '
+
+
+            The value of the purchases 142nd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom143:
+          description: '
+
+
+            The value of the purchases 143rd custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom144:
+          description: '
+
+
+            The value of the purchases 144th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom145:
+          description: '
+
+
+            The value of the purchases 145th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom146:
+          description: '
+
+
+            The value of the purchases 146th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom147:
+          description: '
+
+
+            The value of the purchases 147th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom148:
+          description: '
+
+
+            The value of the purchases 148th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom149:
+          description: '
+
+
+            The value of the purchases 149th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom150:
+          description: '
+
+
+            The value of the purchases 150th custom field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        description:
+          description: '
+
+
+            A description of the purchase.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        endDate:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            End Date of Contract.'
+          format: date
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        potentialQuantity:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Net Potential within an Account.'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        potentialValue:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Net Potential Revenue within an Account.'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        saturation:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Contract seat as a % of potential.'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        source:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            It tells how the purchase record was populated. Either is it manual or some API or some other source'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        startDate:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            Start Date of Contract.'
+          format: date
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        status:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            A boolean value whether the product is active or not.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        totalQuantity:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Net Contracted Quantity (Always less than or equal to the potential)'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        totalValue:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Net Current Revenue Sold.'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the task was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -1,0 +1,629 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Sequence Step API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceStep" />
+
+
+    ## Sequence Step Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStepRelationships" />
+
+
+    ## Sequence Step Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence Step Actions
+
+
+    '
+  name: Sequence Step
+  x-internal: false
+paths:
+  /sequenceSteps:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/sequenceStepResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Sequence Steps
+      tags:
+      - Sequence Step
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/sequenceStep'
+                    relationships:
+                      $ref: '#/components/schemas/sequenceStepRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStepResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Sequence Step
+      tags:
+      - Sequence Step
+      x-internal: false
+  /sequenceSteps/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStepResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Sequence Step by ID
+      tags:
+      - Sequence Step
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/sequenceStep'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/sequenceStepRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/sequenceStep'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/sequenceStepRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a Sequence Step
+      tags:
+      - Sequence Step
+      x-internal: false
+components:
+  schemas:
+    sequenceStep:
+      description: 'A descriptor of a single step within an automated sequence.
+
+        '
+      properties:
+        bounceCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of bounced mailings during this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        clickCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of clicked mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence step was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        date:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date this step will activate; only applicable to date-based sequences.'
+          format: date
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        deliverCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of delivered mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        displayName:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A human-readable display name that captures the step’s type and order.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        failureCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of failed mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        interval:
+          description: '
+
+
+            The interval (in seconds) until this step will activate; only applicable to interval-based sequences.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        negativeReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of negative reply mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        neutralReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of neutral reply mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        openCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of opened mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        optOutCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of opted out mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        order:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The step’s display order within its sequence.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        positiveReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of positive reply mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        replyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of replied mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        scheduleCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of scheduled mailings from this sequence step.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        stepType:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The step’s type; must be "auto_email", "manual_email", "call" or "task".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        taskAutoskipDelay:
+          description: '
+
+
+            The optional interval (in seconds) from when tasks created by this sequence step are overdue until they are automatically skipped.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        taskNote:
+          description: '
+
+
+            An optional note to associate with created tasks.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence step was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    sequenceStepRelationships:
+      properties:
+        callPurpose:
+          description: The default call purpose associated with the sequence step. You can use only the attribute id to filter sequenceSteps by callPurpose (e.g. filter[callPurpose][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - callPurpose
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calls associated with the sequence step. You can use only the attribute id to filter sequenceSteps by calls (e.g. filter[calls][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the sequence step. You can use only the attribute id to filter sequenceSteps by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The mailings associated with the sequence step. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        schedule:
+          description: The associated schedule
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - schedule
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: The associated sequence. You can use attributes id, enabledAt and name to filter sequenceSteps by sequence (e.g. filter[sequence][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceTemplates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence templates in use by this sequence step. You can use any filterable attribute of sequenceTemplates.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceTemplate
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        taskPriority:
+          description: The associated task priority. You can use only the attribute id to filter sequenceSteps by taskPriority (e.g. filter[taskPriority][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPriority
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The tasks associated with the sequence step. You can use only the attribute id to filter sequenceSteps by tasks (e.g. filter[tasks][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the sequence step. You can use only the attribute id to filter sequenceSteps by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    sequenceStepResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceStep'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStepRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

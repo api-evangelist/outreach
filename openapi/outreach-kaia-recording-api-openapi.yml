@@ -1,0 +1,345 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Kaia Recording API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/kaiaRecording" />
+
+
+    ## Kaia Recording Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaRecordingRelationships" />
+
+
+    ## ⌵ Kaia Recording Actions
+
+
+    '
+  name: Kaia Recording
+  x-internal: false
+paths:
+  /kaiaRecordings:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/kaiaRecordingResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Kaia Recordings
+      tags:
+      - Kaia Recording
+      x-internal: false
+  /kaiaRecordings/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/kaiaRecordingResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Kaia Recording by ID
+      tags:
+      - Kaia Recording
+      x-internal: false
+components:
+  schemas:
+    kaiaRecordingResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/kaiaRecording'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/kaiaRecordingRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    kaiaRecordingRelationships:
+      properties:
+        account:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account associated with the recording'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The opportunity associated with the recording'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The recording owner/organizer'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    kaiaRecording:
+      description: ''
+      properties:
+        botInMeetingSeconds:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Time the recording bot spent in the meeting, in seconds (calculated from endTime - startTime)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The creation timestamp of the recording (ISO 8601)'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        endTime:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The end time of the recording (ISO 8601)'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        format:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The recording format: meeting or call'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        host:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Meeting host/organizer with full participant info'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        instanceId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The unique instance identifier (UUID) for the recording'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        mediaDurationSeconds:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Actual media duration in seconds, extracted from the video file. Null if unavailable.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        participantCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The number of participants in the recording'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        participants:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Polymorphic array of meeting participants with type (user/prospect/external), id, displayName, etc.'
+          items:
+            type: object
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        provider:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The meeting provider (zoom, teams, etc.)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        recordingUrl:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            URL to view the recording'
+          maxLength: 2048
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sourceId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Source ID from originating system. format=call: Call ID for /api/v2/calls. format=meeting: calendar event ID.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        startTime:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The start time of the recording (ISO 8601)'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Recording state: UNKNOWN, CREATED, STARTED, ENDED, DROPPED, or DELETED'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        title:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Recording title (may be null for untitled meetings)'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        topics:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Aggregated topics discussed in the recording. Hidden by default; request explicitly.'
+          items:
+            type: object
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        transcriptUrl:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Self-authenticating URL to fetch transcript JSON (2-hour expiry). Hidden field.'
+          maxLength: 4096
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The last update timestamp (ISO 8601). Use for incremental sync with filter[updatedAt]>='
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

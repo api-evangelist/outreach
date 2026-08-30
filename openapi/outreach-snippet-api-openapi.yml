@@ -1,0 +1,475 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Snippet API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/snippet" />
+
+
+    ## Snippet Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/snippetRelationships" />
+
+
+    ## Snippet Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Snippet Actions
+
+
+    '
+  name: Snippet
+  x-internal: false
+paths:
+  /snippets:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/snippetResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Snippets
+      tags:
+      - Snippet
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/snippet'
+                    relationships:
+                      $ref: '#/components/schemas/snippetRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/snippetResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Snippet
+      tags:
+      - Snippet
+      x-internal: false
+  /snippets/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Delete an Existing Snippet by ID
+      tags:
+      - Snippet
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/snippetResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Snippet by ID
+      tags:
+      - Snippet
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/snippet'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/snippetRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/snippet'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/snippetRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a Snippet
+      tags:
+      - Snippet
+      x-internal: false
+components:
+  schemas:
+    snippetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/snippet'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/snippetRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    snippet:
+      description: 'A piece of an email to be reused in multiple messages.
+
+        '
+      properties:
+        bodyHtml:
+          description: '
+
+
+            The HTML of the snippet.'
+          maxLength: 16777215
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bodyText:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The text of the snippet.'
+          maxLength: 16777215
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the snippet was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the snippet.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        shareType:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The permissions for sharing the snippet; must be "private" or "shared."'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        tags:
+          description: '
+
+
+            A list of tags associated with the snippet (e.g. ["Useful", "Prospecting"]).'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the snippet was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    snippetRelationships:
+      properties:
+        contentCategoryMemberships:
+          description: The content categories (collections) of the snippet. You can use only the attribute id to filter snippets by contentCategoryMemberships (e.g. filter[contentCategoryMemberships][id]=X).
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - contentCategoryMembership
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the snippet. You can use only the attribute id to filter snippets by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The snippet favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the snippet. You can use only the attribute id to filter snippets by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The updater of the snippet. You can use only the attribute id to filter snippets by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

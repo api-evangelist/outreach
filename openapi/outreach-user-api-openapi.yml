@@ -1,0 +1,1344 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference User API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/user" />
+
+
+    ## User Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/userRelationships" />
+
+
+    ## User Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given User has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ User Actions
+
+
+    '
+  name: User
+  x-internal: false
+paths:
+  /users:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/userResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Users
+      tags:
+      - User
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/user'
+                    relationships:
+                      $ref: '#/components/schemas/userRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/userResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New User
+      tags:
+      - User
+      x-internal: false
+  /users/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/userResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a User by ID
+      tags:
+      - User
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/user'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/userRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/user'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/userRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a User
+      tags:
+      - User
+      x-internal: false
+components:
+  schemas:
+    user:
+      description: The individual that uses the application. See https://developers.outreach.io/api/common-patterns/#invite-new-users for more information on inviting new users.
+      properties:
+        accountsViewId:
+          description: '
+
+
+            The default smart view to load on the account index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        activityNotificationsDisabled:
+          description: '
+
+
+            A boolean value whether the user''s activity notifications are disabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        bounceWarningEmailEnabled:
+          description: '
+
+
+            A boolean value whether the user''s bounce warning emails are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        bridgePhone:
+          description: '
+
+
+            The telephone number of the user''s outbound bridge phone.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bridgePhoneExtension:
+          description: '
+
+
+            The extension number of the user''s outbound bridge phone.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        callsViewId:
+          description: '
+
+
+            The default smart view to load on the calls view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        controlledTabDefault:
+          description: '
+
+
+            The user''s preferred default tab to open when in task flow.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the user was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        currentSignInAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the user most recently signed in.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom1:
+          description: '
+
+
+            The value of the user''s first custom field.'
+          maxLength: 225
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom2:
+          description: '
+
+
+            The value of the user''s second custom field.'
+          maxLength: 225
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom3:
+          description: '
+
+
+            The value of the user''s third custom field.'
+          maxLength: 225
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom4:
+          description: '
+
+
+            The value of the user''s fourth custom field.'
+          maxLength: 225
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom5:
+          description: '
+
+
+            The value of the user''s fifth custom field.'
+          maxLength: 225
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dailyDigestEmailEnabled:
+          description: '
+
+
+            A boolean value whether the user''s daily digest emails are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        defaultRulesetId:
+          description: '
+
+
+            The id of the default ruleset assigned to the user.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        duties:
+          description: '
+
+
+            A collection of the user''s work roles.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        email:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The email address of the user. Cannot be updated via the API.'
+          format: email
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        enableVoiceRecordings:
+          description: '
+
+
+            A boolean value whether the user has voice recordings enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        engagementEmailsEnabled:
+          description: '
+
+
+            A boolean value whether the user has engagement emails enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        firstName:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The first name of the user.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundBridgePhone:
+          description: '
+
+
+            The telephone number of the user''s inbound bridge phone.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundBridgePhoneExtension:
+          description: '
+
+
+            The extension number of the user''s inbound bridge phone.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundCallBehavior:
+          description: '
+
+
+            The behavior of inbound calls. Must be either "inbound_bridge" or "inbound_voicemail".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundPhoneType:
+          description: '
+
+
+            The user''s type of telephone for inbound calls. Must be either "bridge", "voip" or "bridge_and_voip".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundVoicemailCustomMessageText:
+          description: '
+
+
+            The message for inbound voicemails (e.g. "Please leave a message and I will get back to you as soon I can").'
+          maxLength: 1024
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundVoicemailMessageTextVoice:
+          description: '
+
+
+            The gender of the voice that reads the voicemail message. Must be either "man" or "woman".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        inboundVoicemailPromptType:
+          description: '
+
+
+            The type of inbound voicemail to use. Must be either "automated", "recorded", or "off".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        jobRoleByName:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The name of the job role (e.g. "SDR").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        kaiaRecordingsViewId:
+          description: '
+
+
+            The default smart view to load on the kaia recordings view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        keepBridgePhoneConnected:
+          description: '
+
+
+            Whether to keep the user''s bridge phone connected in-between outbound calls.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        lastName:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The last name of the user.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        lastSignInAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the user previously signed in.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        locked:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A boolean value whether the user is locked out of the application.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        mailboxErrorEmailEnabled:
+          description: '
+
+
+            A boolean value whether the user''s mailbox error emails are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        meetingEngagementNotificationEnabled:
+          description: '
+
+
+            A boolean value whether the user''s meeting engagement notifications are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The full name of the user.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        notificationsEnabled:
+          description: '
+
+
+            A boolean value whether the user''s notifications are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceClickToDialEverywhere:
+          description: '
+
+
+            A boolean value indicating if phone calls will launch a call from Outreach (Salesforce, Github, Gmail, LinkedIn, and Twitter).'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceGmailToolbar:
+          description: '
+
+
+            A boolean value indicating whether the Outreach Gmail toolbar is enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceGmailTrackingState:
+          description: '
+
+
+            The user''s current email tracking settings when using Outreach Everywhere with GMail.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        oceSalesforceEmailDecorating:
+          description: '
+
+
+            A boolean value indicating if emails are enabled in Outreach Everywhere with Salesforce.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceSalesforcePhoneDecorating:
+          description: '
+
+
+            A boolean value indicating if phone calls are enabled in Outreach Everywhere with Salesforce.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceUniversalTaskFlow:
+          description: '
+
+
+            A boolean value indicating whether Outreach Everywhere universal task flow is enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        oceWindowMode:
+          description: '
+
+
+            A boolean value indicating whether Outreach Everywhere window mode is enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        opportunitiesViewId:
+          description: '
+
+
+            The default smart view to load on the opportunity index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        passwordExpiresAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the current password expires.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        phoneCountryCode:
+          description: '
+
+
+            The country code of the user''s phone.'
+          maxLength: 2
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        phoneNumber:
+          description: '
+
+
+            The telephone number of the user''s phone.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        phoneType:
+          description: '
+
+
+            The user''s type of telephone for outbound calls. Must be either "bridge" or "voip".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        pluginAlertNotificationEnabled:
+          description: '
+
+
+            A boolean value whether the user''s plugin related error notifications are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        preferredVoiceRegion:
+          description: '
+
+
+            A string that represents Twilio data center used to connect to Twilio.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        prefersLocalPresence:
+          description: '
+
+
+            A boolean value whether the user prefers that a voice call comes from a local phone number.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        prospectsViewId:
+          description: '
+
+
+            The default smart view to load on the prospect index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        reportsTeamPerfViewId:
+          description: '
+
+
+            The default smart view to load on the team performance reports view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        reportsViewId:
+          description: '
+
+
+            The default smart view to load on the reports view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        scimExternalId:
+          description: '
+
+
+            The ID from the SCIM provisioning service used to create the user.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scimSource:
+          description: '
+
+
+            The name of the SCIM provisioning source used to create the user.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        senderNotificationsExcluded:
+          description: '
+
+
+            A boolean value whether the user''s sender notifications are excluded.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        tasksViewId:
+          description: '
+
+
+            The default smart view to load on the tasks index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        teamsViewId:
+          description: '
+
+
+            The default smart view to load on the teams index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        textingEmailNotifications:
+          description: '
+
+
+            A boolean value whether to send the user email notifications when a text message is missed.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        title:
+          description: '
+
+
+            The user''s job title (e.g. "Staff Accountant").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        unknownReplyEmailEnabled:
+          description: '
+
+
+            A boolean value whether the user''s unknown reply emails are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the user was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        userGuid:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The globally unique ID (GUID) assigned to the user.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        username:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A reader friendly unique identifier of the user.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        usersViewId:
+          description: '
+
+
+            The default smart view to load on the users index view.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        voicemailNotificationEnabled:
+          description: '
+
+
+            A boolean value whether the user''s voicemail notifications are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        weeklyDigestEmailEnabled:
+          description: '
+
+
+            A boolean value whether the user''s weekly digest email are enabled.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    userRelationships:
+      properties:
+        batches:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        calendar:
+          description: The calendar associated with the user.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - calendar
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        contentCategories:
+          description: The groupings of sequences, snippets and templates that this user has access to. Relationship contentCategories cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - contentCategory
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        contentCategoryOwnerships:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - contentCategoryOwnership
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the user. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        directAssignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The user favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        jobRole:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - jobRole
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailbox:
+          description: The default mailbox associated with the user. Relationship mailbox cannot be used as a filter.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - mailbox
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailboxes:
+          description: All mailboxes associated with the user. Relationship mailboxes cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - mailbox
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        outboundVoicemails:
+          description: The list of outbound voicemails associated with the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - outboundVoicemail
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        phone:
+          description: The default phone to use outbound or inbound voice calls.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - phone
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        phones:
+          description: The list of phones associated with the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - phone
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        profile:
+          description: The user's profile in Outreach. You can use only the attribute id to filter users by profile (e.g. filter[profile][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - profile
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recipients:
+          description: Recipients that will be included by default in all emails composed by user. Relationship recipients cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - recipient
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        role:
+          description: The role associated with the user. You can use only the attribute id to filter users by role (e.g. filter[role][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - role
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        roleAssignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        smsPhone:
+          description: The default phone to use for SMS messaging.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - phone
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        teams:
+          description: The teams the user belongs to. You can use only the attribute id to filter users by teams (e.g. filter[teams][id]=X).
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the user. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        voicemailPrompts:
+          description: The list of voicemail prompts associated with the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - voicemailPrompt
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    userResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/user'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/userRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

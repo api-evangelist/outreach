@@ -1,0 +1,866 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Mailing API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/mailing" />
+
+
+    ## Mailing Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/mailingRelationships" />
+
+
+    ## Mailing Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Mailing has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Mailing Actions
+
+
+    '
+  name: Mailing
+  x-internal: false
+paths:
+  /mailings:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/mailingResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Mailings
+      tags:
+      - Mailing
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/mailing'
+                    relationships:
+                      $ref: '#/components/schemas/mailingRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailingResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Mailing
+      tags:
+      - Mailing
+      x-internal: false
+  /mailings/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailingResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Mailing by ID
+      tags:
+      - Mailing
+      x-internal: false
+components:
+  schemas:
+    mailingResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailing'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailingRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    mailingRelationships:
+      properties:
+        attachments:
+          description: All attachments attached to this mailing.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - attachment
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        bccEntitiesId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+        calendar:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calendar associated with any event invites contained in this mailing.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - calendar
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        ccEntitiesId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+        followUpSequence:
+          description: The followup sequence associated with this mailing. You can use only the attribute id to filter mailings by followUpSequence (e.g. filter[followUpSequence][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailbox:
+          description: The mailbox associated with this mailing. You can use only the attribute id to filter mailings by mailbox (e.g. filter[mailbox][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - mailbox
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated opportunity. You can use only the attribute id to filter mailings by opportunity (e.g. filter[opportunity][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: The prospect associated with this mailing. You can use only the attribute id to filter mailings by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectsIds:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+        recipients:
+          description: Recipients of the mailing. Relationship recipients cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - recipient
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        schedule:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - schedule
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence. You can use only the attribute id to filter mailings by sequence (e.g. filter[sequence][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceState:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence state. You can use only the attribute id to filter mailings by sequenceState (e.g. filter[sequenceState][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceState
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStep:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence step. You can use only the attribute id to filter mailings by sequenceStep (e.g. filter[sequenceStep][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        task:
+          description: The task this mailing will or did complete upon sending. You can use only the attribute id to filter mailings by task (e.g. filter[task][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - task
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            All tasks associated with this mailing, such as a follow-up task. Relationship tasks cannot be used as a filter.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - task
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        template:
+          description: The template associated with this mailing. You can use only the attribute id to filter mailings by template (e.g. filter[template][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - template
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        toEntitiesId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+        user:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The user associated with this mailing. You can use only the attribute id to filter mailings by user (e.g. filter[user][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    mailing:
+      description: 'A representation of a platform-related email.
+
+        '
+      properties:
+        bodyHtml:
+          description: '
+
+
+            The mailing''s custom email body, represented in HTML. If provided this field will override any associated template.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bodyText:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The plain-text representation of the ''bodyHTML'' field.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bouncedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the email was bounced.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        clickCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total number of times links within the email were clicked (if the message is tracking links).'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        clickedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The most recent date and time a link was clicked (if the message is tracking links).'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the mailing was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        deliveredAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the email was delivered.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        errorBacktrace:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Technical details explaining the mailing''s error.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        errorReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A summary explaining the mailing''s error.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        followUpTaskScheduledAt:
+          description: '
+
+
+            The date and time of when a follow-up task should be due for this mailing.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        followUpTaskType:
+          description: '
+
+
+            The type of follow-up task to create. Possible values are ''follow_up'' or ''no_reply''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        mailboxAddress:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The email address the mailing was sent from.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        mailingType:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A description of the type of the emailing (e.g. "sequence", "single", "campaign").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        markedAsSpamAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the email was marked as spam.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        messageId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The MIME content Message-ID of the delivered message.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        notifyThreadCondition:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The condition of when to bump this mailing to the top of the user''s inbox. Possible values are ''always'' or ''no_reply''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        notifyThreadScheduledAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time of when this mailing should be bumped to the top of the user''s inbox.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        notifyThreadStatus:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The status of the bump. Possible values are ''pending'', ''sent'' or ''skipped''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        openCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total number of times the email was opened (if the message is tracking opens).'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        openedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The most recent date and time the email was opened (if the message is tracking opens).'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        overrideSafetySettings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A boolean value whether users can override submission if template variables have not all been replaced.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        references:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A list of references for the mailing taken from the email header.'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        repliedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the email was replied to.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        retryAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the email will rety to send.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        retryCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The number of times the email has been retried to send.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        retryInterval:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The amount of time in seconds between retry attempts.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        scheduledAt:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the email is scheduled to send.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the mailing. Can be ''bounced'', ''delivered'', ''delivering'', ''drafted'', ''failed'', ''opened'', ''placeholder'', ''queued'', ''replied'', or ''scheduled''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        subject:
+          description: '
+
+
+            The subject line of the email.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        trackLinks:
+          description: '
+
+
+            A boolean value whether the mailing is tracking link clicks.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        trackOpens:
+          description: '
+
+
+            A boolean value whether the mailing is tracking email opens.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        unsubscribedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the recepient unsubscribed from the mailing''s sequence.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the mailing was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -1,0 +1,481 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Webhook API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/webhook" />
+
+
+    ## Webhook Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/webhookRelationships" />
+
+
+    ## Webhook Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Webhook Actions
+
+
+    '
+  name: Webhook
+  x-internal: false
+paths:
+  /webhooks:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/webhookResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Webhooks
+      tags:
+      - Webhook
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/webhook'
+                    relationships:
+                      $ref: '#/components/schemas/webhookRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/webhookResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Create a New Webhook
+      tags:
+      - Webhook
+      x-internal: false
+  /webhooks/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Delete an Existing Webhook by ID
+      tags:
+      - Webhook
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/webhookResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Webhook by ID
+      tags:
+      - Webhook
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/webhook'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/webhookRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/webhook'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/webhookRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Update a Webhook
+      tags:
+      - Webhook
+      x-internal: false
+components:
+  schemas:
+    webhook:
+      description: 'A configurable notification that submits external JSON-API-formatted HTTP requests whenever resources are modified.
+
+        '
+      properties:
+        action:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The action that will trigger this webhook (e.g. "*", "created", "updated", "destroyed"). Webhooks will only execute if both the action and resource match.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        active:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A boolean value indicating whether the webhook is active.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the webhook was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        disabledReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The reason why webhook got temporarily disabled. Any update to a webhook resets this to a null value.'
+          maxLength: 1024
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        disabledSince:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time when the webhook got temporarily disabled for the first time. Any update to a webhook resets this to a null value.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        disabledUntil:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time till when the webhook got temporarily disabled. Any update to a webhook resets this to a null value.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        payloadVersion:
+          description: '
+
+
+            Format of the body data sent when the webhook makes a request. Valid values are 1 or 2.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        resource:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The resource that will trigger this webhook (e.g. "*", "prospect", "sequenceState"). Webhooks will only execute if both the action and resource match.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        secret:
+          description: '
+
+
+            A private token used to verify the authenticity of incoming webhook payloads.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the webhook was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        url:
+          description: '
+
+
+            The URL where the webhook will route its POST HTTP request.'
+          maxLength: 1024
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    webhookRelationships:
+      properties:
+        authorizer:
+          description: The authorizer of the webhook. The webhook will not deliver results if the authorizer does not have permission to read the resource being returned. Relationship authorizer cannot be used as a filter.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the webhook. You can use only the attribute id to filter webhooks by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the webhook. You can use only the attribute id to filter webhooks by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    webhookResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/webhook'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/webhookRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -1,0 +1,714 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Ruleset API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/ruleset" />
+
+
+    ## Ruleset Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/rulesetRelationships" />
+
+
+    ## Ruleset Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Ruleset Actions
+
+
+    '
+  name: Ruleset
+  x-internal: false
+paths:
+  /rulesets:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/rulesetResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Rulesets
+      tags:
+      - Ruleset
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/ruleset'
+                    relationships:
+                      $ref: '#/components/schemas/rulesetRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/rulesetResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Ruleset
+      tags:
+      - Ruleset
+      x-internal: false
+  /rulesets/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Delete an Existing Ruleset by ID
+      tags:
+      - Ruleset
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/rulesetResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Ruleset by ID
+      tags:
+      - Ruleset
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/ruleset'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/rulesetRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/ruleset'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/rulesetRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a Ruleset
+      tags:
+      - Ruleset
+      x-internal: false
+components:
+  schemas:
+    rulesetRelationships:
+      properties:
+        bouncedStage:
+          description: The stage to assign to the prospect when a mailing in this sequence bounces. You can use only the attribute id to filter rulesets by bouncedStage (e.g. filter[bouncedStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        callTaskPriority:
+          description: The task priority to use when creating call tasks based on mail opens. You can use only the attribute id to filter rulesets by callTaskPriorityFromOpens (e.g. filter[callTaskPriorityFromOpens][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPriority
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        callTaskPriorityFromClicks:
+          description: The task priority to use when creating call tasks based on mail clicks. You can use only the attribute id to filter rulesets by callTaskPriorityFromClicks (e.g. filter[callTaskPriorityFromClicks][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPriority
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        callTaskPriorityFromOpens:
+          description: The task priority to use when creating call tasks based on mail opens. You can use only the attribute id to filter rulesets by callTaskPriorityFromOpens (e.g. filter[callTaskPriorityFromOpens][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPriority
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        completedStage:
+          description: The stage to assign to the prospect when this sequence completes. You can use only the attribute id to filter rulesets by completedStage (e.g. filter[completedStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        deliveredStage:
+          description: The stage to assign to the prospect when a mailing in this sequence is delivered. You can use only the attribute id to filter rulesets by deliveredStage (e.g. filter[deliveredStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        finishedStage:
+          description: The stage to assign to the prospect when this sequence finishes. You can use only the attribute id to filter rulesets by finishedStage (e.g. filter[finishedStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        optedOutStage:
+          description: The stage to assign to the prospect when they opt out of this sequence. You can use only the attribute id to filter rulesets by optedOutStage (e.g. filter[optedOutStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the ruleset. You can use only the attribute id to filter rulesets by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        repliedStage:
+          description: The stage to assign to the prospect when a mailing in this sequence is replied to. You can use only the attribute id to filter rulesets by repliedStage (e.g. filter[repliedStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequences:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequences associated with this ruleset. You can use only the attribute id to filter rulesets by sequences (e.g. filter[sequences][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        startedStage:
+          description: The stage to assign to the prospect when this sequence starts. You can use only the attribute id to filter rulesets by startedStage (e.g. filter[startedStage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    ruleset:
+      description: 'A reusable set of behaviors to be applied to Sequences
+
+        '
+      properties:
+        applyCompletedStageIn:
+          description: '
+
+
+            The amount of time in seconds after the sequence has completed before the "completedStage" will be applied to the Prospect.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        autoResumeOotoProspects:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A boolean value whether out-of-the-office Prospects will be automatically resumed. See "autoResumeOotoProspectsIn" and "autoResumeOotoProspectsExpiresIn" for more information.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        autoResumeOotoProspectsExpiresIn:
+          description: '
+
+
+            The maximum amount of time in seconds to wait before opted-out Prospect will be resumed.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        autoResumeOotoProspectsIn:
+          description: '
+
+
+            The default amount of time in seconds to wait before opted-out Prospects will be resumed.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        callOptOutAction:
+          description: '
+
+
+            Determines if prospect can be added to sequences if they are opted out of calling.'
+          maxLength: 4
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        clicksNeededBeforeCallTaskCreated:
+          description: '
+
+
+            The number of email clicks needed before a call task will be automatically created. This feature will be disabled unless a value is set.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the ruleset was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        emailOptOutAction:
+          description: '
+
+
+            Determines if prospect can be added to sequences if they are opted out of emails.'
+          maxLength: 4
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        includeUnsubscribeLinks:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A boolean value whether to include unsubscribe links within emails.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        meetingBookedAction:
+          description: '
+
+
+            Determines if a prospect is marked as finished when a meeting is booked.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        minimumProspectTouchedInterval:
+          description: '
+
+
+            The minimum number of seconds that must elapse between when a Prospect was last contacted and when they may be added to a sequnce. This feature will be disabled unless a value is set.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the ruleset.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        ootoAutoExtractionEnabled:
+          description: '
+
+
+            A boolean value determining whether to use out of the office return date auto extraction.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        opensNeededBeforeCallTaskCreated:
+          description: '
+
+
+            The number of email opens needed before a call task will be automatically created. This feature will be disabled unless a value is set.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        permitDuplicateProspects:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A value determining whether a Prospect may be added to this Sequence multiple times or not. Permitted values include "allow", "disallow" (the default) and "only_if_inactive", which indicates that Prospects may be re-added to this sequence if their existing SequenceState is inactive.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sequenceExclusivity:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A value determining whether Prospects may be added to multiple different Sequences. Permitted values include "all_sequences", "exclusive_sequences" and "none" (the default). If the value is "all_sequences", then Prospects may only be added if they are not active in any other Sequence; likewise, a Prospect active in a Sequence with "all_sequences" exclusivity cannot be added to any other Sequence. If the value is "exclusive_sequences", then Prospects may only be added if they are not active in any other Sequence with "exclusive_sequences" exclusivity; likewise, a Prospect active in a Sequence with "exclusive_sequences" exclusivity cannot be added to any other Sequence with "exclusive_sequences" exclusivity. If the value is "none", then no additional restrictions will be applied.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        smsOptOutAction:
+          description: '
+
+
+            Determines if prospect can be added to sequences if they are opted out of SMS.'
+          maxLength: 4
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        smsReceivedAction:
+          description: '
+
+
+            Determines if a prospect is marked as finished when a text message is received'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stepOverridesEnabled:
+          description: '
+
+
+            A boolean value determining whether to allow users to customize step templates when adding to sequence.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the ruleset was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    rulesetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ruleset'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/rulesetRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

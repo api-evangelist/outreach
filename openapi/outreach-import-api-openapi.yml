@@ -1,0 +1,738 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Import API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/import" />
+
+
+    ## Import Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/importRelationships" />
+
+
+    ## Import Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Import Actions
+
+
+    '
+  name: Import
+  x-internal: false
+paths:
+  /imports/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/importResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get an Import by ID
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/accountsImport:
+    post:
+      description: "### Import Action \n\nThis is the action to import an uploaded file into account's table. Accounts have `customId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied."
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        dupeMethod:
+                          description: Method used to treat duplicated records (overwrite | skip | missing).
+                          type: string
+                        fileName:
+                          description: Name of the file from which the data comes from.
+                          type: string
+                        mappings:
+                          description: 'Mappings of the import represented as {"source": "destination"}.'
+                          type: object
+                        recordCount:
+                          description: The number of rows in the import file.
+                          type: integer
+                        storageKey:
+                          description: Reference of the storage where the file was uploaded. This can was obtained using /api/v2/imports/actions/generateUploadLink
+                          type: string
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/importResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Import
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/bulkUpsert:
+    post:
+      description: "### Import Action \n\nThis is the action to sync multiple API v2 objects to Outreach tablesBulk upsert uses a record's `data.id` attribute to determine uniqueness.The provided dupe method will be applied during processing of records that already exist in Outreach."
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        dupeMethod:
+                          description: Method used to treat duplicated records (overwriteNoCreate | overwrite | skip | missing).
+                          type: string
+                        fileName:
+                          description: The filename Outreach is going to use to store records during processing.
+                          type: string
+                        records:
+                          description: The collection of API v2 resource objects to upsert.
+                          items:
+                            type: object
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/importResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Bulk Upsert
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/customObjectBulkUpsert:
+    post:
+      description: "### Import Action \n\nThis is the action to upsert records of a custom object. Bulk upsert uses a record's `data.id` attribute to determine uniqueness. The provided dupe method will be applied during processing of records that already exist in Outreach."
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        dupeMethod:
+                          description: Method used to treat duplicated records (overwrite | skip | missing | overwriteNoCreate).
+                          type: string
+                        fileName:
+                          description: The filename Outreach is to use to store records during processing.
+                          type: string
+                        records:
+                          description: The collection of custom object records to upsert.
+                          items:
+                            type: object
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/importResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Custom Object Bulk Upsert
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/generateUploadLink:
+    post:
+      description: "### Upload Action \n\nGenerates a link, an URL at which the file should be uploaded, and a storage key, a reference for the upload"
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/uploadResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Generate Upload Link
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/prospectsImport:
+    post:
+      description: "### Import Action \n\nThis is the action to import an uploaded file into prospect's table Prospects have `externalId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied."
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        dupeMethod:
+                          description: Method used to treat duplicated records (overwrite | skip | missing).
+                          type: string
+                        fileName:
+                          description: Name of the file from which the data comes from.
+                          type: string
+                        mappings:
+                          description: 'Mappings of the import represented as {"source": "destination"}.'
+                          type: object
+                        recordCount:
+                          description: The number of rows in the import file.
+                          type: integer
+                        storageKey:
+                          description: Reference of the storage where the file was uploaded. This can was obtained using /api/v2/imports/actions/generateUploadLink
+                          type: string
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/importResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Import
+      tags:
+      - Import
+      x-internal: false
+  /imports/actions/validateUpload:
+    post:
+      description: "### Validate Upload Action \n\nValidates the uploaded file"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            hash:
+              description: The hash of the uploaded file
+            storageKey:
+              description: The storage key of the uploaded file
+          required:
+          - hash
+          - storageKey
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/validateUploadResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Validate Upload
+      tags:
+      - Import
+      x-internal: false
+components:
+  schemas:
+    import:
+      description: 'An operation that imports data into Outreach
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the import was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dupeMethod:
+          description: '
+
+
+            The type of deduplication strategy, skip, missing or overwrite.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dupes:
+          description: '
+
+
+            The number of dupes for the import.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        errorReason:
+          description: '
+
+
+            The reason for the failure of an import.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalId:
+          description: '
+
+
+            The ID of a Report in a CRM for ReportImport (is not related to external/external_input_payload)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalName:
+          description: '
+
+
+            The name of a Report in a CRM for ReportImport (is not related to external/external_input_payload)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalType:
+          description: '
+
+
+            The Type of a Report in a CRM for ReportImport (is not related to external/external_input_payload)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        failures:
+          description: '
+
+
+            The total number of failures associated with this import.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        fileName:
+          description: '
+
+
+            The file name for the import.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        fileSize:
+          description: '
+
+
+            The size of the file for the import'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        frequency:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The frequency an import will recur on (once, hourly, daily)'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        importType:
+          description: '
+
+
+            The type of import.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        loadFromPlugin:
+          description: '
+
+
+            Indicates if the import leverages load_from_crm or is a ReportImport'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        mappings:
+          description: '
+
+
+            The mapping of rows to properties of the item.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        pluginId:
+          description: '
+
+
+            The ID of the Outreach Plugin powering the load_from_crm or ReportImport functionality'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        prospectOwnerId:
+          description: '
+
+
+            Owner ID to override during import (applies to prospects, accounts, and opportunities)'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        recurring:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            Whether or not the import is a recurring import'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        reportInstanceId:
+          description: '
+
+
+            The ID of the salesforce report import'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scheduledAt:
+          description: '
+
+
+            The next scheduled run for a recurring import'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        source:
+          description: '
+
+
+            Source to override during prospect import'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stageId:
+          description: '
+
+
+            Stage ID to override to during import'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The state of the import.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '
+
+
+            Indicates the last mutation to the state field'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        syncedUntil:
+          description: '
+
+
+            The point in time this report is synced to'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        timeZone:
+          description: '
+
+
+            TimeZone to override during prospect import'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        total:
+          description: '
+
+
+            The total number of items associated with this import.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the import was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    uploadResponse:
+      properties:
+        attributes:
+          properties:
+            storageKey:
+              description: the reference to the upload to use in following API calls such as import.
+              type: string
+            uploadURL:
+              description: the AWS S3 presigned URL at which the file should be uploaded.
+              type: string
+          type: object
+        type:
+          type: string
+      type: object
+    importResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/import'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/importRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    importRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    validateUploadResponse:
+      properties:
+        attributes:
+          properties:
+            headerValue:
+              description: the headers of the uploaded file with the first value
+              properties:
+                header:
+                  description: the header name
+                  type: string
+                value:
+                  description: the first value of the header
+                  type: string
+              type: object
+            recordCount:
+              description: the number of records in the uploaded file.
+              type: integer
+          type: object
+        type:
+          type: string
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

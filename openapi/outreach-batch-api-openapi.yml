@@ -1,0 +1,1917 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Batch API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/batch" />
+
+
+    ## Batch Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/batchRelationships" />
+
+
+    ## Batch Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Batch Actions
+
+
+    '
+  name: Batch
+  x-internal: false
+paths:
+  /batches:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/batchResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Batches
+      tags:
+      - Batch
+      x-internal: false
+  /batches/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Batch by ID
+      tags:
+      - Batch
+      x-internal: false
+  /batches/{id}/actions/cancel:
+    post:
+      description: "### Member Action \n\nAction to call to cancel the batch"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Cancel
+      tags:
+      - Batch
+      x-internal: false
+  /batches/{id}/actions/confirm:
+    post:
+      description: "### Member Action \n\nAction to call to confirm the batch"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            confirmedCount:
+              description: ''
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Confirm
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountAddTags:
+    post:
+      description: "### Bulk Action \n\nAdds tags to the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        tags:
+                          description: ''
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Account Add Tags
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsAddAssignments:
+    post:
+      description: "### Bulk Action \n\nAdds assignments to the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        userIds:
+                          description: A list of assignments to add.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Add Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsAssignOwner:
+    post:
+      description: "### Bulk Action \n\nassign an user with {ownerId} as owner to all the targeted accounts "
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        ownerId:
+                          description: The ID of the owner
+                          type: integer
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Assign Owner
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsBulkModify:
+    post:
+      description: "### Bulk Action \n\nModifies the accounts targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body.\n\nAlternative request body for a single field modification is also supported:\n```\n{\n\t\"data\": {\n\t\t\"attributes\": {\n\t\t\t\"fieldName\": \"string\",\n\t\t\t\"fieldValue\": \"string\",\n\t\t\t\"ids\": [0]\n\t\t}\n\t},\n\t\"type\": \"string\"\n}\n```"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        attribute1:
+                          description: A pair of any field name and its value to modify
+                          type: string
+                        attribute2:
+                          description: A pair of any field name and its value to modify
+                          type: boolean
+                        attributeN:
+                          description: A pair of any field name and its value to modify
+                          type: integer
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Bulk Modify
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsDestroyAll:
+    post:
+      description: "### Bulk Action \n\nDeletes the accounts targeted by the query parameters (default: ALL)"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Destroy All
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsRemoveAllAssignments:
+    post:
+      description: "### Bulk Action \n\nRemoves all assignments from the accounts targeted by the query parameters (default: ALL)"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Remove All Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsRemoveAssignments:
+    post:
+      description: "### Bulk Action \n\nRemoves assignments from the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        userIds:
+                          description: A list of assignments to remove.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Remove Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/accountsRemoveTags:
+    post:
+      description: "### Bulk Action \n\nRemoves tags from the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        tags:
+                          description: ''
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Accounts Remove Tags
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/customObjectBulkDelete:
+    post:
+      description: "### Bulk Action \n\nAction to delete custom objects of type selected by the query parameter {objectName} "
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            objectName:
+              description: name of the object type to which the records belong
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+          required:
+          - objectName
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Custom Object Bulk Delete
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/customObjectBulkModify:
+    post:
+      description: "### Bulk Action \n\nAction to modify custom objects of type selected by the query parameter {objectName} "
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            objectName:
+              description: name of the object type to which the records belong
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+          required:
+          - objectName
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        attribute1:
+                          description: A pair of any field name and its value to modify
+                          type: string
+                        attribute2:
+                          description: A pair of any field name and its value to modify
+                          type: boolean
+                        attributeN:
+                          description: A pair of any field name and its value to modify
+                          type: integer
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Custom Object Bulk Modify
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAddAssignments:
+    post:
+      description: "### Bulk Action \n\nAdds assignments to the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        userIds:
+                          description: A list of assignments to add.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Add Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAddTags:
+    post:
+      description: "### Bulk Action \n\nAdds tags to the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        tags:
+                          description: A list of tags to add.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Add Tags
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAddToSequence:
+    post:
+      description: "### Bulk Action \n\nAdd Prospects To Sequence"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        mailboxId:
+                          description: The ID of the mailbox of the sequencer.
+                          type: integer
+                        sequenceId:
+                          description: The ID of the active sequence associated with the prospects.
+                          type: integer
+                        stepOverrides:
+                          description: The array of object with stepOverrides attributes.
+                          items:
+                            type: object
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Add To Sequence
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAssignAccount:
+    post:
+      description: "### Bulk Action \n\nSets the account to the prospects targeted by the query parameters (default: ALL) using the {accountId} which specifies the account to add to the prospects"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        accountId:
+                          description: The account ID to associate with the prospects
+                          type: string
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Assign Account
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAssignOpportunity:
+    post:
+      description: "### Bulk Action \n\nSets the opportunity to the prospects targeted by the query parameters (default: ALL) using the {opportunityId} which specifies the account to add to the prospects"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        opportunityId:
+                          description: The opportunity ID to associate with the prospects
+                          type: string
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Assign Opportunity
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsAssignOwner:
+    post:
+      description: "### Bulk Action \n\nassign an user with {ownerId} as owner to all the targeted prospects "
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        ownerId:
+                          description: The ID of the owner
+                          type: integer
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Assign Owner
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsBulkModify:
+    post:
+      description: "### Bulk Action \n\nModifies the prospects targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body\n\nAlternative request body for a single field modification is also supported:\n```\n{\n\t\"data\": {\n\t\t\"attributes\": {\n\t\t\t\"fieldName\": \"string\",\n\t\t\t\"fieldValue\": \"string\",\n\t\t\t\"ids\": [0]\n\t\t}\n\t},\n\t\"type\": \"string\"\n}\n```"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        attribute1:
+                          description: A pair of any field name and its value to modify
+                          type: string
+                        attribute2:
+                          description: A pair of any field name and its value to modify
+                          type: boolean
+                        attributeN:
+                          description: A pair of any field name and its value to modify
+                          type: integer
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Bulk Modify
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsDestroyAll:
+    post:
+      description: "### Bulk Action \n\nDeletes the prospects targeted by the query parameters (default: ALL)"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Destroy All
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsFinishAll:
+    post:
+      description: "### Bulk Action \n\nFor all prospects targeted by the query parameters (default: ALL), attempt to finish the associated prospect sequence"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Finish All
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsPauseAll:
+    post:
+      description: "### Bulk Action \n\nFor all prospects targeted by the query parameters (default: ALL), attempt to pause the associated prospect sequence"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Pause All
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsRemoveAllAssignments:
+    post:
+      description: "### Bulk Action \n\nRemoves all assignments from the prospects targeted by the query parameters (default: ALL)"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Remove All Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsRemoveAssignments:
+    post:
+      description: "### Bulk Action \n\nRemoves assignments from the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        userIds:
+                          description: A list of assignments to remove.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Remove Assignments
+      tags:
+      - Batch
+      x-internal: false
+  /batches/actions/prospectsRemoveTags:
+    post:
+      description: "### Bulk Action \n\nRemoves tags from the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      parameters:
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            filter:
+              description: Filter to apply to select the records on which the action should be applied
+            skipConfirmation:
+              description: Boolean to specify whether or not the confirmation stop should be skipped
+        style: deepObject
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        ids:
+                          description: List of IDs to apply the action to
+                          items:
+                            type: integer
+                          type: array
+                        tags:
+                          description: A list of tags to remove.
+                          items:
+                            type: string
+                          type: array
+                type:
+                  type: string
+              type: object
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/batchResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Prospects Remove Tags
+      tags:
+      - Batch
+      x-internal: false
+components:
+  schemas:
+    batchResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/batch'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/batchRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    batch:
+      description: 'A group of records (Prospect, Account, etc.) in which the same particular action was performed.
+
+        '
+      properties:
+        action:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            Action performed on the batch.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        canceledAt:
+          description: '
+
+
+            The date and time the batch was canceled.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        confirmCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The number of items in the batch to be confirmed.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        confirmedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the batch was confirmed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        confirmedCountRequired:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Require the user to explicitly confirm the confirm_count.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the batch was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalStartPayload:
+          description: '
+
+
+            Optional parameter used to handle external batch operations'
+          maxLength: 16777215
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        failures:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The number of failed batch items associated with this batch.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        finishedAt:
+          description: '<img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the batch was finished.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        payload:
+          description: '
+
+
+            The input payload for the batch operation.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        pending:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The number of pending batch items associated with this batch.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        startedAt:
+          description: '
+
+
+            The date and time the batch was started.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the batch.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        summary:
+          description: '
+
+
+            The summary of the batch including failure information.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        total:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total number of batch items associated with this batch.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the batch was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    batchRelationships:
+      properties:
+        batchItems:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batch items associated with this batch.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

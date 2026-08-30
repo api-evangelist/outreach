@@ -1,0 +1,755 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Call API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/call" />
+
+
+    ## Call Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/callRelationships" />
+
+
+    ## Call Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Call has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Call Actions
+
+
+    '
+  name: Call
+  x-internal: false
+paths:
+  /calls:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/callResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Calls
+      tags:
+      - Call
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/call'
+                    relationships:
+                      $ref: '#/components/schemas/callRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/callResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Create a New Call
+      tags:
+      - Call
+      x-internal: false
+  /calls/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Delete an Existing Call by ID
+      tags:
+      - Call
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/callResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Call by ID
+      tags:
+      - Call
+      x-internal: false
+components:
+  schemas:
+    call:
+      description: 'A log of an inbound or outbound call made with a prospect.
+
+        '
+      properties:
+        answeredAt:
+          description: '
+
+
+            The date and time the call was answered.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        completedAt:
+          description: '
+
+
+            The date and time the call was completed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call record was created in database. This does not necessarily indicate the time the call was made. If you need the time the call was made, please use either dialedAt or answeredAt.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dialedAt:
+          description: '
+
+
+            The date and time the call was dialed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        direction:
+          description: '
+
+
+            The call direction from the user’s point of view; must be either "inbound" or "outbound".'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalVendor:
+          description: '
+
+
+            The voice provider of the call. Can be blank.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        from:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The phone number used to place the call.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        note:
+          description: '
+
+
+            A custom note associated with this call.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        outcome:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The call’s outcome; must be either "Answered" or "Not Answered".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        recordingUrl:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The URL of the call''s audio recording. This field only accepts HTTP and HTTPS values.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        returnedAt:
+          description: '
+
+
+            The date and time the call was returned.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sequenceAction:
+          description: '
+
+
+            The action to take on the associated sequence; must be either "Advance", "Finish", "Finish - No Reply", or "Finish - Replied".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        shouldRecordCall:
+          description: '
+
+
+            Indicated whether or not the call is recorded.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The call’s current state.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the call’s state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        tags:
+          description: '
+
+
+            A list of tag values associated with the call (e.g. ["Interested", "Meeting Booked"]).'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        to:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The phone number that the call was placed to.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        uid:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The Outreach voice trace id.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        userCallType:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The type of call placed within the Outreach client; must be either "bridge" or "voip".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        vendorCallId:
+          description: '
+
+
+            The call-id as recorded by the voice provider. Can be blank.'
+          maxLength: 63
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        voicemailRecordingUrl:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The URL of the call’s voicemail audio recording.'
+          maxLength: 1024
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    callResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/call'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    callRelationships:
+      properties:
+        associatedId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated object for this call, either an account or opportunity. Relationship associatedId cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        batches:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batches associated with the call.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        callDisposition:
+          description: The associated call disposition. You can use only the attribute id to filter calls by callDisposition (e.g. filter[callDisposition][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - callDisposition
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        callPurpose:
+          description: The associated call purpose. You can use only the attribute id to filter calls by callPurpose (e.g. filter[callPurpose][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - callPurpose
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        kaiaCrmRecording:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The kaiaCrmRecording associated with the calendar event.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - kaiaCrmRecording
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: The associated opportunity. You can use only the attribute id to filter calls by opportunity (e.g. filter[opportunity][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        outboundVoicemail:
+          description: The outbound voicemail message played to the callee's voicemail system.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - outboundVoicemail
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        phone:
+          description: The associated phone of the user.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - phone
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        phoneNumber:
+          description: The associated phone number of the prospect. You can use only the attribute id to filter calls by phoneNumber (e.g. filter[phoneNumber][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - phoneNumber
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: The associated prospect. You can use only the attribute id to filter calls by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: The associated sequence. You can use only the attribute id to filter calls by sequence (e.g. filter[sequence][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceState:
+          description: The associated sequence state. You can use only the attribute id to filter calls by sequenceState (e.g. filter[sequenceState][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceState
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStep:
+          description: The associated sequence step. You can use only the attribute id to filter calls by sequenceStep (e.g. filter[sequenceStep][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        task:
+          description: The associated task. You can use only the attribute id to filter calls by task (e.g. filter[task][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - task
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: The associated user. You can use only the attribute id to filter calls by user (e.g. filter[user][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

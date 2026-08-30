@@ -1,0 +1,848 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Sequence State API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceState" />
+
+
+    ## Sequence State Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStateRelationships" />
+
+
+    ## Sequence State Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Sequence State Actions
+
+
+    '
+  name: Sequence State
+  x-internal: false
+paths:
+  /sequenceStates:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/sequenceStateResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Sequence States
+      tags:
+      - Sequence State
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/sequenceState'
+                    relationships:
+                      $ref: '#/components/schemas/sequenceStateRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStateResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Create a New Sequence State
+      tags:
+      - Sequence State
+      x-internal: false
+  /sequenceStates/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Delete an Existing Sequence State by ID
+      tags:
+      - Sequence State
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStateResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Sequence State by ID
+      tags:
+      - Sequence State
+      x-internal: false
+  /sequenceStates/{id}/actions/finish:
+    post:
+      description: "### Member Action \n\nFinishes an active sequence state."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStateResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Finish
+      tags:
+      - Sequence State
+      x-internal: false
+  /sequenceStates/{id}/actions/pause:
+    post:
+      description: "### Member Action \n\nPauses an active sequence state."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStateResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Pause
+      tags:
+      - Sequence State
+      x-internal: false
+  /sequenceStates/{id}/actions/resume:
+    post:
+      description: "### Member Action \n\nResumes a paused sequence state."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/sequenceStateResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Resume
+      tags:
+      - Sequence State
+      x-internal: false
+components:
+  schemas:
+    sequenceStateRelationships:
+      properties:
+        account:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account associated with the prospect the sequence state is targeting. You can use only the attribute id to filter sequenceStates by account (e.g. filter[account][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        activeStepMailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Any undelivered mailings associated with the current sequence step. Relationship activeStepMailings cannot be used as a filter.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - mailing
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        activeStepTasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Any incomplete tasks associated with the current sequence step. Relationship activeStepTasks cannot be used as a filter.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - task
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        batchItemCreator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batch item associated with this creation, if one exists.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - batchItem
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calls associated with the sequence state. You can use only the attribute id to filter sequenceStates by calls (e.g. filter[calls][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the sequence state. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailbox:
+          description: The mailbox to use for mailing steps. You can use attributes id and email to filter sequenceStates by mailbox (e.g. filter[mailbox][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - mailbox
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The mailings associated with the sequence state. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated opportunity. You can use only the attribute id to filter sequenceStates by opportunity (e.g. filter[opportunity][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: The primary prospect this sequence state is targeting. You can use attributes id and emails to filter sequenceStates by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: The sequence this prospect is engaged in. You can use any filterable attribute of sequence.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStateRecipients:
+          description: Additional recipients associated with this sequence state.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceStateRecipient
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStep:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The current sequence step the prospect is in. You can use any filterable attribute of sequenceStep.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The tasks associated with the sequence state. You can use attributes id and dueAt to filter sequenceStates by tasks (e.g. filter[tasks][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The user managing this sequence state.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    sequenceState:
+      description: 'A descriptor of a currently sequenced prospect, which includes relationships to its sequence, prospect and user.
+
+        '
+      properties:
+        activeAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the sequence state was last active.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bounceCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of bounced mailings during this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        callCompletedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state last had a call completed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        clickCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of clicked mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        deliverCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of delivered mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        errorReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The reason for the most recent error.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        failureCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of failed mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        negativeReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of negative reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        neutralReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of neutral reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        openCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of opened mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        optOutCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of opted out mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        pauseReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The reason for the most recent pause.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        positiveReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of positive reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        repliedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state last had a mailing reply.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        replyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of replied mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        scheduleCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of scheduled mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the sequence state.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state’s state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    sequenceStateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceState'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStateRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

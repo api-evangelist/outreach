@@ -1,0 +1,1619 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Task API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/task" />
+
+
+    ## Task Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/taskRelationships" />
+
+
+    ## Task Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Task has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Task Actions
+
+
+    '
+  name: Task
+  x-internal: false
+paths:
+  /tasks:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/taskResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Tasks
+      tags:
+      - Task
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/task'
+                    relationships:
+                      $ref: '#/components/schemas/taskRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Create a New Task
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Delete an Existing Task by ID
+      tags:
+      - Task
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Task by ID
+      tags:
+      - Task
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/task'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/taskRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/task'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/taskRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Update a Task
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/advance:
+    post:
+      description: "### Member Action \n\nAdvances the sequence state associated with the task to the next step in the sequence. Note that only tasks with task_type of 'sequence_step_call', 'sequence_step_email', 'sequence_step_linkedin_interact_with_post', 'sequence_step_linkedin_other', 'sequence_step_linkedin_send_connection_request', 'sequence_step_linkedin_send_message', 'sequence_step_linkedin_view_profile', 'sequence_step_sms' or 'sequence_step_task' can be advanced."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Advance
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/deliver:
+    post:
+      description: "### Member Action \n\nSchedules the mailing associated with the task for delivery, if possible."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Deliver
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/logMeetInPerson:
+    post:
+      description: "### Member Action \n\nMarks the meet in-person task as complete with specified task disposition and purpose."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            completionNote:
+              description: A note to attach to the associated prospect, if there is one.
+            taskDispositionId:
+              description: Id of the task disposition
+            taskPurposeId:
+              description: Id of the task purpose, if there is one.
+          required:
+          - taskDispositionId
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Log Meet In Person
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/markComplete:
+    post:
+      description: "### Member Action \n\nMarks the task as complete."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            completionAction:
+              description: 'For sequence step tasks, this specifies how to finish the sequence state. Possible values are: ''finish_no_reply'' to finish the sequence, ''finish_replied'' to set the sequence as replied, and anything else (including leaving it blank) will advance the sequence state.'
+            completionNote:
+              description: A note to attach to the associated prospect, if there is one.
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Mark Complete
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/reassignOwner:
+    post:
+      description: "### Member Action \n\nReassigns the owner of a task"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            ownerId:
+              description: The id of the new owner of the task
+          required:
+          - ownerId
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Reassign Owner
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/reschedule:
+    post:
+      description: "### Member Action \n\nReschedules a task by setting a new task due time."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            dueAt:
+              description: The new time for the task to be due.
+          required:
+          - dueAt
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Reschedule
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/snooze:
+    post:
+      description: "### Member Action \n\nSets the 'dueAt' value to be a day later than either now or the existing 'dueAt' value, whichever is later."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            dueAt:
+              description: The new time for the task to be due.
+            markAsUrgent:
+              description: Whether to mark the task as urgent or not.
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Snooze
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/updateNote:
+    post:
+      description: "### Member Action \n\nUpdates note of a task"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            note:
+              description: The note to set on the task.
+          required:
+          - note
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Update Note
+      tags:
+      - Task
+      x-internal: false
+  /tasks/{id}/actions/updateOpportunityAssociation:
+    post:
+      description: "### Member Action \n\nUpdates opportunity association of a task"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - explode: true
+        in: query
+        name: actionParams
+        schema:
+          properties:
+            opportunityAssociation:
+              description: The opportunity to associate with the task.
+          required:
+          - opportunityAssociation
+        style: deepObject
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/taskResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Update Opportunity Association
+      tags:
+      - Task
+      x-internal: false
+components:
+  schemas:
+    taskResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/task'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/taskRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    taskRelationships:
+      properties:
+        account:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated account. You can use only the attribute id to filter tasks by account (e.g. filter[account][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        call:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated call, if a call task. You can use only the attribute id to filter tasks by call (e.g. filter[call][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - call
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated calls, if a call task. You can use only the attribute id to filter tasks by calls (e.g. filter[calls][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        completer:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The completer of this task. You can use only the attribute id to filter tasks by completer (e.g. filter[completer][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of this task. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  - stage
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        defaultPluginMapping:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - pluginMapping
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailing:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated mailing, if a mailing task. You can use only the attribute id to filter tasks by mailing (e.g. filter[mailing][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - mailing
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated mailings, if a mailing task. You can use only the attribute id to filter tasks by mailings (e.g. filter[mailings][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated opportunity. You can use only the attribute id to filter tasks by opportunity (e.g. filter[opportunity][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of this task. You can use attributes id, email and firstName to filter tasks by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated prospect. You can use attributes id, byPersonaId, byStageId, createdAt, firstName, tags, title and updatedAt to filter tasks by prospect (e.g. filter[prospect][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectAccount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account of the associated prospect.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectContacts:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The contacts of the associated prospect.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - emailAddress
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectOwner:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The owner of the associated prospect.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectPhoneNumbers:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The phone numbers of the associated prospect.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - phoneNumber
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospectStage:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The stage of the associated prospect.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence. You can use attributes id and tags to filter tasks by sequence (e.g. filter[sequence][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceSequenceSteps:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence steps of the associated sequence. You can use only the attribute id to filter tasks by sequenceSequenceSteps (e.g. filter[sequenceSequenceSteps][id]=X).'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceStep
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceState:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence state. You can use only the attribute id to filter tasks by sequenceState (e.g. filter[sequenceState][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceState
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStateSequenceStep:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence step of the associated sequence state.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStateSequenceStepOverrides:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence step overrides of the associated sequence state.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceStepOverride
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStateStartingTemplate:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The starting template of the associated sequence state.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - template
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStep:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence step. You can use attributes id and stepType to filter tasks by sequenceStep (e.g. filter[sequenceStep][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStepOverrideTemplates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The templates of the associated sequence step overrides.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - template
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceTemplate:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence template. You can use only the attribute id to filter tasks by sequenceTemplate (e.g. filter[sequenceTemplate][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceTemplate
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceTemplateTemplate:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The template of the associated sequence template.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - template
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        subject:
+          description: The task's subject, either an account or prospect. Relationship subject cannot be used as a filter.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  - opportunity
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        taskDisposition:
+          description: The associated task disposition.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskDisposition
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        taskPriority:
+          description: The associated task priority. You can use attributes id and name to filter tasks by taskPriority (e.g. filter[taskPriority][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPriority
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        taskPurpose:
+          description: The associated task purpose.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskPurpose
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        taskTheme:
+          description: The associated task theme.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - taskTheme
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        team:
+          description: The task's team, will tell you this task was assigned to which team.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - team
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        template:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated template. You can use only the attribute id to filter tasks by template (e.g. filter[template][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - template
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    task:
+      description: 'An item that requires action to complete.
+
+        '
+      properties:
+        action:
+          description: '
+
+
+            The action type of the task. Can be ''action_item'', ''call'', ''email'', or ''in_person''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        autoskipAt:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The optional date and time when the task will automatically be skipped. Tasks with an empty autoskip_at will never be autoskipped.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        compiledSequenceTemplateHtml:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The compiled template HTML of incomplete SMS or LinkedIn tasks associated with a sequence.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        completed:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A boolean value whether the task has been completed.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        completedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the task was completed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the task was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dueAt:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the task is due.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        note:
+          description: '
+
+
+            An optional note for the task.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        opportunityAssociation:
+          description: '
+
+
+            The optional opportunity rule associated with the task. Can be ''recent_created'', ''recent_updated'', ''noop''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scheduledAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the pending task is scheduled for.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the task. Can be ''pending'', ''incomplete'', or ''complete''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        taskType:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The type of task. Can be ''follow_up'', ''manual'', ''no_reply'', ''sequence_open'', ''sequence_click'', ''sequence_step_call'', ''sequence_step_email'', ''sequence_step_linkedin_interact_with_post'', ''sequence_step_linkedin_other'', ''sequence_step_linkedin_send_connection_request'', ''sequence_step_linkedin_send_message'', ''sequence_step_linkedin_view_profile'', ''sequence_step_sms'', ''sequence_step_task'', or ''touch''. Tasks created through the API will automatically be ''manual'' tasks.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the task was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

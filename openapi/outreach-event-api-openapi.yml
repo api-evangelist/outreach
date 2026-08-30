@@ -1,0 +1,483 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Event API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/event" />
+
+
+    ## Event Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/eventRelationships" />
+
+
+    ## Event Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  dataConnections | The set of connections a given Event has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Event Actions
+
+
+    '
+  name: Event
+  x-internal: false
+paths:
+  /events:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/eventResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Events
+      tags:
+      - Event
+      x-internal: false
+  /events/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/eventResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get an Event by ID
+      tags:
+      - Event
+      x-internal: false
+components:
+  schemas:
+    eventRelationships:
+      properties:
+        account:
+          description: The account associated with this event. You can use only the attribute id to filter events by account (e.g. filter[account][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        call:
+          description: The call associated with this event. You can use only the attribute id to filter events by call (e.g. filter[call][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - call
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailing:
+          description: The mailing associated with this event. You can use only the attribute id to filter events by mailing (e.g. filter[mailing][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - mailing
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        note:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The note associated with this event.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - note
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: The opportunity associated with this event. You can use only the attribute id to filter events by opportunity (e.g. filter[opportunity][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        plugin:
+          description: The plugin associated with this event.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - plugin
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: The prospect associated with this event. You can use only the attribute id to filter events by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequence:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence associated with this event.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequence
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStep:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence step associated with this event.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - sequenceStep
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        task:
+          description: The task associated with this event. You can use only the attribute id to filter events by task (e.g. filter[task][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - task
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: The user associated with this event. You can use only the attribute id to filter events by user (e.g. filter[user][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    event:
+      description: 'Application events, capturing details around the initiator, recipient, etc.
+
+        '
+      properties:
+        body:
+          description: '
+
+
+            The event body (for external events only)'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the event was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        eventAt:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the event occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalUrl:
+          description: '
+
+
+            The external URL associated with this event (for external events only)'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The name of the event that took place (e.g. "mailbox_created").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        payload:
+          description: '
+
+
+            The transmitted data for the event (cannot be updated once an event has been created)'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        requestCity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The city where the request that created the event was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestDevice:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The type of device on which the request that created the event was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestHost:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Name of the host from which the request was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestProxied:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A boolean value whether the request was proxied. For example, when true the request city refers to the location of the email server and not the prospect.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        requestRegion:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Name of the region from which the request was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    eventResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/event'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/eventRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

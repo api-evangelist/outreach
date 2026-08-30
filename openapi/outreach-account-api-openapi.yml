@@ -1,0 +1,2325 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Account API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/account" />
+
+
+    ## Account Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/accountRelationships" />
+
+
+    ## Account Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+    |  dataConnections | The set of connections a given Account has to external sources. | provideDataConnections |
+
+
+
+    ## ⌵ Account Actions
+
+
+    '
+  name: Account
+  x-internal: false
+paths:
+  /accounts:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/accountResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get a Collection of Accounts
+      tags:
+      - Account
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/account'
+                    relationships:
+                      $ref: '#/components/schemas/accountRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/accountResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Create a New Account
+      tags:
+      - Account
+      x-internal: false
+  /accounts/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Delete an Existing Account by ID
+      tags:
+      - Account
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/accountResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Get an Account by ID
+      tags:
+      - Account
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/account'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/accountRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/account'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/accountRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      security:
+      - bearerAuth: []
+        s2sAuthToken: []
+      summary: Update an Account
+      tags:
+      - Account
+      x-internal: false
+components:
+  schemas:
+    accountRelationships:
+      properties:
+        assignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedUsers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        batches:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batches associated with the account.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the account. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        defaultPluginMapping:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The default plugin mapping associated with the account. If no plugin mapping is enabled, it will return the first plugin mapping associated with the account.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - pluginMapping
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The account favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the account. You can use only the attribute id to filter accounts by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        primaryRecordTeam:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - team
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospects:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account''s associated prospects. Relationship prospects cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        purchases:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recordTeamMembers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recordTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated tasks. Relationship tasks cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the account. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    account:
+      description: 'A descriptor of a named company used to categorize prospects within an account-based sales approach.
+
+        '
+      properties:
+        annualRevenueRange:
+          description: '
+
+
+            Define the annual revenue range'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        buyerIntentScore:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A custom score given to measure the quality of the account.'
+          format: float
+          type:
+          - number
+          - 'null'
+          x-internal: false
+        companyType:
+          description: '
+
+
+            A description of the company’s type (e.g. "Public Company").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the account was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom1:
+          description: '
+
+
+            The value of the account’s first custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom2:
+          description: '
+
+
+            The value of the account’s second custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom3:
+          description: '
+
+
+            The value of the account’s third custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom4:
+          description: '
+
+
+            The value of the account’s fourth custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom5:
+          description: '
+
+
+            The value of the account’s fifth custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom6:
+          description: '
+
+
+            The value of the account’s sixth custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom7:
+          description: '
+
+
+            The value of the account’s seventh custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom8:
+          description: '
+
+
+            The value of the account’s eight custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom9:
+          description: '
+
+
+            The value of the account’s ninth custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom10:
+          description: '
+
+
+            The value of the account’s 10th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom11:
+          description: '
+
+
+            The value of the account’s 11th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom12:
+          description: '
+
+
+            The value of the account’s 12th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom13:
+          description: '
+
+
+            The value of the account’s 13th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom14:
+          description: '
+
+
+            The value of the account’s 14th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom15:
+          description: '
+
+
+            The value of the account’s 15th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom16:
+          description: '
+
+
+            The value of the account’s 16th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom17:
+          description: '
+
+
+            The value of the account’s 17th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom18:
+          description: '
+
+
+            The value of the account’s 18th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom19:
+          description: '
+
+
+            The value of the account’s 19th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom20:
+          description: '
+
+
+            The value of the account’s 20th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom21:
+          description: '
+
+
+            The value of the account’s 21st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom22:
+          description: '
+
+
+            The value of the account’s 22nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom23:
+          description: '
+
+
+            The value of the account’s 23rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom24:
+          description: '
+
+
+            The value of the account’s 24th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom25:
+          description: '
+
+
+            The value of the account’s 25th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom26:
+          description: '
+
+
+            The value of the account’s 26th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom27:
+          description: '
+
+
+            The value of the account’s 27th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom28:
+          description: '
+
+
+            The value of the account’s 28th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom29:
+          description: '
+
+
+            The value of the account’s 29th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom30:
+          description: '
+
+
+            The value of the account’s 30th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom31:
+          description: '
+
+
+            The value of the account’s 31st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom32:
+          description: '
+
+
+            The value of the account’s 32nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom33:
+          description: '
+
+
+            The value of the account’s 33rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom34:
+          description: '
+
+
+            The value of the account’s 34th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom35:
+          description: '
+
+
+            The value of the account’s 35th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom36:
+          description: '
+
+
+            The value of the account''s 36th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom37:
+          description: '
+
+
+            The value of the account''s 37th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom38:
+          description: '
+
+
+            The value of the account''s 38th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom39:
+          description: '
+
+
+            The value of the account''s 39th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom40:
+          description: '
+
+
+            The value of the account''s 40th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom41:
+          description: '
+
+
+            The value of the account''s 41st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom42:
+          description: '
+
+
+            The value of the account''s 42nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom43:
+          description: '
+
+
+            The value of the account''s 43rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom44:
+          description: '
+
+
+            The value of the account''s 44th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom45:
+          description: '
+
+
+            The value of the account''s 45th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom46:
+          description: '
+
+
+            The value of the account''s 46th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom47:
+          description: '
+
+
+            The value of the account''s 47th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom48:
+          description: '
+
+
+            The value of the account''s 48th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom49:
+          description: '
+
+
+            The value of the account''s 49th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom50:
+          description: '
+
+
+            The value of the account''s 50th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom51:
+          description: '
+
+
+            The value of the account''s 51st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom52:
+          description: '
+
+
+            The value of the account''s 52nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom53:
+          description: '
+
+
+            The value of the account''s 53rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom54:
+          description: '
+
+
+            The value of the account''s 54th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom55:
+          description: '
+
+
+            The value of the account''s 55th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom56:
+          description: '
+
+
+            The value of the account''s 56th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom57:
+          description: '
+
+
+            The value of the account''s 57th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom58:
+          description: '
+
+
+            The value of the account''s 58th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom59:
+          description: '
+
+
+            The value of the account''s 59th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom60:
+          description: '
+
+
+            The value of the account''s 60th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom61:
+          description: '
+
+
+            The value of the account''s 61st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom62:
+          description: '
+
+
+            The value of the account''s 62nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom63:
+          description: '
+
+
+            The value of the account''s 63rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom64:
+          description: '
+
+
+            The value of the account''s 64th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom65:
+          description: '
+
+
+            The value of the account''s 65th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom66:
+          description: '
+
+
+            The value of the account''s 66th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom67:
+          description: '
+
+
+            The value of the account''s 67th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom68:
+          description: '
+
+
+            The value of the account''s 68th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom69:
+          description: '
+
+
+            The value of the account''s 69th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom70:
+          description: '
+
+
+            The value of the account''s 70th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom71:
+          description: '
+
+
+            The value of the account''s 71st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom72:
+          description: '
+
+
+            The value of the account''s 72nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom73:
+          description: '
+
+
+            The value of the account''s 73rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom74:
+          description: '
+
+
+            The value of the account''s 74th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom75:
+          description: '
+
+
+            The value of the account''s 75th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom76:
+          description: '
+
+
+            The value of the account''s 76th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom77:
+          description: '
+
+
+            The value of the account''s 77th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom78:
+          description: '
+
+
+            The value of the account''s 78th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom79:
+          description: '
+
+
+            The value of the account''s 79th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom80:
+          description: '
+
+
+            The value of the account''s 80th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom81:
+          description: '
+
+
+            The value of the account''s 81st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom82:
+          description: '
+
+
+            The value of the account''s 82nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom83:
+          description: '
+
+
+            The value of the account''s 83rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom84:
+          description: '
+
+
+            The value of the account''s 84th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom85:
+          description: '
+
+
+            The value of the account''s 85th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom86:
+          description: '
+
+
+            The value of the account''s 86th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom87:
+          description: '
+
+
+            The value of the account''s 87th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom88:
+          description: '
+
+
+            The value of the account''s 88th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom89:
+          description: '
+
+
+            The value of the account''s 89th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom90:
+          description: '
+
+
+            The value of the account''s 90th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom91:
+          description: '
+
+
+            The value of the account''s 91st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom92:
+          description: '
+
+
+            The value of the account''s 92nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom93:
+          description: '
+
+
+            The value of the account''s 93rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom94:
+          description: '
+
+
+            The value of the account''s 94th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom95:
+          description: '
+
+
+            The value of the account''s 95th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom96:
+          description: '
+
+
+            The value of the account''s 96th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom97:
+          description: '
+
+
+            The value of the account''s 97th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom98:
+          description: '
+
+
+            The value of the account''s 98th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom99:
+          description: '
+
+
+            The value of the account''s 99th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom100:
+          description: '
+
+
+            The value of the account’s 100th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom101:
+          description: '
+
+
+            The value of the account’s 101st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom102:
+          description: '
+
+
+            The value of the account’s 102nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom103:
+          description: '
+
+
+            The value of the account’s 103rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom104:
+          description: '
+
+
+            The value of the account’s 104th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom105:
+          description: '
+
+
+            The value of the account’s 105th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom106:
+          description: '
+
+
+            The value of the account’s 106th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom107:
+          description: '
+
+
+            The value of the account’s 107th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom108:
+          description: '
+
+
+            The value of the account’s 108th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom109:
+          description: '
+
+
+            The value of the account’s 109th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom110:
+          description: '
+
+
+            The value of the account’s 110th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom111:
+          description: '
+
+
+            The value of the account’s 111th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom112:
+          description: '
+
+
+            The value of the account’s 112th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom113:
+          description: '
+
+
+            The value of the account’s 113th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom114:
+          description: '
+
+
+            The value of the account’s 114th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom115:
+          description: '
+
+
+            The value of the account’s 115th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom116:
+          description: '
+
+
+            The value of the account’s 116th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom117:
+          description: '
+
+
+            The value of the account’s 117th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom118:
+          description: '
+
+
+            The value of the account’s 118th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom119:
+          description: '
+
+
+            The value of the account’s 119th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom120:
+          description: '
+
+
+            The value of the account’s 120th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom121:
+          description: '
+
+
+            The value of the account’s 121st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom122:
+          description: '
+
+
+            The value of the account’s 122nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom123:
+          description: '
+
+
+            The value of the account’s 123rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom124:
+          description: '
+
+
+            The value of the account’s 124th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom125:
+          description: '
+
+
+            The value of the account’s 125th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom126:
+          description: '
+
+
+            The value of the account’s 126th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom127:
+          description: '
+
+
+            The value of the account’s 127th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom128:
+          description: '
+
+
+            The value of the account’s 128th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom129:
+          description: '
+
+
+            The value of the account’s 129th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom130:
+          description: '
+
+
+            The value of the account’s 130th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom131:
+          description: '
+
+
+            The value of the account’s 131st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom132:
+          description: '
+
+
+            The value of the account’s 132nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom133:
+          description: '
+
+
+            The value of the account’s 133rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom134:
+          description: '
+
+
+            The value of the account’s 134th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom135:
+          description: '
+
+
+            The value of the account’s 135th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom136:
+          description: '
+
+
+            The value of the account’s 136th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom137:
+          description: '
+
+
+            The value of the account’s 137th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom138:
+          description: '
+
+
+            The value of the account’s 138th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom139:
+          description: '
+
+
+            The value of the account’s 139th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom140:
+          description: '
+
+
+            The value of the account’s 140th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom141:
+          description: '
+
+
+            The value of the account’s 141st custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom142:
+          description: '
+
+
+            The value of the account’s 142nd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom143:
+          description: '
+
+
+            The value of the account’s 143rd custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom144:
+          description: '
+
+
+            The value of the account’s 144th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom145:
+          description: '
+
+
+            The value of the account’s 145th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom146:
+          description: '
+
+
+            The value of the account’s 146th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom147:
+          description: '
+
+
+            The value of the account’s 147th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom148:
+          description: '
+
+
+            The value of the account’s 148th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom149:
+          description: '
+
+
+            The value of the account’s 149th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        custom150:
+          description: '
+
+
+            The value of the account’s 150th custom field.'
+          maxLength: 32000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        customId:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A custom ID for the account, often referencing an ID in an external system.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        description:
+          description: '
+
+
+            A custom description of the account.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        domain:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The company’s website domain (e.g. "`www.acme.com`").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalSource:
+          description: '
+
+
+            The source of the resource’s creation (e.g. "outreach-api").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        followers:
+          description: '
+
+
+            The number of followers the company has listed on social media.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        foundedAt:
+          description: '
+
+
+            The founding date of the company.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        industry:
+          description: '
+
+
+            A description of the company’s industry (e.g. "Manufacturing").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        linkedInEmployees:
+          description: '
+
+
+            The number of employees listed on the company’s LinkedIn URL.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        linkedInUrl:
+          description: '
+
+
+            The company’s LinkedIn URL.'
+          maxLength: 1000
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        locality:
+          description: '
+
+
+            The company’s primary geographic region (e.g. "Eastern USA").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        naicsCodes:
+          description: '
+
+
+            Define codes used to classify businesses by industry'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the company (e.g. "Acme Corporation").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        named:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            A boolean value determining whether this is a "named" account or not. Only named accounts will show up on the collection index.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        naturalName:
+          description: '
+
+
+            The natural name of the company (e.g. "Acme").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        numberOfEmployees:
+          description: '
+
+
+            The number of employees working at the company.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        sharingTeamId:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The ID of the sharing team associated with this object. Access is currently in beta.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sicCodes:
+          description: '
+
+
+            Define codes that categorize business activities'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        tags:
+          description: '
+
+
+            A list of tag values associated with the account (e.g. ["Enterprise", "Tier 1"]).'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        tickerSymbol:
+          description: '
+
+
+            Define the ticker symbol'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        touchedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the account was last touched.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the account was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        websiteUrl:
+          description: '
+
+
+            The company’s website URL (e.g. "`https://www.acme.com/contact`").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    accountResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/account'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/accountRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

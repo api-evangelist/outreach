@@ -1,0 +1,399 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Audit Log API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/auditLog" />
+
+
+    ## Audit Log Custom Filters
+
+
+    | **NAME**| **VALUE TYPE** | **VALUE KIND** | **VALUE LENGTH** |
+
+    | --- | --- | --- | --- |
+
+    | agentEmail | string| single| N/A|
+
+    | agentIpAddress | string| single| N/A|
+
+
+
+    ## ⌵ Audit Log Actions
+
+
+    '
+  name: Audit Log
+  x-internal: false
+paths:
+  /auditLogs:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/auditLogResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Audit Logs
+      tags:
+      - Audit Log
+      x-internal: false
+components:
+  schemas:
+    auditLogRelationships:
+      type: object
+    auditLogResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/auditLog'
+        id:
+          description: As a UUID
+          type: string
+        relationships:
+          $ref: '#/components/schemas/auditLogRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    auditLog:
+      description: '
+
+        Audit log events are usually kept for 90 days.
+
+
+        Based on your Outreach usage, configuration and licence type, you might encounter the following event types:
+
+
+        | eventName | action |
+
+        | --- | --- |
+
+        | content_card | create, delete, update |
+
+        | csv_downloaded | download |
+
+        | custom_topic | create, delete, update |
+
+        | docdrive_limits | update |
+
+        | export_created | create |
+
+        | export_downloaded | download |
+
+        | gearbox_general_org | create, update |
+
+        | gearbox_voice_org_settings | create, update |
+
+        | general_org_settings | create, update |
+
+        | governance_profile_created | create |
+
+        | governance_profile_destroyed | delete |
+
+        | governance_profile_updated | update |
+
+        | job_role_created | create |
+
+        | job_role_updated | update |
+
+        | kaia_download_link | create, read |
+
+        | kaia_organization_settings | create, update |
+
+        | kaia_playlist | create, delete, update |
+
+        | kaia_playlist_recording | create, delete, update |
+
+        | kaia_provider_settings | create, delete |
+
+        | kaia_recording_event | create, delete, update |
+
+        | kaia_scorecard | create, delete, update |
+
+        | kaia_scorecard_question | create, delete, update |
+
+        | kaia_scorecard_score | create, delete, update |
+
+        | kaia_sharable_link | create, update |
+
+        | kaia_shareable_link | create, read |
+
+        | license | create, delete, update |
+
+        | license_active_version | create, update |
+
+        | license_assignment | create, delete |
+
+        | login |  |
+
+        | logout |  |
+
+        | mailbox_authentication_error | read |
+
+        | org_updated | update |
+
+        | permission_updated | update |
+
+        | plugin_created | create |
+
+        | plugin_destroyed | delete |
+
+        | plugin_field_mapping_created | create |
+
+        | plugin_field_mapping_destroyed | delete |
+
+        | plugin_field_mapping_updated | update |
+
+        | plugin_type_mapping_created | create |
+
+        | plugin_type_mapping_destroyed | delete |
+
+        | plugin_type_mapping_updated | update |
+
+        | plugin_updated | update |
+
+        | prospecting_agent | create, delete, update |
+
+        | prospecting_agent_account_identifier | create, delete |
+
+        | prospecting_agent_account_signal_filter | create, delete |
+
+        | prospecting_agent_engage_existing_prospects | create, delete, update |
+
+        | prospecting_agent_engage_new_prospects | create, delete, update |
+
+        | prospecting_agent_prospect_identifier | create, delete, update |
+
+        | prospecting_agent_prospect_owner_assignment | create, delete |
+
+        | record_actor_assignment_created | create |
+
+        | record_actor_assignment_destroyed | delete |
+
+        | record_actor_assignment_updated | update |
+
+        | research_agent | create, delete, update |
+
+        | retranscribe | create |
+
+        | rsms_secret | create, delete, read, update |
+
+        | ruleset_created | create |
+
+        | ruleset_destroyed | delete |
+
+        | ruleset_updated | update |
+
+        | schedule_block_created | create |
+
+        | schedule_block_destroyed | delete |
+
+        | schedule_block_updated | update |
+
+        | schedule_created | create |
+
+        | schedule_destroyed | delete |
+
+        | schedule_updated | update |
+
+        | sequence_created | create |
+
+        | sequence_destroyed | delete |
+
+        | sequence_step_created | create |
+
+        | sequence_step_destroyed | delete |
+
+        | sequence_step_updated | update |
+
+        | sequence_template_created | create |
+
+        | sequence_template_destroyed | delete |
+
+        | sequence_template_updated | update |
+
+        | sequence_updated | update |
+
+        | team_created | create |
+
+        | team_destroyed | delete |
+
+        | team_membership_created | create |
+
+        | team_membership_destroyed | delete |
+
+        | team_membership_updated | update |
+
+        | team_record_created | create |
+
+        | team_record_destroyed | delete |
+
+        | team_updated | update |
+
+        | trigger_action_created | create |
+
+        | trigger_action_destroyed | delete |
+
+        | trigger_action_updated | update |
+
+        | trigger_created | create |
+
+        | trigger_destroyed | delete |
+
+        | trigger_updated | update |
+
+        | twiliowebhook_address | create, delete |
+
+        | twiliowebhook_phone | create, delete, update |
+
+        | user_created | create |
+
+        | user_updated | update |
+
+        | voice_call_disposition | create, update |
+
+        | voice_call_purpose | create, update |
+
+        | voice_calling_policy_override | create, update |
+
+        '
+      properties:
+        action:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The action taken.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        additionalInfo:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Additional information related to the action.'
+          items:
+            type: object
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        agent:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Details about the agent involved in the action.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        changes:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The list of changes made.'
+          items:
+            type: object
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        eventName:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            Audit event name.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        globalId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The global UUID.'
+          maxLength: 36
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        orgId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The orgId UUID.'
+          maxLength: 36
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The UUID of the request. RequestId groups dependent events.'
+          maxLength: 36
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        result:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The result of the action: `completed`. `pending` or `failed`.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        timestamp:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The timestamp of the action.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -1,0 +1,309 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Compliance Request API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/complianceRequest" />
+
+
+    ## Compliance Request Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/complianceRequestRelationships" />
+
+
+    ## ⌵ Compliance Request Actions
+
+
+    '
+  name: Compliance Request
+  x-internal: false
+paths:
+  /complianceRequests:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/complianceRequestResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Compliance Requests
+      tags:
+      - Compliance Request
+      x-internal: false
+    post:
+      description: This is a non-standard case please read [this section](/api/common-patterns/#create-compliance-requests)
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      properties:
+                        object_type:
+                          type: string
+                        request_object_email:
+                          type: string
+                        request_type:
+                          type: string
+                        requester_email:
+                          type: string
+                      type: object
+                    type:
+                      type: string
+                  type: object
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      batch_compliance_request_id:
+                        type: string
+                    type: object
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Compliance Request
+      tags:
+      - Compliance Request
+      x-internal: false
+  /complianceRequests/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/complianceRequestResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Compliance Request by ID
+      tags:
+      - Compliance Request
+      x-internal: false
+components:
+  schemas:
+    complianceRequestResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/complianceRequest'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/complianceRequestRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    complianceRequest:
+      description: 'A regulatory request to delete or export an individual''s PII.
+
+        '
+      properties:
+        batchComplianceRequestUuid:
+          description: '
+
+
+            The UUID of the batch the compliance request belongs to.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the compliance request was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        objectType:
+          description: '
+
+
+            The type of record to process, can be ''Prospect'' or ''Recipient'' for e-mail addresses unassociated with a prospect.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        pii:
+          description: '
+
+
+            A JSON object of personal information required for processing the compliance request.'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        requestObjectId:
+          description: '
+
+
+            The identifier for the record processed, for Prospects this is the Prospect ID, for Recipients this is an e-mail address.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestType:
+          description: '
+
+
+            The type of compliance request (only ''Delete'' is supported at this time).'
+          maxLength: 32
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requesterId:
+          description: '
+
+
+            The ID of the Outreach user who submitted the compliance request.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the compliance request, can be ''pending'', ''running'', ''failed'', or ''done''. The states on the higher level abstraction, the batch compliance request, do not map 1:1 to these states. The only states that the batch compliance request will report are either ''pending'' or ''done''.'
+          maxLength: 32
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time at which the compliance request was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        uuid:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The UUID of the compliance request.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    complianceRequestRelationships:
+      properties:
+        requester:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The Outreach user who submitted the compliance request. Relationship requester cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

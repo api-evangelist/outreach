@@ -1,0 +1,1014 @@
+openapi: 3.2.0
+info:
+  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  title: Outreach REST API Reference Mailbox API
+  version: ''
+servers:
+- url: https://api.outreach.io/api/v2
+security:
+- bearerAuth: []
+tags:
+- description: '<SchemaDefinition schemaRef="#/components/schemas/mailbox" />
+
+
+    ## Mailbox Relationships
+
+
+    <SchemaDefinition schemaRef="#/components/schemas/mailboxRelationships" />
+
+
+    ## Mailbox Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+
+
+
+    ## ⌵ Mailbox Actions
+
+
+    '
+  name: Mailbox
+  x-internal: false
+paths:
+  /mailboxes:
+    get:
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/mailboxResponse'
+                    type: array
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Get a Collection of Mailboxes
+      tags:
+      - Mailbox
+      x-internal: false
+    post:
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/mailbox'
+                    relationships:
+                      $ref: '#/components/schemas/mailboxRelationships'
+                    type:
+                      type: string
+              type: object
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailboxResponse'
+          description: Created
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Create a New Mailbox
+      tags:
+      - Mailbox
+      x-internal: false
+  /mailboxes/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          content:
+            application/vnd.api+json: {}
+          description: Deleted
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Delete an Existing Mailbox by ID
+      tags:
+      - Mailbox
+      x-internal: false
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailboxResponse'
+          description: OK
+        '404':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: Not Found
+      summary: Get a Mailbox by ID
+      tags:
+      - Mailbox
+      x-internal: false
+    patch:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              properties:
+                data:
+                  properties:
+                    attributes:
+                      $ref: '#/components/schemas/mailbox'
+                    id:
+                      type: integer
+                    relationships:
+                      $ref: '#/components/schemas/mailboxRelationships'
+                    type:
+                      type: string
+                  required:
+                  - type
+                  - id
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    properties:
+                      attributes:
+                        $ref: '#/components/schemas/mailbox'
+                      id:
+                        type: integer
+                      relationships:
+                        $ref: '#/components/schemas/mailboxRelationships'
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - id
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Update a Mailbox
+      tags:
+      - Mailbox
+      x-internal: false
+  /mailboxes/{id}/actions/linkEwsMasterAccount:
+    post:
+      description: "### Member Action \n\nLink mailbox with EWS master account"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                description: empty
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Link Ews Master Account
+      tags:
+      - Mailbox
+      x-internal: false
+  /mailboxes/{id}/actions/testSend:
+    post:
+      description: "### Member Action \n\nTest if sending emails works from this mailbox."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailboxResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Test Send
+      tags:
+      - Mailbox
+      x-internal: false
+  /mailboxes/{id}/actions/testSync:
+    post:
+      description: "### Member Action \n\nTest if syncing emails works from this mailbox."
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  data:
+                    $ref: '#/components/schemas/mailboxResponse'
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Test Sync
+      tags:
+      - Mailbox
+      x-internal: false
+  /mailboxes/{id}/actions/unlinkEwsMasterAccount:
+    post:
+      description: "### Member Action \n\nUnlink EWS master account from mailbox"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                description: empty
+                type: object
+          description: OK
+        '422':
+          content:
+            application/vnd.api+json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        detail:
+                          type: string
+                        id:
+                          type: string
+                        title:
+                          type: string
+                      type: object
+                    type: array
+          description: JSON error message
+      summary: Unlink Ews Master Account
+      tags:
+      - Mailbox
+      x-internal: false
+components:
+  schemas:
+    mailboxRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the mailbox. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailAliases:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The email aliases associated with this mailbox Relationship mailAliases cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The mailings sent via this mailbox. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the mailbox. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: The user owning this mailbox. You can use only the attribute id to filter mailboxes by user (e.g. filter[user][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    mailboxResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailbox'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailboxRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    mailbox:
+      description: 'A representation of an email mailbox, used within the application for sending and syncing emails.
+
+        '
+      properties:
+        authId:
+          description: '
+
+
+            The auth id associated with the mailbox.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the mailbox was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        editable:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A boolean value to indicate if the user has the permission to edit mailbox fields.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        email:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The email address of the mailbox.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        emailHash:
+          description: '
+
+
+            Hashed email address of the mailbox.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        emailProvider:
+          description: '
+
+
+            The mail service provider. While not a required field, it is strongly recommended to use one of ''exchange_online'', ''exchange_server'', ''gmail'', ''gmail_api'', ''google_oauth2'', ''intermedia'', ''office365_oauth2'', ''microsoft_hma_oauth2'', ''office_365'', ''rackspace''. If no value is provided, send and sync will make assumptions based on the ews, imap, and smtp values provided.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        emailSignature:
+          description: '
+
+
+            The default signature, in HTML, to be appended to sent email messages.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        ewsEndpoint:
+          description: '
+
+
+            The url of the Exchange Web Service.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        ewsSslVerifyMode:
+          description: '
+
+
+            The SSL verify mode, represented as an integer, the EWS connection will used. (verify none=0, verify peer=1, verify client once=4, verify fail if no peer cert=2)'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        exchangeVersion:
+          description: '
+
+
+            The version of Exchange. Must be one of ''Exchange2007'', ''Exchange2007_SP1'', ''Exchange2010'', ''Exchange2010_SP1'', ''Exchange2010_SP2'', ''Exchange2013'', ''Exchange2013_SP1''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        imapHost:
+          description: '
+
+
+            The address of the IMAP host, used for syncing (e.g. ''imap.gmail.com'').'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        imapPort:
+          description: '
+
+
+            The port number the IMAP server is using (e.g. ''993'').'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        imapSsl:
+          description: '
+
+
+            A boolean value whether the IMAP connection will use SSL.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        maxEmailsPerDay:
+          description: '
+
+
+            The maximum number of in/out emails per day.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        maxMailingsPerDay:
+          description: '
+
+
+            The maximum number of emails the application can send in a day from this mailbox. Recommended value is 500.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        maxMailingsPerWeek:
+          description: '
+
+
+            The maximum number of emails the application can send within a week from this mailbox. Recommended value is 5000.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        optOutMessage:
+          description: '
+
+
+            The message displayed on the unsubscribe confirmation page, seen after clicking the unsubscribe link in the email (e.g. "To unsubscribe, click the button below.").'
+          maxLength: 512
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        optOutSignature:
+          description: '
+
+
+            The message below the signature, in HTML, when the sequence requires an unsubscribe link (e.g. "If you''d like me to stop sending you emails, please `<a href=''%unsubscribe_url%''>click here</a>`").'
+          maxLength: 512
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        password:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The password of the mailbox. This attribute can be used to set the password, but is not available for read.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        prospectEmailExclusions:
+          description: '
+
+
+            A list (provided as a string, newline-delimited) of email address patterns to be excluded from syncing (e.g. "`*@outreach.io
+
+            daniel@example.com`").'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        providerId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The id of the provider associated with this calendar.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        providerType:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Email provider type.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sendDisabled:
+          description: '
+
+
+            A boolean value whether sending is disabled from this mailbox.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        sendErroredAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the most recent send error occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sendMaxRetries:
+          description: '
+
+
+            The maximum number of times to auto-retry a delivery when it fails.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        sendMethod:
+          description: '
+
+
+            The method used for sending email. Must be either ''ews'', ''sendgrid'', or ''smtp''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sendPeriod:
+          description: '
+
+
+            The amount of time in seconds that the number of sendThreshold emails can be sent. Recommended value is two deliveries per minute (sendPeriod is 60).'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        sendRequiresSync:
+          description: '
+
+
+            A boolean value whether the mailbox is required to be recently synced before sending.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        sendSuccessAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the most recent successful email send occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sendThreshold:
+          description: '
+
+
+            The maximum number of email sends per the sendPeriod amount of time. Recommended value is two deliveries per minute (sendThreshold is 2).'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        sendgridApiKey:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The api key of the SendGrid account used for sending.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sendgridWebhookUrl:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The endpoint required within the SendGrid account settings to support bounce and spam-report tracking.'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        smtpHost:
+          description: '
+
+
+            The address of the SMTP host, used for sending (e.g. ''smtp.gmail.com'').'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        smtpPassword:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The password for the SMTP account. This value should be left blank unless a separate SMTP account is being used for sending (i.e. not the mailbox''s main username/password).'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        smtpPort:
+          description: '
+
+
+            The port number the SMTP server is using (e.g. ''587'').'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        smtpSsl:
+          description: '
+
+
+            A boolean value whether the SMTP connection will use SSL.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        smtpUsername:
+          description: '
+
+
+            The username for the SMTP account. This value should be left blank unless a separate SMTP account is being used for sending (i.e. not the mailbox''s main username/password).'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        syncActiveFrequency:
+          description: '
+
+
+            The amount of time in seconds between syncing when the user is actively using the application.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        syncDisabled:
+          description: '
+
+
+            A boolean value whether syncing is disabled from this mailbox.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        syncErroredAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the most recent sync error occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        syncFinishedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the most recent sync finished.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        syncMethod:
+          description: '
+
+
+            The method used for syncing email. Must be either ''ews'', ''gmail_api'', or ''imap''.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        syncOutreachFolder:
+          description: '
+
+
+            A boolean value whether the folder for syncing is named ''Outreach'' instead of ''Inbox''. Only available for Exchange version ''Exchange2007_SP1''.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        syncPassiveFrequency:
+          description: '
+
+
+            The amount of time in seconds between syncing when the user is not actively using the application.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        syncSuccessAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the most recent successful email sync occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the mailbox was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        userId:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The id of the user associated with this mailbox.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        username:
+          description: '
+
+
+            The username of the email account. While not a required field, a username is necessary for most email providers outside of OAuth. This value is normally the same as the email address.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        validateSend:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            If this is set to true then the record will only save successfully if the mailbox is properly configured to send emails.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        validateSync:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            If this is set to true then the record will only save successfully if the mailbox is properly configured to sync emails.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+    s2sAuthToken:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
