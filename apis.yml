@@ -841,6 +841,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - favorite
+  tags_raw:
   - Favorite
   properties:
   - type: OpenAPI
@@ -1740,6 +1742,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Rule Set
+  tags_raw:
   - Ruleset
   properties:
   - type: OpenAPI
@@ -2034,6 +2038,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - stage
+  tags_raw:
   - Stage
   properties:
   - type: OpenAPI
