@@ -841,7 +841,7 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
-  - favorite
+  - Favorite
   tags_raw:
   - Favorite
   properties:
