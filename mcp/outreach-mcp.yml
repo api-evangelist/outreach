@@ -13,21 +13,22 @@ docs:
 - https://developers.outreach.io/mcp-server/usage-guide
 - https://developers.outreach.io/mcp-server/best-practices
 - https://developers.outreach.io/mcp-server/sample-interactions
-
 deployment:
   mode: remote
   endpoint: https://api.outreach.io/mcp
   auth: oauth
   verified: probed
-  note: >-
-    The endpoint is not printed in the documentation — the getting-started checklist tells the reader to
-    "get the Outreach MCP server URL (prod or staging)" from Outreach. It was established from the
-    provider's own RFC 9728 protected-resource metadata: GET
-    https://api.outreach.io/.well-known/oauth-protected-resource returns 200 with
-    {"resource":"https://api.outreach.io/mcp", ...}, and POST to that URL returns 401 with
-    `WWW-Authenticate: Bearer resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource"`.
-    No endpoint was guessed. `mcp.outreach.io` does not resolve.
-
+  note: 'The endpoint is not printed in the documentation — the getting-started checklist tells the reader
+    to "get the Outreach MCP server URL (prod or staging)" from Outreach. It was established from the
+    provider''s own RFC 9728 protected-resource metadata: GET https://api.outreach.io/.well-known/oauth-protected-resource
+    returns 200 with {"resource":"https://api.outreach.io/mcp", ...}, and POST to that URL returns 401
+    with `WWW-Authenticate: Bearer resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource"`.
+    No endpoint was guessed. `mcp.outreach.io` does not resolve.'
+  probe_prior: (never probed)
+  probe: gated
+  probe_why: RFC 9728 challenge on the MCP path only
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
 server:
   name: outreach
   transport: streamable-http
@@ -48,7 +49,6 @@ server:
   - Gemini
   - VS Code
   - Cursor
-
 authorization:
   model: OAuth 2.1 authorization code with PKCE + Dynamic Client Registration
   authorization_server: https://api.outreach.io
@@ -68,33 +68,27 @@ authorization:
   - client_secret_post
   permissions: Tool calls inherit the authenticated Outreach user's profile-level RBAC; tool calls are
     attributed to that user in Outreach activity history; disabling the user at the IDP revokes access.
-
 introspection:
   tools_list_probed: true
   tools_list_status: 401
-  tools_list_note: >-
-    `tools/list` is auth-gated. POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to
-    https://api.outreach.io/mcp returns HTTP 401 with an RFC 9728 challenge, so the live `inputSchema` for
-    each tool could not be captured anonymously. The tool names, groupings and annotations below are
-    transcribed from Outreach's published Tool Catalog page — names and semantics are real, input schemas
-    require an authenticated tools/list call.
-
+  tools_list_note: '`tools/list` is auth-gated. POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to
+    https://api.outreach.io/mcp returns HTTP 401 with an RFC 9728 challenge, so the live `inputSchema`
+    for each tool could not be captured anonymously. The tool names, groupings and annotations below are
+    transcribed from Outreach''s published Tool Catalog page — names and semantics are real, input schemas
+    require an authenticated tools/list call.'
 tool_count: 41
-tool_count_note: >-
-  Outreach's own pages disagree. The Tool Catalog page is titled "Tool Catalog (41 tools)" and enumerates
-  27 read + 11 write + 3 schema = 41. The MCP overview and Authentication pages both say 32 ("browse all 32
-  available tools", "all 32 tools work transparently"), and the Tool Annotations page links a
-  "Read & Discovery (21 tools)" anchor that no longer exists. 41 is the count that matches the enumerated
-  table, so it is used here. Two further tools are named in the docs but absent from the catalog table:
-  `prepare_for_meeting` (Sample Interactions, Tool Annotations) is documented as invokable but unlisted.
-
+tool_count_note: 'Outreach''s own pages disagree. The Tool Catalog page is titled "Tool Catalog (41 tools)"
+  and enumerates 27 read + 11 write + 3 schema = 41. The MCP overview and Authentication pages both say
+  32 ("browse all 32 available tools", "all 32 tools work transparently"), and the Tool Annotations page
+  links a "Read & Discovery (21 tools)" anchor that no longer exists. 41 is the count that matches the
+  enumerated table, so it is used here. Two further tools are named in the docs but absent from the catalog
+  table: `prepare_for_meeting` (Sample Interactions, Tool Annotations) is documented as invokable but
+  unlisted.'
 annotations:
-  openWorldHint: >-
-    Contradictory in the docs — the Tool Catalog says "All tools advertise openWorldHint: false" and the
-    Tool Annotations page says "All Outreach MCP tools have openWorldHint: true because they reach
-    Outreach's backend". Recorded as unresolved rather than guessed.
+  openWorldHint: 'Contradictory in the docs — the Tool Catalog says "All tools advertise openWorldHint:
+    false" and the Tool Annotations page says "All Outreach MCP tools have openWorldHint: true because
+    they reach Outreach''s backend". Recorded as unresolved rather than guessed.'
   idempotentHint: mirrors readOnlyHint — read-only tools are idempotent, write tools are not.
-
 tools:
 - name: account_get_by_id
   category: read
@@ -342,12 +336,10 @@ tools:
   description: Discover required/optional fields for create operations
   readOnlyHint: true
   idempotentHint: true
-
 undocumented_in_catalog:
 - name: prepare_for_meeting
   description: AI-generated meeting briefing — named in Sample Interactions and Tool Annotations but absent
     from the Tool Catalog table.
-
 response_shapes:
   search: '{count, <resource>: [...]}'
   get_by_id: '{<resource>: {...}}'
@@ -355,7 +347,6 @@ response_shapes:
   delete: '{id: "<deleted_id>"}'
   batch: '{batch: {state, total, failures, ...}}'
   schema: '{standard_fields: [...], custom_fields: [...]}'
-
 x-evidence:
 - fetched: '2026-08-13'
   url: https://api.outreach.io/.well-known/oauth-protected-resource
