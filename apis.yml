@@ -1711,57 +1711,6 @@ apis:
     url: errors/outreach-error-codes.yml
   - type: Conventions
     url: conventions/outreach-conventions.yml
-- aid: outreach:outreach-ruleset-api
-  name: Outreach Ruleset API
-  description: >-
-    <SchemaDefinition schemaRef="#/components/schemas/ruleset" />
-
-
-    ## Ruleset Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/rulesetRelationships" />
-
-
-    ## Ruleset Resource Metadata
-
-
-    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
-
-    | --- | --- | --- |
-
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
-    | provideAuthorizationMeta |
-
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
-    | provideAuthorizationMeta |
-
-
-
-    ## ⌵ Ruleset Actions
-  humanURL: https://developers.outreach.io/api/
-  baseURL: https://api.outreach.io/api/v2
-  tags:
-  - Rule Set
-  tags_raw:
-  - Ruleset
-  properties:
-  - type: OpenAPI
-    url: openapi/outreach-ruleset-api-openapi.yml
-  - type: Documentation
-    url: https://developers.outreach.io/api/
-  - type: APIReference
-    url: https://developers.outreach.io/api/reference
-  - type: GettingStarted
-    url: https://developers.outreach.io/api/getting-started
-  - type: JSONSchema
-    url: json-schema/outreach-hyper-schema.json
-  - type: DataModel
-    url: data-model/outreach-data-model.yml
-  - type: ErrorCatalog
-    url: errors/outreach-error-codes.yml
-  - type: Conventions
-    url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-sequence-api
   name: Outreach Sequence API
   description: >-
@@ -2424,6 +2373,48 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/outreach-webhook-api-openapi.yml
+  - type: Documentation
+    url: https://developers.outreach.io/api/
+  - type: APIReference
+    url: https://developers.outreach.io/api/reference
+  - type: GettingStarted
+    url: https://developers.outreach.io/api/getting-started
+  - type: JSONSchema
+    url: json-schema/outreach-hyper-schema.json
+  - type: DataModel
+    url: data-model/outreach-data-model.yml
+  - type: ErrorCatalog
+    url: errors/outreach-error-codes.yml
+  - type: Conventions
+    url: conventions/outreach-conventions.yml
+- aid: outreach:outreach-rule-set-api
+  name: Outreach Rule Set API
+  description: >-
+    ## Ruleset Relationships
+
+
+    ## Ruleset Resource Metadata
+
+
+    | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+
+    | --- | --- | --- |
+
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
+
+    | canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
+
+
+    ## ⌵ Ruleset Actions
+  humanURL: https://developers.outreach.io/mcp-server
+  baseURL: https://api.outreach.io/mcp
+  tags:
+  - Rule Set
+  properties:
+  - type: OpenAPI
+    url: openapi/outreach-rule-set-api-openapi.yml
   - type: Documentation
     url: https://developers.outreach.io/api/
   - type: APIReference
