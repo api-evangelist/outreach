@@ -240,6 +240,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Audit Logs
+  tags_raw:
   - Audit Log
   properties:
   - type: OpenAPI
@@ -1314,6 +1316,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Personas
+  tags_raw:
   - Persona
   properties:
   - type: OpenAPI
@@ -1363,6 +1367,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Phone Numbers
+  tags_raw:
   - Phone Number
   properties:
   - type: OpenAPI
@@ -1458,6 +1464,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Profiles
+  tags_raw:
   - Profile
   properties:
   - type: OpenAPI
@@ -2272,6 +2280,8 @@ apis:
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
+  - Templates
+  tags_raw:
   - Template
   properties:
   - type: OpenAPI
