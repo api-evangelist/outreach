@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  description: Outreach Public API is documented here, at the Development Portal, expand the link Outreach REST API Reference in the left navigation bar to see human-readable description of endpoints and data types.
   title: Outreach REST API Reference Sequence State API
   version: ''
 servers:
@@ -8,13 +8,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceState" />
-
-
-    ## Sequence State Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/sequenceStateRelationships" />
+- description: '## Sequence State Relationships
 
 
     ## Sequence State Resource Metadata
@@ -24,14 +18,10 @@ tags:
 
     | --- | --- | --- |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
 
 
-
-    ## ⌵ Sequence State Actions
-
-
-    '
+    ## ⌵ Sequence State Actions'
   name: Sequence State
   x-internal: false
 paths:
@@ -72,6 +62,8 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: getSequenceStates
+      x-operation-id-source: derived
     post:
       requestBody:
         content:
@@ -121,6 +113,8 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: postSequenceStates
+      x-operation-id-source: derived
   /sequenceStates/{id}:
     delete:
       parameters:
@@ -158,6 +152,8 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: deleteSequenceStatesById
+      x-operation-id-source: derived
     get:
       parameters:
       - in: path
@@ -198,9 +194,14 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: getSequenceStatesById
+      x-operation-id-source: derived
   /sequenceStates/{id}/actions/finish:
     post:
-      description: "### Member Action \n\nFinishes an active sequence state."
+      description: '### Member Action
+
+
+        Finishes an active sequence state.'
       parameters:
       - in: path
         name: id
@@ -240,9 +241,14 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: postSequenceStatesByIdActionsFinish
+      x-operation-id-source: derived
   /sequenceStates/{id}/actions/pause:
     post:
-      description: "### Member Action \n\nPauses an active sequence state."
+      description: '### Member Action
+
+
+        Pauses an active sequence state.'
       parameters:
       - in: path
         name: id
@@ -282,9 +288,14 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: postSequenceStatesByIdActionsPause
+      x-operation-id-source: derived
   /sequenceStates/{id}/actions/resume:
     post:
-      description: "### Member Action \n\nResumes a paused sequence state."
+      description: '### Member Action
+
+
+        Resumes a paused sequence state.'
       parameters:
       - in: path
         name: id
@@ -324,8 +335,22 @@ paths:
       tags:
       - Sequence State
       x-internal: false
+      operationId: postSequenceStatesByIdActionsResume
+      x-operation-id-source: derived
 components:
   schemas:
+    sequenceStateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceState'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStateRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     sequenceStateRelationships:
       properties:
         account:
@@ -823,18 +848,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    sequenceStateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceState'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceStateRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

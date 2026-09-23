@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  description: Outreach Public API is documented here, at the Development Portal, expand the link Outreach REST API Reference in the left navigation bar to see human-readable description of endpoints and data types.
   title: Outreach REST API Reference Stage API
   version: ''
 servers:
@@ -8,13 +8,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- description: '<SchemaDefinition schemaRef="#/components/schemas/stage" />
-
-
-    ## Stage Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/stageRelationships" />
+- description: '## Stage Relationships
 
 
     ## Stage Resource Metadata
@@ -24,18 +18,7 @@ tags:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
-
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
-
-    |  dataConnections | The set of connections a given Stage has to external sources. | provideDataConnections |
-
-
-
-    ## ⌵ Stage Actions
-
-
-    '
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
   name: Stage
   x-internal: false
 paths:
@@ -73,6 +56,8 @@ paths:
       tags:
       - Stage
       x-internal: false
+      operationId: getStages
+      x-operation-id-source: derived
     post:
       requestBody:
         content:
@@ -119,6 +104,8 @@ paths:
       tags:
       - Stage
       x-internal: false
+      operationId: postStages
+      x-operation-id-source: derived
   /stages/{id}:
     delete:
       parameters:
@@ -153,6 +140,8 @@ paths:
       tags:
       - Stage
       x-internal: false
+      operationId: deleteStagesById
+      x-operation-id-source: derived
     get:
       parameters:
       - in: path
@@ -190,6 +179,8 @@ paths:
       tags:
       - Stage
       x-internal: false
+      operationId: getStagesById
+      x-operation-id-source: derived
     patch:
       parameters:
       - in: path
@@ -259,64 +250,10 @@ paths:
       tags:
       - Stage
       x-internal: false
+      operationId: patchStagesById
+      x-operation-id-source: derived
 components:
   schemas:
-    stage:
-      description: 'A descriptor of the point in the process, used for categorizing Prospects.
-
-        '
-      properties:
-        color:
-          description: '
-
-
-            The color the stage label will be highlighted in the interface, specified as a hexidecimal value (e.g. "#5951ff").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the stage was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The name of the stage (e.g. "Qualified Lead").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        order:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The stage''s display order within the collection.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the stage was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
     stageRelationships:
       properties:
         creator:
@@ -378,6 +315,62 @@ components:
                   type: string
               type: object
       type: object
+    stage:
+      description: 'A descriptor of the point in the process, used for categorizing Prospects.
+
+        '
+      properties:
+        color:
+          description: '
+
+
+            The color the stage label will be highlighted in the interface, specified as a hexidecimal value (e.g. "#5951ff").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the stage was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the stage (e.g. "Qualified Lead").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        order:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The stage''s display order within the collection.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the stage was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     stageResponse:
       properties:
         attributes:

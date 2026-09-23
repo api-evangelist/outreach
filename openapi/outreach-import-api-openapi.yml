@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  description: Outreach Public API is documented here, at the Development Portal, expand the link Outreach REST API Reference in the left navigation bar to see human-readable description of endpoints and data types.
   title: Outreach REST API Reference Import API
   version: ''
 servers:
@@ -8,13 +8,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- description: '<SchemaDefinition schemaRef="#/components/schemas/import" />
-
-
-    ## Import Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/importRelationships" />
+- description: '## Import Relationships
 
 
     ## Import Resource Metadata
@@ -24,14 +18,10 @@ tags:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
 
 
-
-    ## ⌵ Import Actions
-
-
-    '
+    ## ⌵ Import Actions'
   name: Import
   x-internal: false
 paths:
@@ -73,9 +63,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: getImportsById
+      x-operation-id-source: derived
   /imports/actions/accountsImport:
     post:
-      description: "### Import Action \n\nThis is the action to import an uploaded file into account's table. Accounts have `customId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied."
+      description: '### Import Action
+
+
+        This is the action to import an uploaded file into account''s table. Accounts have `customId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied.'
       requestBody:
         content:
           application/vnd.api+json:
@@ -133,9 +128,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsAccountsImport
+      x-operation-id-source: derived
   /imports/actions/bulkUpsert:
     post:
-      description: "### Import Action \n\nThis is the action to sync multiple API v2 objects to Outreach tablesBulk upsert uses a record's `data.id` attribute to determine uniqueness.The provided dupe method will be applied during processing of records that already exist in Outreach."
+      description: '### Import Action
+
+
+        This is the action to sync multiple API v2 objects to Outreach tablesBulk upsert uses a record''s `data.id` attribute to determine uniqueness.The provided dupe method will be applied during processing of records that already exist in Outreach.'
       requestBody:
         content:
           application/vnd.api+json:
@@ -189,9 +189,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsBulkUpsert
+      x-operation-id-source: derived
   /imports/actions/customObjectBulkUpsert:
     post:
-      description: "### Import Action \n\nThis is the action to upsert records of a custom object. Bulk upsert uses a record's `data.id` attribute to determine uniqueness. The provided dupe method will be applied during processing of records that already exist in Outreach."
+      description: '### Import Action
+
+
+        This is the action to upsert records of a custom object. Bulk upsert uses a record''s `data.id` attribute to determine uniqueness. The provided dupe method will be applied during processing of records that already exist in Outreach.'
       requestBody:
         content:
           application/vnd.api+json:
@@ -245,9 +250,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsCustomObjectBulkUpsert
+      x-operation-id-source: derived
   /imports/actions/generateUploadLink:
     post:
-      description: "### Upload Action \n\nGenerates a link, an URL at which the file should be uploaded, and a storage key, a reference for the upload"
+      description: '### Upload Action
+
+
+        Generates a link, an URL at which the file should be uploaded, and a storage key, a reference for the upload'
       responses:
         '200':
           content:
@@ -278,9 +288,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsGenerateUploadLink
+      x-operation-id-source: derived
   /imports/actions/prospectsImport:
     post:
-      description: "### Import Action \n\nThis is the action to import an uploaded file into prospect's table Prospects have `externalId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied."
+      description: '### Import Action
+
+
+        This is the action to import an uploaded file into prospect''s table Prospects have `externalId` as a unique field. If you upload a file with unique fields that already exist in Outreach database, the dupe method will be applied.'
       requestBody:
         content:
           application/vnd.api+json:
@@ -338,9 +353,14 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsProspectsImport
+      x-operation-id-source: derived
   /imports/actions/validateUpload:
     post:
-      description: "### Validate Upload Action \n\nValidates the uploaded file"
+      description: '### Validate Upload Action
+
+
+        Validates the uploaded file'
       parameters:
       - explode: true
         in: query
@@ -385,8 +405,24 @@ paths:
       tags:
       - Import
       x-internal: false
+      operationId: postImportsActionsValidateUpload
+      x-operation-id-source: derived
 components:
   schemas:
+    uploadResponse:
+      properties:
+        attributes:
+          properties:
+            storageKey:
+              description: the reference to the upload to use in following API calls such as import.
+              type: string
+            uploadURL:
+              description: the AWS S3 presigned URL at which the file should be uploaded.
+              type: string
+          type: object
+        type:
+          type: string
+      type: object
     import:
       description: 'An operation that imports data into Outreach
 
@@ -654,16 +690,23 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    uploadResponse:
+    validateUploadResponse:
       properties:
         attributes:
           properties:
-            storageKey:
-              description: the reference to the upload to use in following API calls such as import.
-              type: string
-            uploadURL:
-              description: the AWS S3 presigned URL at which the file should be uploaded.
-              type: string
+            headerValue:
+              description: the headers of the uploaded file with the first value
+              properties:
+                header:
+                  description: the header name
+                  type: string
+                value:
+                  description: the first value of the header
+                  type: string
+              type: object
+            recordCount:
+              description: the number of records in the uploaded file.
+              type: integer
           type: object
         type:
           type: string
@@ -705,27 +748,6 @@ components:
                   format: uri
                   type: string
               type: object
-      type: object
-    validateUploadResponse:
-      properties:
-        attributes:
-          properties:
-            headerValue:
-              description: the headers of the uploaded file with the first value
-              properties:
-                header:
-                  description: the header name
-                  type: string
-                value:
-                  description: the first value of the header
-                  type: string
-              type: object
-            recordCount:
-              description: the number of records in the uploaded file.
-              type: integer
-          type: object
-        type:
-          type: string
       type: object
   securitySchemes:
     bearerAuth:

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  description: Outreach Public API is documented here, at the Development Portal, expand the link Outreach REST API Reference in the left navigation bar to see human-readable description of endpoints and data types.
   title: Outreach REST API Reference Team API
   version: ''
 servers:
@@ -8,13 +8,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- description: '<SchemaDefinition schemaRef="#/components/schemas/team" />
-
-
-    ## Team Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/teamRelationships" />
+- description: '## Team Relationships
 
 
     ## Team Resource Metadata
@@ -24,16 +18,12 @@ tags:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
-
-
-
-    ## ⌵ Team Actions
+    | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
 
 
-    '
+    ## ⌵ Team Actions'
   name: Team
   x-internal: false
 paths:
@@ -71,6 +61,8 @@ paths:
       tags:
       - Team
       x-internal: false
+      operationId: getTeams
+      x-operation-id-source: derived
     post:
       requestBody:
         content:
@@ -117,6 +109,8 @@ paths:
       tags:
       - Team
       x-internal: false
+      operationId: postTeams
+      x-operation-id-source: derived
   /teams/{id}:
     delete:
       parameters:
@@ -151,6 +145,8 @@ paths:
       tags:
       - Team
       x-internal: false
+      operationId: deleteTeamsById
+      x-operation-id-source: derived
     get:
       parameters:
       - in: path
@@ -188,6 +184,8 @@ paths:
       tags:
       - Team
       x-internal: false
+      operationId: getTeamsById
+      x-operation-id-source: derived
     patch:
       parameters:
       - in: path
@@ -257,8 +255,77 @@ paths:
       tags:
       - Team
       x-internal: false
+      operationId: patchTeamsById
+      x-operation-id-source: derived
 components:
   schemas:
+    team:
+      description: 'A descriptor of a group of users.
+
+        '
+      properties:
+        color:
+          description: '
+
+
+            The color used to label and highlight the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the team was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the team (e.g. "SDRs").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scimExternalId:
+          description: '
+
+
+            The ID from the SCIM provisioning service used to create the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scimSource:
+          description: '
+
+
+            The name of the SCIM provisioning source used to create the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the team was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     teamRelationships:
       properties:
         batches:
@@ -463,73 +530,6 @@ components:
                   type: string
               type: object
       type: object
-    team:
-      description: 'A descriptor of a group of users.
-
-        '
-      properties:
-        color:
-          description: '
-
-
-            The color used to label and highlight the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the team was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The name of the team (e.g. "SDRs").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        scimExternalId:
-          description: '
-
-
-            The ID from the SCIM provisioning service used to create the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        scimSource:
-          description: '
-
-
-            The name of the SCIM provisioning source used to create the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the team was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
     teamResponse:
       properties:
         attributes:

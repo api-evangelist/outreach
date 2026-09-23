@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  description: "Outreach Public API is documented here, at the Development Portal, expand the link [Outreach REST API Reference](https://developers.outreach.io/api/reference/overview/) in the left navigation bar to see human-readable description of endpoints and data types.\n\nHowever, if you would like to get machine-readable schema definition there are two other options available:\n\n* [https://api.outreach.io/api/v2/schema.json](https://api.outreach.io/api/v2/schema.json) contains the API definition in  the [json-schema format](https://json-schema.org/) and if you provide `Authorization` header with valid token (same as actual API call) all the custom objects defined for the organization will be included as well.\n\n* [https://api.outreach.io/api/v2/schema/openapi.json](https://api.outreach.io/api/v2/schema/openapi.json) contains the API definition in the [OpenAPI / Swagger format](https://swagger.io/specification/). Unfortunately custom objects are not included in this file.\n\nAdditionally to these standard definitions Outreach provides detailed list of validations applied to custom fields. Custom objects will be included later, the work is in progress.\n\n* [https://api.outreach.io/api/v2/types](https://api.outreach.io/api/v2/types) endpoint returns a list of all `customXXX` fields on standard objects with their type, label, options or other constraints defined by the administrator. This endpoint requires valid token in the `Authorization` header. The format of the definitions is described below.\n\n### Custom field types\n\n```json\n{\n  \"data\": [\n    {\n      \"type\": \"<object_name>\",\n      \"meta\": {\n        \"validations\": {\n          \"<field_name>\": {\n            \"type\": \"<validation_type>\",\n            \"required\": true / false,\n            \"label\": \"...\",\n            \"definition\": null / [\"...\", ...] / \"...\"\n          },\n          ...\n          }\n        }\n      }\n    },\n    ...\n  ]\n}\n```\n\n#### Objects with custom fields\n\n* Account\n* Opportunity\n* OpportunityLineItem\n* OpportunityProspectRole\n* Product\n* Prospect\n* Purchase\n\n#### Validation types\n\n* `boolean` - true or false\n* `currency` - monetary value, `definition` contains an abbreviation of the currency like `\"USD\"` or `\"EUR\"`\n* `date` - a date stored in ISO8601 format: YYYY-MM-DD.\n* `date_time` a date and time stored as YYYY-MM-DDThh:mm:ss.\n* `inclusion` - a pick list with predefined set of options available in `definition` attribute as a list of strings\n* multi_inclusion - a pick list with several options selectable at once with predefined set of options available in `definition` attribute as a list of strings\n* `numerical`\n* `percentage`\n* `phone_number`\n* `string`\n* `url`\n"
+  description: Outreach Public API is documented here, at the Development Portal, expand the link Outreach REST API Reference in the left navigation bar to see human-readable description of endpoints and data types.
   title: Outreach REST API Reference Batch API
   version: ''
 servers:
@@ -8,13 +8,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- description: '<SchemaDefinition schemaRef="#/components/schemas/batch" />
-
-
-    ## Batch Relationships
-
-
-    <SchemaDefinition schemaRef="#/components/schemas/batchRelationships" />
+- description: '## Batch Relationships
 
 
     ## Batch Resource Metadata
@@ -24,14 +18,10 @@ tags:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
 
 
-
-    ## ⌵ Batch Actions
-
-
-    '
+    ## ⌵ Batch Actions'
   name: Batch
   x-internal: false
 paths:
@@ -69,6 +59,8 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: getBatches
+      x-operation-id-source: derived
   /batches/{id}:
     get:
       parameters:
@@ -107,9 +99,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: getBatchesById
+      x-operation-id-source: derived
   /batches/{id}/actions/cancel:
     post:
-      description: "### Member Action \n\nAction to call to cancel the batch"
+      description: '### Member Action
+
+
+        Action to call to cancel the batch'
       parameters:
       - in: path
         name: id
@@ -146,9 +143,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesByIdActionsCancel
+      x-operation-id-source: derived
   /batches/{id}/actions/confirm:
     post:
-      description: "### Member Action \n\nAction to call to confirm the batch"
+      description: '### Member Action
+
+
+        Action to call to confirm the batch'
       parameters:
       - in: path
         name: id
@@ -193,9 +195,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesByIdActionsConfirm
+      x-operation-id-source: derived
   /batches/actions/accountAddTags:
     post:
-      description: "### Bulk Action \n\nAdds tags to the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Adds tags to the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -259,9 +266,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountAddTags
+      x-operation-id-source: derived
   /batches/actions/accountsAddAssignments:
     post:
-      description: "### Bulk Action \n\nAdds assignments to the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Adds assignments to the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -325,9 +337,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsAddAssignments
+      x-operation-id-source: derived
   /batches/actions/accountsAssignOwner:
     post:
-      description: "### Bulk Action \n\nassign an user with {ownerId} as owner to all the targeted accounts "
+      description: '### Bulk Action
+
+
+        assign an user with {ownerId} as owner to all the targeted accounts'
       parameters:
       - explode: true
         in: query
@@ -389,9 +406,41 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsAssignOwner
+      x-operation-id-source: derived
   /batches/actions/accountsBulkModify:
     post:
-      description: "### Bulk Action \n\nModifies the accounts targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body.\n\nAlternative request body for a single field modification is also supported:\n```\n{\n\t\"data\": {\n\t\t\"attributes\": {\n\t\t\t\"fieldName\": \"string\",\n\t\t\t\"fieldValue\": \"string\",\n\t\t\t\"ids\": [0]\n\t\t}\n\t},\n\t\"type\": \"string\"\n}\n```"
+      description: '### Bulk Action
+
+
+        Modifies the accounts targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body.
+
+
+        Alternative request body for a single field modification is also supported:
+
+        ```
+
+        {
+
+        "data": {
+
+        "attributes": {
+
+        "fieldName": "string",
+
+        "fieldValue": "string",
+
+        "ids": [0]
+
+        }
+
+        },
+
+        "type": "string"
+
+        }
+
+        ```'
       parameters:
       - explode: true
         in: query
@@ -459,9 +508,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsBulkModify
+      x-operation-id-source: derived
   /batches/actions/accountsDestroyAll:
     post:
-      description: "### Bulk Action \n\nDeletes the accounts targeted by the query parameters (default: ALL)"
+      description: '### Bulk Action
+
+
+        Deletes the accounts targeted by the query parameters (default: ALL)'
       parameters:
       - explode: true
         in: query
@@ -520,9 +574,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsDestroyAll
+      x-operation-id-source: derived
   /batches/actions/accountsRemoveAllAssignments:
     post:
-      description: "### Bulk Action \n\nRemoves all assignments from the accounts targeted by the query parameters (default: ALL)"
+      description: '### Bulk Action
+
+
+        Removes all assignments from the accounts targeted by the query parameters (default: ALL)'
       parameters:
       - explode: true
         in: query
@@ -581,9 +640,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsRemoveAllAssignments
+      x-operation-id-source: derived
   /batches/actions/accountsRemoveAssignments:
     post:
-      description: "### Bulk Action \n\nRemoves assignments from the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Removes assignments from the accounts targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -647,9 +711,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsRemoveAssignments
+      x-operation-id-source: derived
   /batches/actions/accountsRemoveTags:
     post:
-      description: "### Bulk Action \n\nRemoves tags from the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Removes tags from the accounts targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -713,9 +782,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsAccountsRemoveTags
+      x-operation-id-source: derived
   /batches/actions/customObjectBulkDelete:
     post:
-      description: "### Bulk Action \n\nAction to delete custom objects of type selected by the query parameter {objectName} "
+      description: '### Bulk Action
+
+
+        Action to delete custom objects of type selected by the query parameter {objectName}'
       parameters:
       - explode: true
         in: query
@@ -778,9 +852,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsCustomObjectBulkDelete
+      x-operation-id-source: derived
   /batches/actions/customObjectBulkModify:
     post:
-      description: "### Bulk Action \n\nAction to modify custom objects of type selected by the query parameter {objectName} "
+      description: '### Bulk Action
+
+
+        Action to modify custom objects of type selected by the query parameter {objectName}'
       parameters:
       - explode: true
         in: query
@@ -852,9 +931,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsCustomObjectBulkModify
+      x-operation-id-source: derived
   /batches/actions/prospectsAddAssignments:
     post:
-      description: "### Bulk Action \n\nAdds assignments to the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Adds assignments to the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -918,9 +1002,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAddAssignments
+      x-operation-id-source: derived
   /batches/actions/prospectsAddTags:
     post:
-      description: "### Bulk Action \n\nAdds tags to the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Adds tags to the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -984,9 +1073,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAddTags
+      x-operation-id-source: derived
   /batches/actions/prospectsAddToSequence:
     post:
-      description: "### Bulk Action \n\nAdd Prospects To Sequence"
+      description: '### Bulk Action
+
+
+        Add Prospects To Sequence'
       parameters:
       - explode: true
         in: query
@@ -1056,9 +1150,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAddToSequence
+      x-operation-id-source: derived
   /batches/actions/prospectsAssignAccount:
     post:
-      description: "### Bulk Action \n\nSets the account to the prospects targeted by the query parameters (default: ALL) using the {accountId} which specifies the account to add to the prospects"
+      description: '### Bulk Action
+
+
+        Sets the account to the prospects targeted by the query parameters (default: ALL) using the {accountId} which specifies the account to add to the prospects'
       parameters:
       - explode: true
         in: query
@@ -1120,9 +1219,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAssignAccount
+      x-operation-id-source: derived
   /batches/actions/prospectsAssignOpportunity:
     post:
-      description: "### Bulk Action \n\nSets the opportunity to the prospects targeted by the query parameters (default: ALL) using the {opportunityId} which specifies the account to add to the prospects"
+      description: '### Bulk Action
+
+
+        Sets the opportunity to the prospects targeted by the query parameters (default: ALL) using the {opportunityId} which specifies the account to add to the prospects'
       parameters:
       - explode: true
         in: query
@@ -1184,9 +1288,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAssignOpportunity
+      x-operation-id-source: derived
   /batches/actions/prospectsAssignOwner:
     post:
-      description: "### Bulk Action \n\nassign an user with {ownerId} as owner to all the targeted prospects "
+      description: '### Bulk Action
+
+
+        assign an user with {ownerId} as owner to all the targeted prospects'
       parameters:
       - explode: true
         in: query
@@ -1248,9 +1357,41 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsAssignOwner
+      x-operation-id-source: derived
   /batches/actions/prospectsBulkModify:
     post:
-      description: "### Bulk Action \n\nModifies the prospects targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body\n\nAlternative request body for a single field modification is also supported:\n```\n{\n\t\"data\": {\n\t\t\"attributes\": {\n\t\t\t\"fieldName\": \"string\",\n\t\t\t\"fieldValue\": \"string\",\n\t\t\t\"ids\": [0]\n\t\t}\n\t},\n\t\"type\": \"string\"\n}\n```"
+      description: '### Bulk Action
+
+
+        Modifies the prospects targeted by the query parameters (default: ALL) using the {field: value, ...} pairs passed in request body
+
+
+        Alternative request body for a single field modification is also supported:
+
+        ```
+
+        {
+
+        "data": {
+
+        "attributes": {
+
+        "fieldName": "string",
+
+        "fieldValue": "string",
+
+        "ids": [0]
+
+        }
+
+        },
+
+        "type": "string"
+
+        }
+
+        ```'
       parameters:
       - explode: true
         in: query
@@ -1318,9 +1459,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsBulkModify
+      x-operation-id-source: derived
   /batches/actions/prospectsDestroyAll:
     post:
-      description: "### Bulk Action \n\nDeletes the prospects targeted by the query parameters (default: ALL)"
+      description: '### Bulk Action
+
+
+        Deletes the prospects targeted by the query parameters (default: ALL)'
       parameters:
       - explode: true
         in: query
@@ -1379,9 +1525,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsDestroyAll
+      x-operation-id-source: derived
   /batches/actions/prospectsFinishAll:
     post:
-      description: "### Bulk Action \n\nFor all prospects targeted by the query parameters (default: ALL), attempt to finish the associated prospect sequence"
+      description: '### Bulk Action
+
+
+        For all prospects targeted by the query parameters (default: ALL), attempt to finish the associated prospect sequence'
       parameters:
       - explode: true
         in: query
@@ -1440,9 +1591,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsFinishAll
+      x-operation-id-source: derived
   /batches/actions/prospectsPauseAll:
     post:
-      description: "### Bulk Action \n\nFor all prospects targeted by the query parameters (default: ALL), attempt to pause the associated prospect sequence"
+      description: '### Bulk Action
+
+
+        For all prospects targeted by the query parameters (default: ALL), attempt to pause the associated prospect sequence'
       parameters:
       - explode: true
         in: query
@@ -1501,9 +1657,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsPauseAll
+      x-operation-id-source: derived
   /batches/actions/prospectsRemoveAllAssignments:
     post:
-      description: "### Bulk Action \n\nRemoves all assignments from the prospects targeted by the query parameters (default: ALL)"
+      description: '### Bulk Action
+
+
+        Removes all assignments from the prospects targeted by the query parameters (default: ALL)'
       parameters:
       - explode: true
         in: query
@@ -1562,9 +1723,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsRemoveAllAssignments
+      x-operation-id-source: derived
   /batches/actions/prospectsRemoveAssignments:
     post:
-      description: "### Bulk Action \n\nRemoves assignments from the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Removes assignments from the prospects targeted by the query parameters (default: ALL) using the {userIds} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -1628,9 +1794,14 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsRemoveAssignments
+      x-operation-id-source: derived
   /batches/actions/prospectsRemoveTags:
     post:
-      description: "### Bulk Action \n\nRemoves tags from the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body"
+      description: '### Bulk Action
+
+
+        Removes tags from the prospects targeted by the query parameters (default: ALL) using the {tags} array of strings passed in request body'
       parameters:
       - explode: true
         in: query
@@ -1694,8 +1865,48 @@ paths:
       tags:
       - Batch
       x-internal: false
+      operationId: postBatchesActionsProspectsRemoveTags
+      x-operation-id-source: derived
 components:
   schemas:
+    batchRelationships:
+      properties:
+        batchItems:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batch items associated with this batch.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     batchResponse:
       properties:
         attributes:
@@ -1868,44 +2079,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    batchRelationships:
-      properties:
-        batchItems:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The batch items associated with this batch.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

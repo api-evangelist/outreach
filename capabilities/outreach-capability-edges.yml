@@ -1,0 +1,112 @@
+slug: outreach
+provider: Outreach
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: Opportunity
+  spec_file: outreach-opportunity-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.95
+  evidence: POST /opportunities    Create a New Opportunity
+  reason: Full CRUD over sales opportunities on a revenue platform — plainly deal/opportunity lifecycle
+    management.
+- tag: Opportunity Prospect Role
+  spec_file: outreach-opportunity-prospect-role-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.85
+  evidence: POST /opportunityProspectRoles    Create a New Opportunity Prospect Role
+  reason: Associates prospects (buying-committee contacts) with opportunities and their roles — part of
+    the opportunity/deal lifecycle.
+- tag: Opportunity Stage
+  spec_file: outreach-opportunity-stage-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.85
+  evidence: POST /opportunityStages    Create a New Opportunity Stage
+  reason: Definition and maintenance of sales pipeline stages used by opportunities — pipeline management
+    configuration within Sales Management.
+- tag: Account
+  spec_file: outreach-account-api-openapi.yml
+  capability_id: BC-410.20
+  capability_id_l1: BC-410
+  capability_name: Account Management
+  confidence: 0.82
+  evidence: GET /accounts Get a Collection of Accounts; POST /accounts Create a New Account; schemas account,
+    accountRelationships
+  reason: On a sales execution platform, accounts are target company records managed by sellers; CRUD
+    over accounts realises Account Management (could also be read as customer data management).
+- tag: Call
+  spec_file: outreach-call-api-openapi.yml
+  capability_id: BC-410
+  capability_id_l1: BC-410
+  capability_name: Sales Management
+  confidence: 0.8
+  evidence: 'POST /calls    Create a New Call; vendor: ''sales execution and revenue platform ... unifying
+    email, calling, social and meetings into sequenced outbound motions'''
+  reason: Calls here are logged sales-engagement activities on a sales execution platform (calls alongside
+    mailings, sequences, prospects), so the surface realises Sales Management. Evidence does not pin a
+    single L2 (activity execution sits between pipeline and sales operations), so only the L1 is asserted.
+- tag: Account Note
+  spec_file: outreach-account-note-api-openapi.yml
+  capability_id: BC-410.20
+  capability_id_l1: BC-410
+  capability_name: Account Management
+  confidence: 0.7
+  evidence: POST /accountNotes Create a New Account Note; schemas accountNote, accountNoteRelationships
+  reason: Notes attached to sales accounts in a sales-execution platform — supports account management
+    activity recording.
+- tag: Prospect
+  spec_file: outreach-prospect-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.7
+  evidence: 'POST /prospects Create a New Prospect; vendor: ''sales execution and revenue platform ...
+    covering accounts, prospects, opportunities'''
+  reason: Prospect records are the lead entities targeted by outbound sales motions, so this realises
+    lead/opportunity lifecycle management. Some ambiguity between lead pipeline and customer data management
+    keeps confidence at 0.7.
+- tag: Sequence
+  spec_file: outreach-sequence-api-openapi.yml
+  capability_id: BC-410
+  capability_id_l1: BC-410
+  capability_name: Sales Management
+  confidence: 0.7
+  evidence: 'POST /sequences/{id}/actions/activate Activate; vendor: ''sequenced outbound motions'''
+  reason: Sequences are the outbound sales cadences executed by reps, so this belongs to Sales Management;
+    the evidence does not clearly distinguish pipeline management from sales operations tooling, so no
+    L2 is asserted.
+- tag: Sequence State
+  spec_file: outreach-sequence-state-api-openapi.yml
+  capability_id: BC-410
+  capability_id_l1: BC-410
+  capability_name: Sales Management
+  confidence: 0.7
+  evidence: POST /sequenceStates/{id}/actions/pause Pause; POST /sequenceStates/{id}/actions/finish Finish
+  reason: Sequence states track a prospect's progress through an outbound sales cadence (pause/resume/finish),
+    which is sales execution activity. L1 only given ambiguity over the precise sub-capability.
+- tag: Task
+  spec_file: outreach-task-api-openapi.yml
+  capability_id: BC-410.50
+  capability_id_l1: BC-410
+  capability_name: Sales Operations Management
+  confidence: 0.7
+  evidence: POST /tasks/{id}/actions/markComplete; POST /tasks/{id}/actions/logMeetInPerson; POST /tasks/{id}/actions/reassignOwner
+  reason: Rep activity tasks (calls, emails, meetings) with completion, reschedule and owner reassignment
+    are core sales activity execution/operations on a sales engagement platform, not generic project task
+    management.
