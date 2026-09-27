@@ -186,18 +186,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    contentCategoryMembershipResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/contentCategoryMembership'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/contentCategoryMembershipRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     contentCategoryMembership:
       description: 'A record that maps content (e.g. a sequence) to a content category.
 
@@ -293,6 +281,18 @@ components:
                   type: string
               type: object
       type: object
+    contentCategoryMembershipResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/contentCategoryMembership'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/contentCategoryMembershipRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

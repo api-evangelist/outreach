@@ -62,19 +62,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    auditLogResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/auditLog'
-        id:
-          description: As a UUID
-          type: string
-        relationships:
-          $ref: '#/components/schemas/auditLogRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     auditLog:
       description: '
 
@@ -379,6 +366,19 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    auditLogResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/auditLog'
+        id:
+          description: As a UUID
+          type: string
+        relationships:
+          $ref: '#/components/schemas/auditLogRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     auditLogRelationships:

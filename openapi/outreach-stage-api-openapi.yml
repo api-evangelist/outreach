@@ -315,6 +315,18 @@ components:
                   type: string
               type: object
       type: object
+    stageResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/stage'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/stageRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     stage:
       description: 'A descriptor of the point in the process, used for categorizing Prospects.
 
@@ -369,18 +381,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    stageResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/stage'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/stageRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

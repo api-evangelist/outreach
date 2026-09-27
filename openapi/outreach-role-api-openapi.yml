@@ -259,18 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    roleResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/role'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/roleRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     role:
       description: 'Where you fall within your organization''s structure.
 
@@ -316,6 +304,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    roleResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/role'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/roleRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     roleRelationships:

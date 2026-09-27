@@ -50,6 +50,8 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    dutyRelationships:
+      type: object
     duty:
       description: 'An Outreach-suggested role or job duty played by a user in their organization.
 
@@ -88,8 +90,6 @@ components:
           type: string
       type: object
       x-internal: false
-    dutyRelationships:
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

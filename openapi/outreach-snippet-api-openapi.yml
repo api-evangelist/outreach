@@ -265,18 +265,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    snippetResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/snippet'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/snippetRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     snippetRelationships:
       properties:
         contentCategoryMemberships:
@@ -386,6 +374,18 @@ components:
                   type: string
               type: object
       type: object
+    snippetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/snippet'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/snippetRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     snippet:
       description: 'A piece of an email to be reused in multiple messages.
 

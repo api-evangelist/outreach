@@ -63,6 +63,8 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    customDutyRelationships:
+      type: object
     customDutyResponse:
       properties:
         attributes:
@@ -101,8 +103,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    customDutyRelationships:
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

@@ -274,6 +274,87 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    webhookRelationships:
+      properties:
+        authorizer:
+          description: The authorizer of the webhook. The webhook will not deliver results if the authorizer does not have permission to read the resource being returned. Relationship authorizer cannot be used as a filter.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the webhook. You can use only the attribute id to filter webhooks by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the webhook. You can use only the attribute id to filter webhooks by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    webhookResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/webhook'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/webhookRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     webhook:
       description: 'A configurable notification that submits external JSON-API-formatted HTTP requests whenever resources are modified.
 
@@ -387,87 +468,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    webhookRelationships:
-      properties:
-        authorizer:
-          description: The authorizer of the webhook. The webhook will not deliver results if the authorizer does not have permission to read the resource being returned. Relationship authorizer cannot be used as a filter.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the webhook. You can use only the attribute id to filter webhooks by creator (e.g. filter[creator][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The most recent updater of the webhook. You can use only the attribute id to filter webhooks by updater (e.g. filter[updater][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    webhookResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/webhook'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/webhookRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

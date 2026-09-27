@@ -351,6 +351,202 @@ components:
           type: string
       type: object
       x-internal: false
+    sequenceState:
+      description: 'A descriptor of a currently sequenced prospect, which includes relationships to its sequence, prospect and user.
+
+        '
+      properties:
+        activeAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the sequence state was last active.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        bounceCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of bounced mailings during this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        callCompletedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state last had a call completed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        clickCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of clicked mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        deliverCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of delivered mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        errorReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The reason for the most recent error.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        failureCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of failed mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        negativeReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of negative reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        neutralReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of neutral reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        openCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of opened mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        optOutCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of opted out mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        pauseReason:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The reason for the most recent pause.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        positiveReplyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of positive reply mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        repliedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state last had a mailing reply.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        replyCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The total count of replied mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        scheduleCount:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The total count of scheduled mailings from this sequence state.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The current state of the sequence state.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state’s state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the sequence state was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     sequenceStateRelationships:
       properties:
         account:
@@ -654,202 +850,6 @@ components:
                   type: string
               type: object
       type: object
-    sequenceState:
-      description: 'A descriptor of a currently sequenced prospect, which includes relationships to its sequence, prospect and user.
-
-        '
-      properties:
-        activeAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The date and time the sequence state was last active.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        bounceCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of bounced mailings during this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        callCompletedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the sequence state last had a call completed.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        clickCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The total count of clicked mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the sequence state was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        deliverCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The total count of delivered mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        errorReason:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The reason for the most recent error.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        failureCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of failed mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        negativeReplyCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of negative reply mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        neutralReplyCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of neutral reply mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        openCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The total count of opened mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        optOutCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of opted out mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        pauseReason:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The reason for the most recent pause.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        positiveReplyCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of positive reply mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        repliedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the sequence state last had a mailing reply.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        replyCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The total count of replied mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        scheduleCount:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The total count of scheduled mailings from this sequence state.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        state:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The current state of the sequence state.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        stateChangedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the sequence state’s state last changed.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the sequence state was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

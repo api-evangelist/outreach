@@ -109,6 +109,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    eventResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/event'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/eventRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     event:
       description: 'Application events, capturing details around the initiator, recipient, etc.
 
@@ -454,18 +466,6 @@ components:
                   type: string
               type: object
       type: object
-    eventResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/event'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/eventRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

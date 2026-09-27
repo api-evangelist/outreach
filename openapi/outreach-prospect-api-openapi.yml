@@ -269,413 +269,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    prospectRelationships:
-      properties:
-        account:
-          description: The prospect's associated account. You can use attributes id, customId, name, named and updatedAt to filter prospects by account (e.g. filter[account][id]=X). You can force a null return on unnamed account by adding in the request actionParams[withUnnamedAccount]=false.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - account
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        activeSequenceStates:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The non-finished sequence states where this prospect is the primary recipient. This includes states of "active", "paused", "failed", "bounced", "pending" and "disabled." You can use attributes id and state to filter prospects by activeSequenceStates (e.g. filter[activeSequenceStates][id]=X).'
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - sequenceState
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        assignedTeams:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - team
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        assignedUsers:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - user
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        batches:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The batches associated with the prospect.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        calls:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The calls associated with the prospect. Relationship calls cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creater of the prospect. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        defaultPluginMapping:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The default plugin mapping associated with the prospect. If no plugin mapping is enabled, it will return the first plugin mapping associated with the prospect.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - pluginMapping
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        emailAddresses:
-          description: The prospect's email addresses. Relationship emailAddresses cannot be used as a filter.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - emailAddress
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        favorites:
-          description: The prospect's favorites. Relationship favorites cannot be used as a filter.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - favorite
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        mailings:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The mailings associated with the prospect. Relationship mailings cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunities:
-          description: The opportunities associated with the prospect. Requires the Opportunities SKU to be enabled in order to have access. Please contact support@outreach.io for more assistance. You can use only the attribute id to filter prospects by opportunities (e.g. filter[opportunities][id]=X).
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - opportunity
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunityProspectRoles:
-          description: The roles that associate the prospect with opportunities. Relationship opportunityProspectRoles cannot be used as a filter.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - opportunityProspectRole
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of the prospect. You can use only the attribute id to filter prospects by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        persona:
-          description: The persona of the prospect, if it has one. You can use only the attribute id to filter prospects by persona (e.g. filter[persona][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - persona
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        phoneNumbers:
-          description: The prospect's phone numbers Relationship phoneNumbers cannot be used as a filter.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - phoneNumber
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        sequenceStates:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The sequence states where this prospect is the primary recipient. You can use attributes id and state to filter prospects by sequenceStates (e.g. filter[sequenceStates][id]=X).'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        stage:
-          description: The stage the prospect is in. You can use attributes id and name to filter prospects by stage (e.g. filter[stage][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - stage
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        tasks:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The tasks associated with the prospect. Relationship tasks cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        trashedByAccount:
-          description: The account that soft deleted this prospect.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - account
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The most recent updater of the prospect. Relationship updater cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    prospectResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/prospect'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/prospectRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     prospect:
       description: 'A descriptor of a person.
 
@@ -2980,6 +2573,413 @@ components:
           - array
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    prospectRelationships:
+      properties:
+        account:
+          description: The prospect's associated account. You can use attributes id, customId, name, named and updatedAt to filter prospects by account (e.g. filter[account][id]=X). You can force a null return on unnamed account by adding in the request actionParams[withUnnamedAccount]=false.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        activeSequenceStates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The non-finished sequence states where this prospect is the primary recipient. This includes states of "active", "paused", "failed", "bounced", "pending" and "disabled." You can use attributes id and state to filter prospects by activeSequenceStates (e.g. filter[activeSequenceStates][id]=X).'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceState
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedUsers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        batches:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batches associated with the prospect.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calls associated with the prospect. Relationship calls cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creater of the prospect. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        defaultPluginMapping:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The default plugin mapping associated with the prospect. If no plugin mapping is enabled, it will return the first plugin mapping associated with the prospect.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - pluginMapping
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        emailAddresses:
+          description: The prospect's email addresses. Relationship emailAddresses cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - emailAddress
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The prospect's favorites. Relationship favorites cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The mailings associated with the prospect. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunities:
+          description: The opportunities associated with the prospect. Requires the Opportunities SKU to be enabled in order to have access. Please contact support@outreach.io for more assistance. You can use only the attribute id to filter prospects by opportunities (e.g. filter[opportunities][id]=X).
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - opportunity
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunityProspectRoles:
+          description: The roles that associate the prospect with opportunities. Relationship opportunityProspectRoles cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - opportunityProspectRole
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the prospect. You can use only the attribute id to filter prospects by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        persona:
+          description: The persona of the prospect, if it has one. You can use only the attribute id to filter prospects by persona (e.g. filter[persona][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - persona
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        phoneNumbers:
+          description: The prospect's phone numbers Relationship phoneNumbers cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - phoneNumber
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence states where this prospect is the primary recipient. You can use attributes id and state to filter prospects by sequenceStates (e.g. filter[sequenceStates][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        stage:
+          description: The stage the prospect is in. You can use attributes id and name to filter prospects by stage (e.g. filter[stage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - stage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The tasks associated with the prospect. Relationship tasks cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        trashedByAccount:
+          description: The account that soft deleted this prospect.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the prospect. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    prospectResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/prospect'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/prospectRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

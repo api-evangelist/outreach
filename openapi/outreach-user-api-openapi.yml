@@ -898,18 +898,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    userResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/user'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/userRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     userRelationships:
       properties:
         batches:
@@ -1331,6 +1319,18 @@ components:
                   type: string
               type: object
       type: object
+    userResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/user'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/userRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

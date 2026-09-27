@@ -259,6 +259,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    callPurposeResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/callPurpose'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callPurposeRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     callPurposeRelationships:
       properties:
         calls:
@@ -341,18 +353,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    callPurposeResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/callPurpose'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/callPurposeRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

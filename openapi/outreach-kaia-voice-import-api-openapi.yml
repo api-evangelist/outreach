@@ -66,20 +66,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    kaiaVoiceImportRelationships:
-      type: object
-    kaiaVoiceImportResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/kaiaVoiceImport'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/kaiaVoiceImportRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     kaiaVoiceImport:
       description: 'Import third party recording. Prerequisite is CreateCall API should be called before.
 
@@ -125,6 +111,20 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    kaiaVoiceImportRelationships:
+      type: object
+    kaiaVoiceImportResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/kaiaVoiceImport'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/kaiaVoiceImportRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

@@ -503,18 +503,6 @@ components:
                   type: string
               type: object
       type: object
-    mailingResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/mailing'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/mailingRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     mailing:
       description: 'A representation of a platform-related email.
 
@@ -849,6 +837,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    mailingResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailing'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailingRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

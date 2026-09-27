@@ -326,6 +326,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    teamResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/team'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/teamRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     teamRelationships:
       properties:
         batches:
@@ -530,18 +542,6 @@ components:
                   type: string
               type: object
       type: object
-    teamResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/team'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/teamRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

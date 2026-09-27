@@ -347,18 +347,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    sequenceTemplateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceTemplate'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceTemplateRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequenceTemplateRelationships:
       properties:
         creator:
@@ -448,6 +436,18 @@ components:
                   type: string
               type: object
       type: object
+    sequenceTemplateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceTemplate'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceTemplateRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     sequenceTemplate:
       description: 'An object used to track which templates are in use by which sequence steps.
 

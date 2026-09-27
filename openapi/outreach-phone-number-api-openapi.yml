@@ -282,18 +282,6 @@ components:
                   type: string
               type: object
       type: object
-    phoneNumberResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/phoneNumber'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/phoneNumberRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     phoneNumber:
       description: 'A prospect''s phone number
 
@@ -398,6 +386,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    phoneNumberResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/phoneNumber'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/phoneNumberRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

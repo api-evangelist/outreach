@@ -282,18 +282,6 @@ components:
                   type: string
               type: object
       type: object
-    emailAddressResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/emailAddress'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/emailAddressRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     emailAddress:
       description: 'A prospect''s email address
 
@@ -379,6 +367,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    emailAddressResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/emailAddress'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/emailAddressRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

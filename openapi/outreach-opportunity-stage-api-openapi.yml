@@ -254,44 +254,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    opportunityStageRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the opportunity. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunities:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The opportunities currently associated with the opportunity stage. Relationship opportunities cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     opportunityStageResponse:
       properties:
         attributes:
@@ -369,6 +331,44 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    opportunityStageRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the opportunity. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunities:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The opportunities currently associated with the opportunity stage. Relationship opportunities cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

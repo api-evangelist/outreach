@@ -247,6 +247,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    prospectNoteResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/prospectNote'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/prospectNoteRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     prospectNoteRelationships:
       properties:
         creator:
@@ -370,18 +382,6 @@ components:
           - boolean
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    prospectNoteResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/prospectNote'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/prospectNoteRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

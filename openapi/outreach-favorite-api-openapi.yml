@@ -232,6 +232,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    favoriteResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/favorite'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/favoriteRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     favoriteRelationships:
       properties:
         creator:
@@ -306,18 +318,6 @@ components:
                   type: string
               type: object
       type: object
-    favoriteResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/favorite'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/favoriteRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

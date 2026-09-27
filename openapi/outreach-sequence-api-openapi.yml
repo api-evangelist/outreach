@@ -368,6 +368,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    sequenceResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequence'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     sequenceRelationships:
       properties:
         calls:
@@ -568,18 +580,6 @@ components:
                   type: string
               type: object
       type: object
-    sequenceResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequence'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequence:
       description: 'Leverage emailing within Sequences to engage each individual persona more effectively, and queue up the right actions at the right time.
 

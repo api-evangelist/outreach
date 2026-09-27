@@ -259,6 +259,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    taskDispositionRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the task disposition. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The tasks made with this disposition. Relationship tasks cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     taskDisposition:
       description: 'A collection of task dispositions that help categorize your tasks.
 
@@ -325,44 +363,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    taskDispositionRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the task disposition. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        tasks:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The tasks made with this disposition. Relationship tasks cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     taskDispositionResponse:
       properties:
         attributes:

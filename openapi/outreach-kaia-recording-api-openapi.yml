@@ -278,6 +278,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    kaiaRecordingResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/kaiaRecording'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/kaiaRecordingRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     kaiaRecordingRelationships:
       properties:
         account:
@@ -317,18 +329,6 @@ components:
                   type: string
               type: object
       type: object
-    kaiaRecordingResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/kaiaRecording'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/kaiaRecordingRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

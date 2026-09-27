@@ -259,18 +259,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    callDispositionResponse:
+    callDispositionRelationships:
       properties:
-        attributes:
-          $ref: '#/components/schemas/callDisposition'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/callDispositionRelationships'
-        type:
-          type: string
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calls made with this disposition. Relationship calls cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the call disposition. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
       type: object
-      x-internal: false
     callDisposition:
       description: 'A ready-made collection of call dispositions that help categorize your call logs.
 
@@ -327,44 +353,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    callDispositionRelationships:
+    callDispositionResponse:
       properties:
-        calls:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The calls made with this disposition. Relationship calls cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the call disposition. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
+        attributes:
+          $ref: '#/components/schemas/callDisposition'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callDispositionRelationships'
+        type:
+          type: string
       type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

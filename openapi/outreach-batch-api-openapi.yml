@@ -1907,18 +1907,6 @@ components:
                   type: string
               type: object
       type: object
-    batchResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/batch'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/batchRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     batch:
       description: 'A group of records (Prospect, Account, etc.) in which the same particular action was performed.
 
@@ -2077,6 +2065,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    batchResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/batch'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/batchRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

@@ -416,6 +416,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    sequenceStepResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceStep'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStepRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     sequenceStepRelationships:
       properties:
         callPurpose:
@@ -604,18 +616,6 @@ components:
                   type: string
               type: object
       type: object
-    sequenceStepResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceStep'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceStepRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

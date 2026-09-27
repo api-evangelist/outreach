@@ -254,127 +254,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    purchaseRelationships:
-      properties:
-        account:
-          description: The associated account. You can use only the attribute id to filter purcahses by account id (e.g. filter[account][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - account
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of this task.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of the purchase. You can use only the attribute id to filter purchases by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        product:
-          description: The associated product. You can use only the attribute id to filter purcahses by product id (e.g. filter[product][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - product
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    purchaseResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/purchase'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/purchaseRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     purchase:
       description: 'Contains all the list of products which are related to the accounts.
 
@@ -1859,6 +1738,127 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    purchaseRelationships:
+      properties:
+        account:
+          description: The associated account. You can use only the attribute id to filter purcahses by account id (e.g. filter[account][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of this task.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the purchase. You can use only the attribute id to filter purchases by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        product:
+          description: The associated product. You can use only the attribute id to filter purcahses by product id (e.g. filter[product][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - product
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    purchaseResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/purchase'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/purchaseRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

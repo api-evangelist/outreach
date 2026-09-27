@@ -256,6 +256,8 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    profileRelationships:
+      type: object
     profile:
       description: 'Controls what you can see and do within Outreach
 
@@ -312,8 +314,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    profileRelationships:
-      type: object
     profileResponse:
       properties:
         attributes:

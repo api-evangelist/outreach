@@ -409,20 +409,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    uploadResponse:
-      properties:
-        attributes:
-          properties:
-            storageKey:
-              description: the reference to the upload to use in following API calls such as import.
-              type: string
-            uploadURL:
-              description: the AWS S3 presigned URL at which the file should be uploaded.
-              type: string
-          type: object
-        type:
-          type: string
-      type: object
     import:
       description: 'An operation that imports data into Outreach
 
@@ -690,6 +676,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    importResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/import'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/importRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     validateUploadResponse:
       properties:
         attributes:
@@ -711,18 +709,6 @@ components:
         type:
           type: string
       type: object
-    importResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/import'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/importRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     importRelationships:
       properties:
         creator:
@@ -748,6 +734,20 @@ components:
                   format: uri
                   type: string
               type: object
+      type: object
+    uploadResponse:
+      properties:
+        attributes:
+          properties:
+            storageKey:
+              description: the reference to the upload to use in following API calls such as import.
+              type: string
+            uploadURL:
+              description: the AWS S3 presigned URL at which the file should be uploaded.
+              type: string
+          type: object
+        type:
+          type: string
       type: object
   securitySchemes:
     bearerAuth:
