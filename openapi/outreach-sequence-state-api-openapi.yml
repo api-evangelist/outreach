@@ -339,18 +339,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    sequenceStateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceState'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceStateRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequenceState:
       description: 'A descriptor of a currently sequenced prospect, which includes relationships to its sequence, prospect and user.
 
@@ -545,6 +533,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    sequenceStateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceState'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStateRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     sequenceStateRelationships:

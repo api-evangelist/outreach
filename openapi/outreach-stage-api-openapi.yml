@@ -254,6 +254,62 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    stage:
+      description: 'A descriptor of the point in the process, used for categorizing Prospects.
+
+        '
+      properties:
+        color:
+          description: '
+
+
+            The color the stage label will be highlighted in the interface, specified as a hexidecimal value (e.g. "#5951ff").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the stage was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the stage (e.g. "Qualified Lead").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        order:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The stage''s display order within the collection.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the stage was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     stageRelationships:
       properties:
         creator:
@@ -325,62 +381,6 @@ components:
           $ref: '#/components/schemas/stageRelationships'
         type:
           type: string
-      type: object
-      x-internal: false
-    stage:
-      description: 'A descriptor of the point in the process, used for categorizing Prospects.
-
-        '
-      properties:
-        color:
-          description: '
-
-
-            The color the stage label will be highlighted in the interface, specified as a hexidecimal value (e.g. "#5951ff").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the stage was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The name of the stage (e.g. "Qualified Lead").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        order:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The stage''s display order within the collection.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the stage was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
       type: object
       x-internal: false
   securitySchemes:

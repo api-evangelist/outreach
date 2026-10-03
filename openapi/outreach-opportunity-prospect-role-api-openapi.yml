@@ -259,6 +259,49 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    opportunityProspectRoleRelationships:
+      properties:
+        opportunity:
+          description: The opportunity associated with the role. You can use only the attribute id to filter opportunityProspectRoles by opportunity (e.g. filter[opportunity][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunity
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospect:
+          description: The prospect associated with the role. You can use only the attribute id to filter opportunityProspectRoles by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     opportunityProspectRole:
       description: 'A prospect''s role and association with an opportunity
 
@@ -317,49 +360,6 @@ components:
           type: string
       type: object
       x-internal: false
-    opportunityProspectRoleRelationships:
-      properties:
-        opportunity:
-          description: The opportunity associated with the role. You can use only the attribute id to filter opportunityProspectRoles by opportunity (e.g. filter[opportunity][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - opportunity
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        prospect:
-          description: The prospect associated with the role. You can use only the attribute id to filter opportunityProspectRoles by prospect (e.g. filter[prospect][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - prospect
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

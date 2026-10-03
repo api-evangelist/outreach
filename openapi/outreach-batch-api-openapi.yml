@@ -1869,6 +1869,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    batchResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/batch'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/batchRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     batchRelationships:
       properties:
         batchItems:
@@ -2065,18 +2077,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    batchResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/batch'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/batchRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

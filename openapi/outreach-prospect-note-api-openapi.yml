@@ -247,16 +247,60 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    prospectNoteResponse:
+    prospectNote:
+      description: 'Notes related to prospects
+
+        '
       properties:
-        attributes:
-          $ref: '#/components/schemas/prospectNote'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/prospectNoteRelationships'
-        type:
-          type: string
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the prospect note was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        message:
+          description: '
+
+
+            The text content of this prospect note.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        noteType:
+          description: '
+
+
+            The context of this prospect note, one of {note,call,coffee,beer,meeting}.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        opportunityAssociationRule:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The rule used to associate the account note with an opportunity, one of {recent_created,recent_updated}.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        pinned:
+          description: '
+
+
+            A boolean value indicating whether this prospect note is pinned.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
       type: object
       x-internal: false
     prospectNoteRelationships:
@@ -328,60 +372,16 @@ components:
                   type: string
               type: object
       type: object
-    prospectNote:
-      description: 'Notes related to prospects
-
-        '
+    prospectNoteResponse:
       properties:
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the prospect note was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        message:
-          description: '
-
-
-            The text content of this prospect note.'
-          maxLength: 65535
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        noteType:
-          description: '
-
-
-            The context of this prospect note, one of {note,call,coffee,beer,meeting}.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        opportunityAssociationRule:
-          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
-
-
-            The rule used to associate the account note with an opportunity, one of {recent_created,recent_updated}.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        pinned:
-          description: '
-
-
-            A boolean value indicating whether this prospect note is pinned.'
-          type:
-          - boolean
-          - 'null'
-          x-internal: false
+        attributes:
+          $ref: '#/components/schemas/prospectNote'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/prospectNoteRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

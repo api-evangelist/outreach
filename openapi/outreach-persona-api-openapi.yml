@@ -259,6 +259,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    personaResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/persona'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/personaRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     personaRelationships:
       properties:
         prospects:
@@ -319,18 +331,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    personaResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/persona'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/personaRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

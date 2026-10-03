@@ -259,6 +259,52 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    contentCategoryRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the content category. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        teams:
+          description: The teams the content category is assigned to.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     contentCategory:
       description: 'Content can be grouped into content categories to help discoverability.
 
@@ -333,52 +379,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    contentCategoryRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the content category. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        teams:
-          description: The teams the content category is assigned to.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - team
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     contentCategoryResponse:
       properties:
         attributes:

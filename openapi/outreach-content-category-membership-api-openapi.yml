@@ -186,33 +186,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    contentCategoryMembership:
-      description: 'A record that maps content (e.g. a sequence) to a content category.
-
-        '
-      properties:
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the content category membership was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the content category membership was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
     contentCategoryMembershipRelationships:
       properties:
         content:
@@ -281,6 +254,33 @@ components:
                   type: string
               type: object
       type: object
+    contentCategoryMembership:
+      description: 'A record that maps content (e.g. a sequence) to a content category.
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the content category membership was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the content category membership was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     contentCategoryMembershipResponse:
       properties:
         attributes:

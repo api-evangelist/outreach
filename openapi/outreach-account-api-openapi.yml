@@ -281,266 +281,6 @@ components:
           type: string
       type: object
       x-internal: false
-    accountRelationships:
-      properties:
-        assignedTeams:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - team
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        assignedUsers:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - user
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        batches:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The batches associated with the account.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the account. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        defaultPluginMapping:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The default plugin mapping associated with the account. If no plugin mapping is enabled, it will return the first plugin mapping associated with the account.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - pluginMapping
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        favorites:
-          description: The account favorited by the user.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - favorite
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of the account. You can use only the attribute id to filter accounts by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        primaryRecordTeam:
-          description: ''
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - team
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        prospects:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The account''s associated prospects. Relationship prospects cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        purchases:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        recordTeamMembers:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - user
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        recordTeams:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - team
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        tasks:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated tasks. Relationship tasks cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The most recent updater of the account. Relationship updater cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     account:
       description: 'A descriptor of a named company used to categorize prospects within an account-based sales approach.
 
@@ -2307,6 +2047,266 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    accountRelationships:
+      properties:
+        assignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedUsers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        batches:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batches associated with the account.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the account. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        defaultPluginMapping:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The default plugin mapping associated with the account. If no plugin mapping is enabled, it will return the first plugin mapping associated with the account.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - pluginMapping
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The account favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the account. You can use only the attribute id to filter accounts by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        primaryRecordTeam:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - team
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospects:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account''s associated prospects. Relationship prospects cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        purchases:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recordTeamMembers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recordTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated tasks. Relationship tasks cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the account. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

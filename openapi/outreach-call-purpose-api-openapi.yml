@@ -259,56 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    callPurposeResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/callPurpose'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/callPurposeRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
-    callPurposeRelationships:
-      properties:
-        calls:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The calls made with this purpose. Relationship calls cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the call purpose. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     callPurpose:
       description: 'A ready-made collection of call purposes that help categorize your call logs.
 
@@ -353,6 +303,56 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    callPurposeRelationships:
+      properties:
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The calls made with this purpose. Relationship calls cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the call purpose. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    callPurposeResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/callPurpose'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callPurposeRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

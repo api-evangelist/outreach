@@ -109,18 +109,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    eventResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/event'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/eventRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     event:
       description: 'Application events, capturing details around the initiator, recipient, etc.
 
@@ -232,6 +220,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    eventResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/event'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/eventRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     eventRelationships:

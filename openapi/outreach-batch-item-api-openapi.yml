@@ -93,32 +93,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    batchItemRelationships:
-      properties:
-        batch:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The batch associated with this record.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - batch
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     batchItem:
       description: 'A record associated with a batch in which a particular action was performed.
 
@@ -196,6 +170,32 @@ components:
           type: string
       type: object
       x-internal: false
+    batchItemRelationships:
+      properties:
+        batch:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batch associated with this record.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - batch
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

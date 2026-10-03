@@ -254,18 +254,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    opportunityStageResponse:
+    opportunityStageRelationships:
       properties:
-        attributes:
-          $ref: '#/components/schemas/opportunityStage'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/opportunityStageRelationships'
-        type:
-          type: string
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the opportunity. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunities:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The opportunities currently associated with the opportunity stage. Relationship opportunities cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
       type: object
-      x-internal: false
     opportunityStage:
       description: 'The stage an opportunity is in. Requires the Opportunities SKU to be enabled in order to have access. Please contact support for more assistance.
 
@@ -331,44 +357,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    opportunityStageRelationships:
+    opportunityStageResponse:
       properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the opportunity. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunities:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The opportunities currently associated with the opportunity stage. Relationship opportunities cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
+        attributes:
+          $ref: '#/components/schemas/opportunityStage'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/opportunityStageRelationships'
+        type:
+          type: string
       type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

@@ -259,18 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    rulesetResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ruleset'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/rulesetRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     rulesetRelationships:
       properties:
         bouncedStage:
@@ -506,6 +494,18 @@ components:
                   type: string
               type: object
       type: object
+    rulesetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ruleset'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/rulesetRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     ruleset:
       description: 'A reusable set of behaviors to be applied to Sequences
 

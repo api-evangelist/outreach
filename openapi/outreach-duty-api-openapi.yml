@@ -50,6 +50,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    dutyResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/duty'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/dutyRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     dutyRelationships:
       type: object
     duty:
@@ -76,18 +88,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    dutyResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/duty'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/dutyRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

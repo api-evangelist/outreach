@@ -147,6 +147,33 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    contentCategoryOwnership:
+      description: 'A record that maps content categories to owners. This allows categories to be linked to one or more teams.
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the content category ownership was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the content category ownership was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
     contentCategoryOwnershipRelationships:
       properties:
         contentCategory:
@@ -223,33 +250,6 @@ components:
           $ref: '#/components/schemas/contentCategoryOwnershipRelationships'
         type:
           type: string
-      type: object
-      x-internal: false
-    contentCategoryOwnership:
-      description: 'A record that maps content categories to owners. This allows categories to be linked to one or more teams.
-
-        '
-      properties:
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the content category ownership was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the content category ownership was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
       type: object
       x-internal: false
   securitySchemes:

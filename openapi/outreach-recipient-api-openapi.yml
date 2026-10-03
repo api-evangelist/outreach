@@ -259,49 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    recipientRelationships:
-      properties:
-        prospect:
-          description: The prospect entity relation.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - prospect
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        user:
-          description: The user entity relation.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     recipient:
       description: 'Record for a recipient for some communication, such as email
 
@@ -380,6 +337,49 @@ components:
           type: string
       type: object
       x-internal: false
+    recipientRelationships:
+      properties:
+        prospect:
+          description: The prospect entity relation.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: The user entity relation.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

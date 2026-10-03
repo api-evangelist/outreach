@@ -93,18 +93,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    mailAliasResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/mailAlias'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/mailAliasRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     mailAlias:
       description: 'Alternative email name for a mailbox.
 
@@ -184,6 +172,18 @@ components:
                   type: string
               type: object
       type: object
+    mailAliasResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailAlias'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailAliasRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

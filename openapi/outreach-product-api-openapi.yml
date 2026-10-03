@@ -1719,6 +1719,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    productResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/product'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/productRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     productRelationships:
       properties:
         creator:
@@ -1800,18 +1812,6 @@ components:
                   type: string
               type: object
       type: object
-    productResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/product'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/productRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

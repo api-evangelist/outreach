@@ -259,29 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    emailAddressRelationships:
-      properties:
-        prospect:
-          description: The owning prospect You can use only the attribute id to filter emailAddresses by prospect (e.g. filter[prospect][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - prospect
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     emailAddress:
       description: 'A prospect''s email address
 
@@ -369,6 +346,29 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    emailAddressRelationships:
+      properties:
+        prospect:
+          description: The owning prospect You can use only the attribute id to filter emailAddresses by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     emailAddressResponse:
       properties:
         attributes:
