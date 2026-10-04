@@ -254,6 +254,99 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    productResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/product'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/productRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    productRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of this task.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of this task.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        purchases:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     product:
       description: 'Contains all the list of products and maintained by the admin.
 
@@ -1719,99 +1812,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    productResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/product'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/productRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
-    productRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of this task.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of this task.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        purchases:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

@@ -259,6 +259,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    phoneNumberRelationships:
+      properties:
+        prospect:
+          description: The owning prospect You can use only the attribute id to filter phoneNumbers by prospect (e.g. filter[prospect][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     phoneNumber:
       description: 'A prospect''s phone number
 
@@ -377,29 +400,6 @@ components:
           type: string
       type: object
       x-internal: false
-    phoneNumberRelationships:
-      properties:
-        prospect:
-          description: The owning prospect You can use only the attribute id to filter phoneNumbers by prospect (e.g. filter[prospect][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - prospect
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

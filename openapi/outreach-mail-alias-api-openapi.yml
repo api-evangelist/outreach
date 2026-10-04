@@ -149,6 +149,18 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    mailAliasResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailAlias'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailAliasRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     mailAliasRelationships:
       properties:
         mailbox:
@@ -172,18 +184,6 @@ components:
                   type: string
               type: object
       type: object
-    mailAliasResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/mailAlias'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/mailAliasRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

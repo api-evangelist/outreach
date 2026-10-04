@@ -265,6 +265,213 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    templateRelationships:
+      properties:
+        attachments:
+          description: The attachments to be sent with this template.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - attachment
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        contentCategoryMemberships:
+          description: The content cateogories with which this template is associated. Relationship contentCategoryMemberships cannot be used as a filter.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - contentCategoryMembership
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the template. You can use only the attribute id to filter templates by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The template favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the template. You can use only the attribute id to filter templates by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        recipients:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A list of default email addresses to receive this template. You can use only the attribute id to filter templates by recipients (e.g. filter[recipients][id]=X).'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - recipient
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceTemplates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The sequence templates using the template for their content. Relationship sequenceTemplates cannot be used as a filter.'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceTemplate
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        statsTarget:
+          description: The template that collects all the metrics instead of current one.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - template
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the template. You can use only the attribute id to filter templates by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    templateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/template'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/templateRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     template:
       description: 'A reusable template for building emails.
 
@@ -531,213 +738,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    templateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/template'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/templateRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
-    templateRelationships:
-      properties:
-        attachments:
-          description: The attachments to be sent with this template.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - attachment
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        contentCategoryMemberships:
-          description: The content cateogories with which this template is associated. Relationship contentCategoryMemberships cannot be used as a filter.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - contentCategoryMembership
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the template. You can use only the attribute id to filter templates by creator (e.g. filter[creator][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        favorites:
-          description: The template favorited by the user.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - favorite
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of the template. You can use only the attribute id to filter templates by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        recipients:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            A list of default email addresses to receive this template. You can use only the attribute id to filter templates by recipients (e.g. filter[recipients][id]=X).'
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - recipient
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        sequenceTemplates:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The sequence templates using the template for their content. Relationship sequenceTemplates cannot be used as a filter.'
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - sequenceTemplate
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        statsTarget:
-          description: The template that collects all the metrics instead of current one.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - template
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the template. You can use only the attribute id to filter templates by updater (e.g. filter[updater][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

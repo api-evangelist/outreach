@@ -445,99 +445,6 @@ components:
           type: string
       type: object
       x-internal: false
-    mailboxRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the mailbox. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        mailAliases:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The email aliases associated with this mailbox Relationship mailAliases cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        mailings:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The mailings sent via this mailbox. Relationship mailings cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The most recent updater of the mailbox. Relationship updater cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        user:
-          description: The user owning this mailbox. You can use only the attribute id to filter mailboxes by user (e.g. filter[user][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     mailbox:
       description: 'A representation of an email mailbox, used within the application for sending and syncing emails.
 
@@ -1023,6 +930,99 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    mailboxRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the mailbox. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailAliases:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The email aliases associated with this mailbox Relationship mailAliases cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The mailings sent via this mailbox. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the mailbox. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        user:
+          description: The user owning this mailbox. You can use only the attribute id to filter mailboxes by user (e.g. filter[user][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

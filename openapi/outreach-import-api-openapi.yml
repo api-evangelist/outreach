@@ -409,6 +409,65 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    validateUploadResponse:
+      properties:
+        attributes:
+          properties:
+            headerValue:
+              description: the headers of the uploaded file with the first value
+              properties:
+                header:
+                  description: the header name
+                  type: string
+                value:
+                  description: the first value of the header
+                  type: string
+              type: object
+            recordCount:
+              description: the number of records in the uploaded file.
+              type: integer
+          type: object
+        type:
+          type: string
+      type: object
+    importResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/import'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/importRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    importRelationships:
+      properties:
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     import:
       description: 'An operation that imports data into Outreach
 
@@ -676,27 +735,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    validateUploadResponse:
-      properties:
-        attributes:
-          properties:
-            headerValue:
-              description: the headers of the uploaded file with the first value
-              properties:
-                header:
-                  description: the header name
-                  type: string
-                value:
-                  description: the first value of the header
-                  type: string
-              type: object
-            recordCount:
-              description: the number of records in the uploaded file.
-              type: integer
-          type: object
-        type:
-          type: string
-      type: object
     uploadResponse:
       properties:
         attributes:
@@ -711,44 +749,6 @@ components:
         type:
           type: string
       type: object
-    importRelationships:
-      properties:
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    importResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/import'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/importRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

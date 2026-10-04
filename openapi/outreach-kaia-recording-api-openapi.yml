@@ -93,6 +93,45 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    kaiaRecordingRelationships:
+      properties:
+        account:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The account associated with the recording'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The opportunity associated with the recording'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The recording owner/organizer'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     kaiaRecording:
       description: ''
       properties:
@@ -290,45 +329,6 @@ components:
           type: string
       type: object
       x-internal: false
-    kaiaRecordingRelationships:
-      properties:
-        account:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The account associated with the recording'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunity:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The opportunity associated with the recording'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The recording owner/organizer'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

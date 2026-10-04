@@ -535,18 +535,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    sequenceStateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceState'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceStateRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequenceStateRelationships:
       properties:
         account:
@@ -850,6 +838,18 @@ components:
                   type: string
               type: object
       type: object
+    sequenceStateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceState'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceStateRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

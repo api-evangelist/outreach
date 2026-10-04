@@ -1881,44 +1881,6 @@ components:
           type: string
       type: object
       x-internal: false
-    batchRelationships:
-      properties:
-        batchItems:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The batch items associated with this batch.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     batch:
       description: 'A group of records (Prospect, Account, etc.) in which the same particular action was performed.
 
@@ -2079,6 +2041,44 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    batchRelationships:
+      properties:
+        batchItems:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The batch items associated with this batch.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

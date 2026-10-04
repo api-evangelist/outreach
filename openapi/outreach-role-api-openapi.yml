@@ -306,18 +306,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    roleResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/role'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/roleRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     roleRelationships:
       properties:
         childRoles:
@@ -364,6 +352,18 @@ components:
                   type: string
               type: object
       type: object
+    roleResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/role'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/roleRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

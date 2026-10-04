@@ -254,6 +254,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    stageResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/stage'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/stageRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     stage:
       description: 'A descriptor of the point in the process, used for categorizing Prospects.
 
@@ -371,18 +383,6 @@ components:
                   type: string
               type: object
       type: object
-    stageResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/stage'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/stageRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

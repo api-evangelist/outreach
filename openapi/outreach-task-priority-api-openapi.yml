@@ -93,33 +93,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    taskPriorityRelationships:
+    taskPriorityResponse:
       properties:
-        sequenceSteps:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated sequence steps. Relationship sequenceSteps cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        tasks:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated tasks. Relationship tasks cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
+        attributes:
+          $ref: '#/components/schemas/taskPriority'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/taskPriorityRelationships'
+        type:
+          type: string
       type: object
+      x-internal: false
     taskPriority:
       description: 'A descriptor of importance used for categorizing Tasks.
 
@@ -175,18 +160,33 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    taskPriorityResponse:
+    taskPriorityRelationships:
       properties:
-        attributes:
-          $ref: '#/components/schemas/taskPriority'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/taskPriorityRelationships'
-        type:
-          type: string
+        sequenceSteps:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence steps. Relationship sequenceSteps cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated tasks. Relationship tasks cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
       type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

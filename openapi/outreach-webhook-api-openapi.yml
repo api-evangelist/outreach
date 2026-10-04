@@ -274,18 +274,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    webhookResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/webhook'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/webhookRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     webhookRelationships:
       properties:
         authorizer:
@@ -355,6 +343,18 @@ components:
                   type: string
               type: object
       type: object
+    webhookResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/webhook'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/webhookRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     webhook:
       description: 'A configurable notification that submits external JSON-API-formatted HTTP requests whenever resources are modified.
 

@@ -259,52 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    callPurpose:
-      description: 'A ready-made collection of call purposes that help categorize your call logs.
-
-        '
-      properties:
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the call purpose was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The purpose’s name (e.g. "Initial Contact").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        order:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The purpose’s display order within the collection.'
-          type:
-          - integer
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the call purpose was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
     callPurposeRelationships:
       properties:
         calls:
@@ -353,6 +307,52 @@ components:
           $ref: '#/components/schemas/callPurposeRelationships'
         type:
           type: string
+      type: object
+      x-internal: false
+    callPurpose:
+      description: 'A ready-made collection of call purposes that help categorize your call logs.
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call purpose was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The purpose’s name (e.g. "Initial Contact").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        order:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The purpose’s display order within the collection.'
+          type:
+          - integer
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call purpose was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
       type: object
       x-internal: false
   securitySchemes:

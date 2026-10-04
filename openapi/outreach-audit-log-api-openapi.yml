@@ -62,8 +62,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    auditLogRelationships:
-      type: object
     auditLogResponse:
       properties:
         attributes:
@@ -77,6 +75,8 @@ components:
           type: string
       type: object
       x-internal: false
+    auditLogRelationships:
+      type: object
     auditLog:
       description: '
 

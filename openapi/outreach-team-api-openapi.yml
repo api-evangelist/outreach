@@ -259,18 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    teamResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/team'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/teamRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     team:
       description: 'A descriptor of a group of users.
 
@@ -542,6 +530,18 @@ components:
                   type: string
               type: object
       type: object
+    teamResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/team'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/teamRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

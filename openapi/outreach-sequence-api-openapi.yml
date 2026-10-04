@@ -368,218 +368,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    sequenceRelationships:
-      properties:
-        calls:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated calls. You can use only the attribute id to filter sequences by calls (e.g. filter[calls][id]=X).'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        contentCategoryMemberships:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The content categories (collections) of the sequence. You can use only the attribute id to filter sequences by contentCategoryMemberships (e.g. filter[contentCategoryMemberships][id]=X).'
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - contentCategoryMembership
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creater of the sequence. You can use only the attribute id to filter sequences by creator (e.g. filter[creator][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        mailings:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated mailings. Relationship mailings cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The owner of the sequence. You can use attributes id, email, firstName and lastName to filter sequences by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        ruleset:
-          description: The associated ruleset. You can use only the attribute id to filter sequences by ruleset (e.g. filter[ruleset][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - ruleset
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        schedule:
-          description: The associated schedule.
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - schedule
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        sequenceStates:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated sequence states. You can use only the attribute id to filter sequences by sequenceStates (e.g. filter[sequenceStates][id]=X).'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        sequenceSteps:
-          description: The associated sequence steps. You can use only the attribute id to filter sequences by sequenceSteps (e.g. filter[sequenceSteps][id]=X).
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - sequenceStep
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        tasks:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The associated tasks. You can use only the attribute id to filter sequences by tasks (e.g. filter[tasks][id]=X).'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The most recent updater of the sequence. You can use only the attribute id to filter sequences by updater (e.g. filter[updater][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    sequenceResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequence'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequence:
       description: 'Leverage emailing within Sequences to engage each individual persona more effectively, and queue up the right actions at the right time.
 
@@ -971,6 +759,218 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    sequenceRelationships:
+      properties:
+        calls:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated calls. You can use only the attribute id to filter sequences by calls (e.g. filter[calls][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        contentCategoryMemberships:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The content categories (collections) of the sequence. You can use only the attribute id to filter sequences by contentCategoryMemberships (e.g. filter[contentCategoryMemberships][id]=X).'
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - contentCategoryMembership
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creater of the sequence. You can use only the attribute id to filter sequences by creator (e.g. filter[creator][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        mailings:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated mailings. Relationship mailings cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The owner of the sequence. You can use attributes id, email, firstName and lastName to filter sequences by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        ruleset:
+          description: The associated ruleset. You can use only the attribute id to filter sequences by ruleset (e.g. filter[ruleset][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - ruleset
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        schedule:
+          description: The associated schedule.
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - schedule
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceStates:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated sequence states. You can use only the attribute id to filter sequences by sequenceStates (e.g. filter[sequenceStates][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        sequenceSteps:
+          description: The associated sequence steps. You can use only the attribute id to filter sequences by sequenceSteps (e.g. filter[sequenceSteps][id]=X).
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - sequenceStep
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        tasks:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The associated tasks. You can use only the attribute id to filter sequences by tasks (e.g. filter[tasks][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The most recent updater of the sequence. You can use only the attribute id to filter sequences by updater (e.g. filter[updater][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
+    sequenceResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequence'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

@@ -195,244 +195,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    call:
-      description: 'A log of an inbound or outbound call made with a prospect.
-
-        '
-      properties:
-        answeredAt:
-          description: '
-
-
-            The date and time the call was answered.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        completedAt:
-          description: '
-
-
-            The date and time the call was completed.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the call record was created in database. This does not necessarily indicate the time the call was made. If you need the time the call was made, please use either dialedAt or answeredAt.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        dialedAt:
-          description: '
-
-
-            The date and time the call was dialed.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        direction:
-          description: '
-
-
-            The call direction from the user’s point of view; must be either "inbound" or "outbound".'
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        externalVendor:
-          description: '
-
-
-            The voice provider of the call. Can be blank.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        from:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The phone number used to place the call.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        note:
-          description: '
-
-
-            A custom note associated with this call.'
-          maxLength: 65535
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        outcome:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The call’s outcome; must be either "Answered" or "Not Answered".'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        recordingUrl:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The URL of the call''s audio recording. This field only accepts HTTP and HTTPS values.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        returnedAt:
-          description: '
-
-
-            The date and time the call was returned.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        sequenceAction:
-          description: '
-
-
-            The action to take on the associated sequence; must be either "Advance", "Finish", "Finish - No Reply", or "Finish - Replied".'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        shouldRecordCall:
-          description: '
-
-
-            Indicated whether or not the call is recorded.'
-          type:
-          - boolean
-          - 'null'
-          x-internal: false
-        state:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The call’s current state.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        stateChangedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The date and time the call’s state last changed.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        tags:
-          description: '
-
-
-            A list of tag values associated with the call (e.g. ["Interested", "Meeting Booked"]).'
-          items:
-            type: string
-          type:
-          - array
-          - 'null'
-          x-internal: false
-        to:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The phone number that the call was placed to.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        uid:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The Outreach voice trace id.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the call was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        userCallType:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The type of call placed within the Outreach client; must be either "bridge" or "voip".'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        vendorCallId:
-          description: '
-
-
-            The call-id as recorded by the voice provider. Can be blank.'
-          maxLength: 63
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        voicemailRecordingUrl:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The URL of the call’s voicemail audio recording.'
-          maxLength: 1024
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
-    callResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/call'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/callRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     callRelationships:
       properties:
         associatedId:
@@ -735,6 +497,244 @@ components:
                   type: string
               type: object
       type: object
+    call:
+      description: 'A log of an inbound or outbound call made with a prospect.
+
+        '
+      properties:
+        answeredAt:
+          description: '
+
+
+            The date and time the call was answered.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        completedAt:
+          description: '
+
+
+            The date and time the call was completed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call record was created in database. This does not necessarily indicate the time the call was made. If you need the time the call was made, please use either dialedAt or answeredAt.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        dialedAt:
+          description: '
+
+
+            The date and time the call was dialed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        direction:
+          description: '
+
+
+            The call direction from the user’s point of view; must be either "inbound" or "outbound".'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalVendor:
+          description: '
+
+
+            The voice provider of the call. Can be blank.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        from:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The phone number used to place the call.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        note:
+          description: '
+
+
+            A custom note associated with this call.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        outcome:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The call’s outcome; must be either "Answered" or "Not Answered".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        recordingUrl:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The URL of the call''s audio recording. This field only accepts HTTP and HTTPS values.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        returnedAt:
+          description: '
+
+
+            The date and time the call was returned.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        sequenceAction:
+          description: '
+
+
+            The action to take on the associated sequence; must be either "Advance", "Finish", "Finish - No Reply", or "Finish - Replied".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        shouldRecordCall:
+          description: '
+
+
+            Indicated whether or not the call is recorded.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        state:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The call’s current state.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        stateChangedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The date and time the call’s state last changed.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        tags:
+          description: '
+
+
+            A list of tag values associated with the call (e.g. ["Interested", "Meeting Booked"]).'
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+          x-internal: false
+        to:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The phone number that the call was placed to.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        uid:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The Outreach voice trace id.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the call was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        userCallType:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The type of call placed within the Outreach client; must be either "bridge" or "voip".'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        vendorCallId:
+          description: '
+
+
+            The call-id as recorded by the voice provider. Can be blank.'
+          maxLength: 63
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        voicemailRecordingUrl:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The URL of the call’s voicemail audio recording.'
+          maxLength: 1024
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    callResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/call'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

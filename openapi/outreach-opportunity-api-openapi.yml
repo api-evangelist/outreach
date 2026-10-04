@@ -281,333 +281,6 @@ components:
           type: string
       type: object
       x-internal: false
-    opportunityRelationships:
-      properties:
-        account:
-          description: The account the opportunity is for. You can use attributes id and name to filter opportunities by account (e.g. filter[account][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - account
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        assignedTeams:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - team
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        assignedUsers:
-          description: ''
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - user
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        creator:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The creator of the opportunity. Relationship creator cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        defaultPluginMapping:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The default plugin mapping associated with the opportunity. If no plugin mapping is enabled, it will return the first plugin mapping associated with the opportunity.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - pluginMapping
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        externalCreator:
-          description: ''
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        favorites:
-          description: The opportunity favorited by the user.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - favorite
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunityHealthFactors:
-          description: The factors related to the opportunities health.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - opportunityHealthFactor
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunityLineItems:
-          description: The products associated with opportunity.
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - opportunityLineItem
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        opportunityStage:
-          description: The current stage of the opportunity. You can use only the attribute id to filter opportunities by stage (e.g. filter[stage][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - opportunityStage
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        owner:
-          description: The user who owns the opportunity. You can use only the attribute id to filter opportunities by owner (e.g. filter[owner][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        primaryProspect:
-          description: ''
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - prospect
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        prospects:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The prospects associated with this opportunity. You can use only the attribute id to filter opportunities by prospects (e.g. filter[prospects][id]=X).'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        stage:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The current stage of the opportunity. You can use only the attribute id to filter opportunities by stage (e.g. filter[stage][id]=X).'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - opportunityStage
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        territory:
-          description: The territory of the opportunity. You can use attributes id and name to filter opportunities by territory (e.g. filter[territory][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - territory
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        updater:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The updater of the opportunity. Relationship updater cannot be used as a filter.'
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - user
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     opportunity:
       description: 'An opportunity for a sale or pending deal. Requires the Opportunities SKU to be enabled in order to have access. Please contact support for more assistance.
 
@@ -2374,6 +2047,333 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    opportunityRelationships:
+      properties:
+        account:
+          description: The account the opportunity is for. You can use attributes id and name to filter opportunities by account (e.g. filter[account][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - account
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedTeams:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - team
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        assignedUsers:
+          description: ''
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - user
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        creator:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The creator of the opportunity. Relationship creator cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        defaultPluginMapping:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The default plugin mapping associated with the opportunity. If no plugin mapping is enabled, it will return the first plugin mapping associated with the opportunity.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - pluginMapping
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        externalCreator:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        favorites:
+          description: The opportunity favorited by the user.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - favorite
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunityHealthFactors:
+          description: The factors related to the opportunities health.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - opportunityHealthFactor
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunityLineItems:
+          description: The products associated with opportunity.
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - opportunityLineItem
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        opportunityStage:
+          description: The current stage of the opportunity. You can use only the attribute id to filter opportunities by stage (e.g. filter[stage][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunityStage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        owner:
+          description: The user who owns the opportunity. You can use only the attribute id to filter opportunities by owner (e.g. filter[owner][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        primaryProspect:
+          description: ''
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - prospect
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        prospects:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The prospects associated with this opportunity. You can use only the attribute id to filter opportunities by prospects (e.g. filter[prospects][id]=X).'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        stage:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The current stage of the opportunity. You can use only the attribute id to filter opportunities by stage (e.g. filter[stage][id]=X).'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - opportunityStage
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        territory:
+          description: The territory of the opportunity. You can use attributes id and name to filter opportunities by territory (e.g. filter[territory][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - territory
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        updater:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The updater of the opportunity. Relationship updater cannot be used as a filter.'
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - user
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

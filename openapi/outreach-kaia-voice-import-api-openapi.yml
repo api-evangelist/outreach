@@ -78,8 +78,6 @@ components:
           type: string
       type: object
       x-internal: false
-    kaiaVoiceImportRelationships:
-      type: object
     kaiaVoiceImport:
       description: 'Import third party recording. Prerequisite is CreateCall API should be called before.
 
@@ -127,6 +125,8 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    kaiaVoiceImportRelationships:
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

@@ -254,6 +254,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    opportunityStageResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/opportunityStage'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/opportunityStageRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     opportunityStageRelationships:
       properties:
         creator:
@@ -355,18 +367,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    opportunityStageResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/opportunityStage'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/opportunityStageRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

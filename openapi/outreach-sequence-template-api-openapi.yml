@@ -436,18 +436,6 @@ components:
                   type: string
               type: object
       type: object
-    sequenceTemplateResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/sequenceTemplate'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/sequenceTemplateRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     sequenceTemplate:
       description: 'An object used to track which templates are in use by which sequence steps.
 
@@ -600,6 +588,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    sequenceTemplateResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/sequenceTemplate'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/sequenceTemplateRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

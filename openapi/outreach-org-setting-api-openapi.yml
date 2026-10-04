@@ -129,6 +129,8 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    orgSettingRelationships:
+      type: object
     orgSetting:
       description: 'The collection of settings for an Org.
 
@@ -179,8 +181,6 @@ components:
           type: string
       type: object
       x-internal: false
-    orgSettingRelationships:
-      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

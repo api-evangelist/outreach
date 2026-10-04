@@ -247,6 +247,74 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    accountNote:
+      description: 'Notes related to accounts
+
+        '
+      properties:
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the account note was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        message:
+          description: '
+
+
+            The text content of this account note.'
+          maxLength: 65535
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        noteType:
+          description: '
+
+
+            The context of this account note, one of {note,call,coffee,beer,meeting}.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        opportunityAssociationRule:
+          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
+
+
+            The rule used to associate the account note with an opportunity, one of {recent_created,recent_updated}.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        pinned:
+          description: '
+
+
+            A boolean value indicating whether this account note is pinned.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    accountNoteResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/accountNote'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/accountNoteRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     accountNoteRelationships:
       properties:
         account:
@@ -316,74 +384,6 @@ components:
                   type: string
               type: object
       type: object
-    accountNoteResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/accountNote'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/accountNoteRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
-    accountNote:
-      description: 'Notes related to accounts
-
-        '
-      properties:
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the account note was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        message:
-          description: '
-
-
-            The text content of this account note.'
-          maxLength: 65535
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        noteType:
-          description: '
-
-
-            The context of this account note, one of {note,call,coffee,beer,meeting}.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        opportunityAssociationRule:
-          description: '<img src=https://developers.outreach.io/badges/writeonly.svg>
-
-
-            The rule used to associate the account note with an opportunity, one of {recent_created,recent_updated}.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        pinned:
-          description: '
-
-
-            A boolean value indicating whether this account note is pinned.'
-          type:
-          - boolean
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

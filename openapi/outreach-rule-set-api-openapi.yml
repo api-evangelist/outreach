@@ -494,18 +494,6 @@ components:
                   type: string
               type: object
       type: object
-    rulesetResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ruleset'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/rulesetRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     ruleset:
       description: 'A reusable set of behaviors to be applied to Sequences
 
@@ -701,6 +689,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    rulesetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ruleset'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/rulesetRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

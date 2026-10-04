@@ -186,6 +186,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    favoriteResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/favorite'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/favoriteRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     favorite:
       description: 'A record (Prospect, Account, Sequence, etc.) favorited by a particular user.
 
@@ -230,18 +242,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    favoriteResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/favorite'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/favoriteRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
     favoriteRelationships:

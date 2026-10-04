@@ -302,6 +302,18 @@ components:
                   type: string
               type: object
       type: object
+    opportunityProspectRoleResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/opportunityProspectRole'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/opportunityProspectRoleRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     opportunityProspectRole:
       description: 'A prospect''s role and association with an opportunity
 
@@ -346,18 +358,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    opportunityProspectRoleResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/opportunityProspectRole'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/opportunityProspectRoleRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:
