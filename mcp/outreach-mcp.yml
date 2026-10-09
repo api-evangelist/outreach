@@ -361,3 +361,18 @@ x-evidence:
   method: POST tools/list
   note: 'WWW-Authenticate: Bearer resource_metadata="https://api.outreach.io/.well-known/oauth-protected-resource"'
 crosswalk: mcp/outreach-tool-crosswalk.yml
+rfc9728:
+  endpoint: https://api.outreach.io/mcp
+  metadata_url: https://api.outreach.io/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://api.outreach.io/mcp
+    authorization_servers:
+    - https://api.outreach.io
+    scopes_supported:
+    - prospects.all
+    bearer_methods_supported:
+    - header

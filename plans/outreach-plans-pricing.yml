@@ -93,3 +93,34 @@ notes: >-
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Amplify Essentials
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Amplify Core
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Amplify Plus
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Amplify Pro
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
