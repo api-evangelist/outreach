@@ -1,0 +1,222 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: outreach
+workflows:
+- file: outreach-airtable-records.yml
+  title: Airtable records to Outreach prospects in a sequence
+  partner: airtable
+  template: null
+  repos:
+  - airtable
+  - outreach
+  steps:
+  - step: readPartner
+    repo: airtable
+    spec_file: airtable-records-api-openapi.yml
+    operationId: listRecords
+    tag: Records
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: createProspect
+    repo: outreach
+    spec_file: outreach-prospect-api-openapi.yml
+    operationId: postProspects
+    tag: Prospect
+    capability_id: BC-410.30
+    capability: Opportunity & Pipeline Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  - step: addToSequence
+    repo: outreach
+    spec_file: outreach-sequence-state-api-openapi.yml
+    operationId: postSequenceStates
+    tag: Sequence State
+    capability_id: BC-410
+    capability: Sales Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    airtable:
+      capabilities: []
+      tags:
+      - Records
+    outreach:
+      capabilities:
+      - BC-410
+      - BC-410.30
+      tags:
+      - Prospect
+      - Sequence State
+  intents: []
+- file: outreach-facebook-lead-ads-lead-form.yml
+  title: Facebook Lead Ads leads to Outreach prospects in a sequence
+  partner: facebook-lead-ads
+  template: null
+  repos:
+  - facebook-lead-ads
+  - outreach
+  steps:
+  - step: readPartner
+    repo: facebook-lead-ads
+    spec_file: facebook-lead-ads-leads-api-openapi.yml
+    operationId: listLeadsForForm
+    tag: Leads
+    capability_id: BC-400.40
+    capability: Demand Generation Management
+    capability_l1: BC-400
+    intent: null
+    effect: null
+    unmapped: null
+  - step: createProspect
+    repo: outreach
+    spec_file: outreach-prospect-api-openapi.yml
+    operationId: postProspects
+    tag: Prospect
+    capability_id: BC-410.30
+    capability: Opportunity & Pipeline Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  - step: addToSequence
+    repo: outreach
+    spec_file: outreach-sequence-state-api-openapi.yml
+    operationId: postSequenceStates
+    tag: Sequence State
+    capability_id: BC-410
+    capability: Sales Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    facebook-lead-ads:
+      capabilities:
+      - BC-400.40
+      tags:
+      - Leads
+    outreach:
+      capabilities:
+      - BC-410
+      - BC-410.30
+      tags:
+      - Prospect
+      - Sequence State
+  intents: []
+- file: outreach-google-sheets-sheet-rows.yml
+  title: Google Sheets rows to Outreach prospects in a sequence
+  partner: google-sheets
+  template: null
+  repos:
+  - google-sheets
+  - outreach
+  steps:
+  - step: readPartner
+    repo: google-sheets
+    spec_file: google-sheets-values-api-openapi.yml
+    operationId: getValues
+    tag: Values
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: createProspect
+    repo: outreach
+    spec_file: outreach-prospect-api-openapi.yml
+    operationId: postProspects
+    tag: Prospect
+    capability_id: BC-410.30
+    capability: Opportunity & Pipeline Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  - step: addToSequence
+    repo: outreach
+    spec_file: outreach-sequence-state-api-openapi.yml
+    operationId: postSequenceStates
+    tag: Sequence State
+    capability_id: BC-410
+    capability: Sales Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    google-sheets:
+      capabilities: []
+      tags:
+      - Values
+    outreach:
+      capabilities:
+      - BC-410
+      - BC-410.30
+      tags:
+      - Prospect
+      - Sequence State
+  intents: []
+- file: outreach-marketo-new-leads.yml
+  title: Marketo leads to Outreach prospects in a sequence
+  partner: marketo
+  template: null
+  repos:
+  - marketo
+  - outreach
+  steps:
+  - step: readPartner
+    repo: marketo
+    spec_file: marketo-leads-api-openapi.yml
+    operationId: getLeadsByFilterUsingGET
+    tag: Leads
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: createProspect
+    repo: outreach
+    spec_file: outreach-prospect-api-openapi.yml
+    operationId: postProspects
+    tag: Prospect
+    capability_id: BC-410.30
+    capability: Opportunity & Pipeline Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  - step: addToSequence
+    repo: outreach
+    spec_file: outreach-sequence-state-api-openapi.yml
+    operationId: postSequenceStates
+    tag: Sequence State
+    capability_id: BC-410
+    capability: Sales Management
+    capability_l1: BC-410
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    marketo:
+      capabilities: []
+      tags:
+      - Leads
+    outreach:
+      capabilities:
+      - BC-410
+      - BC-410.30
+      tags:
+      - Prospect
+      - Sequence State
+  intents: []
