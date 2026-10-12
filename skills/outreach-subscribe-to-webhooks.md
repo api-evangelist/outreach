@@ -1,19 +1,20 @@
 ---
-name: Subscribe to Outreach webhooks
+name: subscribe-to-webhooks
 description: Register an Outreach webhook, verify its HMAC signature, and survive the retry, suspension and deactivation rules that will silently kill a subscription.
 api: openapi/outreach-openapi.yml
 generated: '2026-08-13'
 method: generated
 source: https://developers.outreach.io/api/webhooks
 operations:
-  - POST /webhooks
-  - GET /webhooks
-  - GET /webhooks/{id}
-  - PATCH /webhooks/{id}
-  - DELETE /webhooks/{id}
+- postWebhooks
+- getWebhooks
+- getWebhooksById
+- patchWebhooksById
+- deleteWebhooksById
 scopes:
-  - webhooks.all
+- webhooks.all
 event_surface: webhooks/outreach-webhooks-asyncapi.yml
+title: Subscribe to Outreach webhooks
 ---
 
 # Subscribe to Outreach webhooks

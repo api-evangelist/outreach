@@ -1,27 +1,28 @@
 ---
-name: Read Outreach collections safely at scale
+name: read-collections-safely
 description: Page, filter, sort and trim JSON:API collections in Outreach without blowing the hourly rate limit or tripping the deprecated count/offset behaviours.
 api: openapi/outreach-openapi.yml
 generated: '2026-08-13'
 method: generated
 source: https://developers.outreach.io/api/making-requests
 operations:
-  - GET /prospects
-  - GET /accounts
-  - GET /opportunities
-  - GET /tasks
-  - GET /mailings
-  - GET /sequenceStates
+- getProspects
+- getAccounts
+- getOpportunities
+- getTasks
+- getMailings
+- getSequenceStates
 scopes:
-  - prospects.read
-  - accounts.read
-  - opportunities.read
-  - tasks.read
+- prospects.read
+- accounts.read
+- opportunities.read
+- tasks.read
 mcp_equivalent:
-  - prospect_search
-  - account_search
-  - opportunity_search
-  - task_search
+- prospect_search
+- account_search
+- opportunity_search
+- task_search
+title: Read Outreach collections safely at scale
 ---
 
 # Read Outreach collections safely at scale

@@ -1,3 +1,4 @@
+name: Outreach API Plans
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -16,80 +17,93 @@ tags:
 - CRM
 - Email
 - Plans
-description: >-
-  Outreach publishes a four-tier plan ladder (Amplify Essentials, Core, Plus, Pro) on its pricing page. No
-  per-seat dollar figure is published for any tier — every tier is "contact sales" — but Outreach DOES
-  publish the quantitative entitlements attached to each tier, including the annual API call allowance, the
-  AI credit allotment, the custom-object count and the knowledge-base size. Those entitlements are the part
-  that matters to an API consumer, and they are captured verbatim below.
-pricing_model: Hybrid — seat-based pricing combined with consumption-based pricing metered in AI credits.
-  Additional credit packs are purchasable.
+description: Outreach publishes a four-tier plan ladder (Amplify Essentials, Core, Plus, Pro) on its pricing page. No per-seat dollar figure is published for any tier — every tier is "contact sales" — but
+  Outreach DOES publish the quantitative entitlements attached to each tier, including the annual API call allowance, the AI credit allotment, the custom-object count and the knowledge-base size. Those
+  entitlements are the part that matters to an API consumer, and they are captured verbatim below.
+pricing_model: Hybrid — seat-based pricing combined with consumption-based pricing metered in AI credits. Additional credit packs are purchasable.
 currency: USD
 billing_period: not published
 public_pricing: false
 plan_count: 4
 plans:
 - name: Amplify Essentials
-  price: contact sales
+  price: Contact sales
   currency: USD
   billing_period: not published
   limits:
-    api_calls: 250000
-    ai_credits: 10000
-    custom_objects: 5
-    knowledge_base: 500 MB
+  - name: api_calls
+    value: 250000
+  - name: ai_credits
+    value: 10000
+  - name: custom_objects
+    value: 5
+  - name: knowledge_base
+    value: 500 MB
   included:
   - Omni Agent, Research Agent, Deal Agent
   - Real-time transcription and sentiment analysis
   - Meeting scheduling, account planning, deal management
+  price_text: Request pricing
 - name: Amplify Core
-  price: contact sales
+  price: Contact sales
   currency: USD
   billing_period: not published
   limits:
-    api_calls: 250000
-    ai_credits: 25000
-    custom_objects: 5
-    knowledge_base: 500 MB
+  - name: api_calls
+    value: 250000
+  - name: ai_credits
+    value: 25000
+  - name: custom_objects
+    value: 5
+  - name: knowledge_base
+    value: 500 MB
   included:
   - Everything in Essentials
   - Revenue Agent, Personalization Agent
   - Multi-channel engagement and sequences
+  price_text: Request pricing
 - name: Amplify Plus
-  price: contact sales
+  price: Contact sales
   currency: USD
   billing_period: not published
   most_popular: true
   limits:
-    api_calls: 500000
-    ai_credits: 50000
-    custom_objects: 10
-    knowledge_base: 750 MB
+  - name: api_calls
+    value: 500000
+  - name: ai_credits
+    value: 50000
+  - name: custom_objects
+    value: 10
+  - name: knowledge_base
+    value: 750 MB
   included:
   - Everything in Core
   - Meeting Prep Agent
   - Advanced coaching and deal health alerts
+  price_text: Request pricing
 - name: Amplify Pro
-  price: contact sales
+  price: Contact sales
   currency: USD
   billing_period: not published
   limits:
-    api_calls: 1000000
-    ai_credits: 100000
-    custom_objects: 20
-    knowledge_base: 1500 MB
+  - name: api_calls
+    value: 1000000
+  - name: ai_credits
+    value: 100000
+  - name: custom_objects
+    value: 20
+  - name: knowledge_base
+    value: 1500 MB
   included:
   - Everything in Plus
   - AI Forecast Projection and forecasting tools
   - Advanced managed services and dedicated support
+  price_text: Request pricing
 overage:
   ai_credits: Additional credit packs available for purchase.
   api_calls: not published
-notes: >-
-  Prices are gated behind a sales conversation; entitlements are not. The API-call allowance is a commercial
-  quota distinct from the technical rate limit (10,000 requests/hour per user) recorded in
-  rate-limits/outreach-rate-limits.yml — a caller can be inside the hourly rate limit and still exhaust the
-  plan's annual call entitlement.
+notes: Prices are gated behind a sales conversation; entitlements are not. The API-call allowance is a commercial quota distinct from the technical rate limit (10,000 requests/hour per user) recorded in
+  rate-limits/outreach-rate-limits.yml — a caller can be inside the hourly rate limit and still exhaust the plan's annual call entitlement.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -124,3 +138,8 @@ x-canonical:
     model_how: derived
     units: []
     periods: []
+audience: business-product
+pricing_basis: negotiated
+published: false
+delivery:
+  delivery: managed

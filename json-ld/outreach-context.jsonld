@@ -1,0 +1,1853 @@
+{
+  "@context": {
+    "@vocab": "https://outreach.ai/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "outreach": "https://outreach.ai/schema#",
+    "accountResponse": "outreach:accountResponse",
+    "attributes": {
+      "@id": "outreach:attributes",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "outreach:id",
+      "@type": "xsd:integer"
+    },
+    "relationships": {
+      "@id": "outreach:relationships",
+      "@type": "@id"
+    },
+    "type": {
+      "@id": "outreach:type",
+      "@type": "xsd:string"
+    },
+    "account": "outreach:account",
+    "annualRevenueRange": {
+      "@id": "outreach:annualRevenueRange",
+      "@type": "xsd:string"
+    },
+    "buyerIntentScore": {
+      "@id": "outreach:buyerIntentScore",
+      "@type": "xsd:decimal"
+    },
+    "companyType": {
+      "@id": "outreach:companyType",
+      "@type": "xsd:string"
+    },
+    "createdAt": {
+      "@id": "outreach:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "custom1": {
+      "@id": "outreach:custom1",
+      "@type": "xsd:string"
+    },
+    "custom2": {
+      "@id": "outreach:custom2",
+      "@type": "xsd:string"
+    },
+    "custom3": {
+      "@id": "outreach:custom3",
+      "@type": "xsd:string"
+    },
+    "custom4": {
+      "@id": "outreach:custom4",
+      "@type": "xsd:string"
+    },
+    "custom5": {
+      "@id": "outreach:custom5",
+      "@type": "xsd:string"
+    },
+    "custom6": {
+      "@id": "outreach:custom6",
+      "@type": "xsd:string"
+    },
+    "custom7": {
+      "@id": "outreach:custom7",
+      "@type": "xsd:string"
+    },
+    "custom8": {
+      "@id": "outreach:custom8",
+      "@type": "xsd:string"
+    },
+    "custom9": {
+      "@id": "outreach:custom9",
+      "@type": "xsd:string"
+    },
+    "custom10": {
+      "@id": "outreach:custom10",
+      "@type": "xsd:string"
+    },
+    "custom11": {
+      "@id": "outreach:custom11",
+      "@type": "xsd:string"
+    },
+    "custom12": {
+      "@id": "outreach:custom12",
+      "@type": "xsd:string"
+    },
+    "custom13": {
+      "@id": "outreach:custom13",
+      "@type": "xsd:string"
+    },
+    "custom14": {
+      "@id": "outreach:custom14",
+      "@type": "xsd:string"
+    },
+    "custom15": {
+      "@id": "outreach:custom15",
+      "@type": "xsd:string"
+    },
+    "custom16": {
+      "@id": "outreach:custom16",
+      "@type": "xsd:string"
+    },
+    "custom17": {
+      "@id": "outreach:custom17",
+      "@type": "xsd:string"
+    },
+    "custom18": {
+      "@id": "outreach:custom18",
+      "@type": "xsd:string"
+    },
+    "custom19": {
+      "@id": "outreach:custom19",
+      "@type": "xsd:string"
+    },
+    "custom20": {
+      "@id": "outreach:custom20",
+      "@type": "xsd:string"
+    },
+    "custom21": {
+      "@id": "outreach:custom21",
+      "@type": "xsd:string"
+    },
+    "custom22": {
+      "@id": "outreach:custom22",
+      "@type": "xsd:string"
+    },
+    "custom23": {
+      "@id": "outreach:custom23",
+      "@type": "xsd:string"
+    },
+    "custom24": {
+      "@id": "outreach:custom24",
+      "@type": "xsd:string"
+    },
+    "custom25": {
+      "@id": "outreach:custom25",
+      "@type": "xsd:string"
+    },
+    "custom26": {
+      "@id": "outreach:custom26",
+      "@type": "xsd:string"
+    },
+    "custom27": {
+      "@id": "outreach:custom27",
+      "@type": "xsd:string"
+    },
+    "custom28": {
+      "@id": "outreach:custom28",
+      "@type": "xsd:string"
+    },
+    "custom29": {
+      "@id": "outreach:custom29",
+      "@type": "xsd:string"
+    },
+    "custom30": {
+      "@id": "outreach:custom30",
+      "@type": "xsd:string"
+    },
+    "custom31": {
+      "@id": "outreach:custom31",
+      "@type": "xsd:string"
+    },
+    "custom32": {
+      "@id": "outreach:custom32",
+      "@type": "xsd:string"
+    },
+    "custom33": {
+      "@id": "outreach:custom33",
+      "@type": "xsd:string"
+    },
+    "custom34": {
+      "@id": "outreach:custom34",
+      "@type": "xsd:string"
+    },
+    "custom35": {
+      "@id": "outreach:custom35",
+      "@type": "xsd:string"
+    },
+    "custom36": {
+      "@id": "outreach:custom36",
+      "@type": "xsd:string"
+    },
+    "custom37": {
+      "@id": "outreach:custom37",
+      "@type": "xsd:string"
+    },
+    "custom38": {
+      "@id": "outreach:custom38",
+      "@type": "xsd:string"
+    },
+    "custom39": {
+      "@id": "outreach:custom39",
+      "@type": "xsd:string"
+    },
+    "custom40": {
+      "@id": "outreach:custom40",
+      "@type": "xsd:string"
+    },
+    "custom41": {
+      "@id": "outreach:custom41",
+      "@type": "xsd:string"
+    },
+    "custom42": {
+      "@id": "outreach:custom42",
+      "@type": "xsd:string"
+    },
+    "custom43": {
+      "@id": "outreach:custom43",
+      "@type": "xsd:string"
+    },
+    "custom44": {
+      "@id": "outreach:custom44",
+      "@type": "xsd:string"
+    },
+    "custom45": {
+      "@id": "outreach:custom45",
+      "@type": "xsd:string"
+    },
+    "custom46": {
+      "@id": "outreach:custom46",
+      "@type": "xsd:string"
+    },
+    "custom47": {
+      "@id": "outreach:custom47",
+      "@type": "xsd:string"
+    },
+    "custom48": {
+      "@id": "outreach:custom48",
+      "@type": "xsd:string"
+    },
+    "custom49": {
+      "@id": "outreach:custom49",
+      "@type": "xsd:string"
+    },
+    "custom50": {
+      "@id": "outreach:custom50",
+      "@type": "xsd:string"
+    },
+    "custom51": {
+      "@id": "outreach:custom51",
+      "@type": "xsd:string"
+    },
+    "custom52": {
+      "@id": "outreach:custom52",
+      "@type": "xsd:string"
+    },
+    "custom53": {
+      "@id": "outreach:custom53",
+      "@type": "xsd:string"
+    },
+    "custom54": {
+      "@id": "outreach:custom54",
+      "@type": "xsd:string"
+    },
+    "custom55": {
+      "@id": "outreach:custom55",
+      "@type": "xsd:string"
+    },
+    "custom56": {
+      "@id": "outreach:custom56",
+      "@type": "xsd:string"
+    },
+    "custom57": {
+      "@id": "outreach:custom57",
+      "@type": "xsd:string"
+    },
+    "custom58": {
+      "@id": "outreach:custom58",
+      "@type": "xsd:string"
+    },
+    "custom59": {
+      "@id": "outreach:custom59",
+      "@type": "xsd:string"
+    },
+    "custom60": {
+      "@id": "outreach:custom60",
+      "@type": "xsd:string"
+    },
+    "custom61": {
+      "@id": "outreach:custom61",
+      "@type": "xsd:string"
+    },
+    "custom62": {
+      "@id": "outreach:custom62",
+      "@type": "xsd:string"
+    },
+    "custom63": {
+      "@id": "outreach:custom63",
+      "@type": "xsd:string"
+    },
+    "custom64": {
+      "@id": "outreach:custom64",
+      "@type": "xsd:string"
+    },
+    "custom65": {
+      "@id": "outreach:custom65",
+      "@type": "xsd:string"
+    },
+    "custom66": {
+      "@id": "outreach:custom66",
+      "@type": "xsd:string"
+    },
+    "custom67": {
+      "@id": "outreach:custom67",
+      "@type": "xsd:string"
+    },
+    "custom68": {
+      "@id": "outreach:custom68",
+      "@type": "xsd:string"
+    },
+    "custom69": {
+      "@id": "outreach:custom69",
+      "@type": "xsd:string"
+    },
+    "custom70": {
+      "@id": "outreach:custom70",
+      "@type": "xsd:string"
+    },
+    "custom71": {
+      "@id": "outreach:custom71",
+      "@type": "xsd:string"
+    },
+    "custom72": {
+      "@id": "outreach:custom72",
+      "@type": "xsd:string"
+    },
+    "custom73": {
+      "@id": "outreach:custom73",
+      "@type": "xsd:string"
+    },
+    "custom74": {
+      "@id": "outreach:custom74",
+      "@type": "xsd:string"
+    },
+    "custom75": {
+      "@id": "outreach:custom75",
+      "@type": "xsd:string"
+    },
+    "custom76": {
+      "@id": "outreach:custom76",
+      "@type": "xsd:string"
+    },
+    "custom77": {
+      "@id": "outreach:custom77",
+      "@type": "xsd:string"
+    },
+    "custom78": {
+      "@id": "outreach:custom78",
+      "@type": "xsd:string"
+    },
+    "custom79": {
+      "@id": "outreach:custom79",
+      "@type": "xsd:string"
+    },
+    "custom80": {
+      "@id": "outreach:custom80",
+      "@type": "xsd:string"
+    },
+    "custom81": {
+      "@id": "outreach:custom81",
+      "@type": "xsd:string"
+    },
+    "custom82": {
+      "@id": "outreach:custom82",
+      "@type": "xsd:string"
+    },
+    "custom83": {
+      "@id": "outreach:custom83",
+      "@type": "xsd:string"
+    },
+    "custom84": {
+      "@id": "outreach:custom84",
+      "@type": "xsd:string"
+    },
+    "custom85": {
+      "@id": "outreach:custom85",
+      "@type": "xsd:string"
+    },
+    "custom86": {
+      "@id": "outreach:custom86",
+      "@type": "xsd:string"
+    },
+    "custom87": {
+      "@id": "outreach:custom87",
+      "@type": "xsd:string"
+    },
+    "custom88": {
+      "@id": "outreach:custom88",
+      "@type": "xsd:string"
+    },
+    "custom89": {
+      "@id": "outreach:custom89",
+      "@type": "xsd:string"
+    },
+    "custom90": {
+      "@id": "outreach:custom90",
+      "@type": "xsd:string"
+    },
+    "custom91": {
+      "@id": "outreach:custom91",
+      "@type": "xsd:string"
+    },
+    "custom92": {
+      "@id": "outreach:custom92",
+      "@type": "xsd:string"
+    },
+    "custom93": {
+      "@id": "outreach:custom93",
+      "@type": "xsd:string"
+    },
+    "custom94": {
+      "@id": "outreach:custom94",
+      "@type": "xsd:string"
+    },
+    "custom95": {
+      "@id": "outreach:custom95",
+      "@type": "xsd:string"
+    },
+    "custom96": {
+      "@id": "outreach:custom96",
+      "@type": "xsd:string"
+    },
+    "custom97": {
+      "@id": "outreach:custom97",
+      "@type": "xsd:string"
+    },
+    "custom98": {
+      "@id": "outreach:custom98",
+      "@type": "xsd:string"
+    },
+    "custom99": {
+      "@id": "outreach:custom99",
+      "@type": "xsd:string"
+    },
+    "custom100": {
+      "@id": "outreach:custom100",
+      "@type": "xsd:string"
+    },
+    "custom101": {
+      "@id": "outreach:custom101",
+      "@type": "xsd:string"
+    },
+    "custom102": {
+      "@id": "outreach:custom102",
+      "@type": "xsd:string"
+    },
+    "custom103": {
+      "@id": "outreach:custom103",
+      "@type": "xsd:string"
+    },
+    "custom104": {
+      "@id": "outreach:custom104",
+      "@type": "xsd:string"
+    },
+    "custom105": {
+      "@id": "outreach:custom105",
+      "@type": "xsd:string"
+    },
+    "custom106": {
+      "@id": "outreach:custom106",
+      "@type": "xsd:string"
+    },
+    "custom107": {
+      "@id": "outreach:custom107",
+      "@type": "xsd:string"
+    },
+    "custom108": {
+      "@id": "outreach:custom108",
+      "@type": "xsd:string"
+    },
+    "custom109": {
+      "@id": "outreach:custom109",
+      "@type": "xsd:string"
+    },
+    "custom110": {
+      "@id": "outreach:custom110",
+      "@type": "xsd:string"
+    },
+    "custom111": {
+      "@id": "outreach:custom111",
+      "@type": "xsd:string"
+    },
+    "custom112": {
+      "@id": "outreach:custom112",
+      "@type": "xsd:string"
+    },
+    "custom113": {
+      "@id": "outreach:custom113",
+      "@type": "xsd:string"
+    },
+    "custom114": {
+      "@id": "outreach:custom114",
+      "@type": "xsd:string"
+    },
+    "custom115": {
+      "@id": "outreach:custom115",
+      "@type": "xsd:string"
+    },
+    "custom116": {
+      "@id": "outreach:custom116",
+      "@type": "xsd:string"
+    },
+    "custom117": {
+      "@id": "outreach:custom117",
+      "@type": "xsd:string"
+    },
+    "custom118": {
+      "@id": "outreach:custom118",
+      "@type": "xsd:string"
+    },
+    "custom119": {
+      "@id": "outreach:custom119",
+      "@type": "xsd:string"
+    },
+    "custom120": {
+      "@id": "outreach:custom120",
+      "@type": "xsd:string"
+    },
+    "custom121": {
+      "@id": "outreach:custom121",
+      "@type": "xsd:string"
+    },
+    "custom122": {
+      "@id": "outreach:custom122",
+      "@type": "xsd:string"
+    },
+    "custom123": {
+      "@id": "outreach:custom123",
+      "@type": "xsd:string"
+    },
+    "custom124": {
+      "@id": "outreach:custom124",
+      "@type": "xsd:string"
+    },
+    "custom125": {
+      "@id": "outreach:custom125",
+      "@type": "xsd:string"
+    },
+    "custom126": {
+      "@id": "outreach:custom126",
+      "@type": "xsd:string"
+    },
+    "custom127": {
+      "@id": "outreach:custom127",
+      "@type": "xsd:string"
+    },
+    "custom128": {
+      "@id": "outreach:custom128",
+      "@type": "xsd:string"
+    },
+    "custom129": {
+      "@id": "outreach:custom129",
+      "@type": "xsd:string"
+    },
+    "custom130": {
+      "@id": "outreach:custom130",
+      "@type": "xsd:string"
+    },
+    "custom131": {
+      "@id": "outreach:custom131",
+      "@type": "xsd:string"
+    },
+    "custom132": {
+      "@id": "outreach:custom132",
+      "@type": "xsd:string"
+    },
+    "custom133": {
+      "@id": "outreach:custom133",
+      "@type": "xsd:string"
+    },
+    "custom134": {
+      "@id": "outreach:custom134",
+      "@type": "xsd:string"
+    },
+    "custom135": {
+      "@id": "outreach:custom135",
+      "@type": "xsd:string"
+    },
+    "custom136": {
+      "@id": "outreach:custom136",
+      "@type": "xsd:string"
+    },
+    "custom137": {
+      "@id": "outreach:custom137",
+      "@type": "xsd:string"
+    },
+    "custom138": {
+      "@id": "outreach:custom138",
+      "@type": "xsd:string"
+    },
+    "custom139": {
+      "@id": "outreach:custom139",
+      "@type": "xsd:string"
+    },
+    "custom140": {
+      "@id": "outreach:custom140",
+      "@type": "xsd:string"
+    },
+    "custom141": {
+      "@id": "outreach:custom141",
+      "@type": "xsd:string"
+    },
+    "custom142": {
+      "@id": "outreach:custom142",
+      "@type": "xsd:string"
+    },
+    "custom143": {
+      "@id": "outreach:custom143",
+      "@type": "xsd:string"
+    },
+    "custom144": {
+      "@id": "outreach:custom144",
+      "@type": "xsd:string"
+    },
+    "custom145": {
+      "@id": "outreach:custom145",
+      "@type": "xsd:string"
+    },
+    "custom146": {
+      "@id": "outreach:custom146",
+      "@type": "xsd:string"
+    },
+    "custom147": {
+      "@id": "outreach:custom147",
+      "@type": "xsd:string"
+    },
+    "custom148": {
+      "@id": "outreach:custom148",
+      "@type": "xsd:string"
+    },
+    "custom149": {
+      "@id": "outreach:custom149",
+      "@type": "xsd:string"
+    },
+    "custom150": {
+      "@id": "outreach:custom150",
+      "@type": "xsd:string"
+    },
+    "customId": {
+      "@id": "outreach:customId",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "outreach:description",
+      "@type": "xsd:string"
+    },
+    "domain": {
+      "@id": "outreach:domain",
+      "@type": "xsd:string"
+    },
+    "externalSource": {
+      "@id": "outreach:externalSource",
+      "@type": "xsd:string"
+    },
+    "followers": {
+      "@id": "outreach:followers",
+      "@type": "xsd:integer"
+    },
+    "foundedAt": {
+      "@id": "outreach:foundedAt",
+      "@type": "xsd:dateTime"
+    },
+    "industry": {
+      "@id": "outreach:industry",
+      "@type": "xsd:string"
+    },
+    "linkedInEmployees": {
+      "@id": "outreach:linkedInEmployees",
+      "@type": "xsd:integer"
+    },
+    "linkedInUrl": {
+      "@id": "outreach:linkedInUrl",
+      "@type": "xsd:string"
+    },
+    "locality": {
+      "@id": "outreach:locality",
+      "@type": "xsd:string"
+    },
+    "naicsCodes": {
+      "@id": "outreach:naicsCodes",
+      "@container": "@list"
+    },
+    "name": {
+      "@id": "outreach:name",
+      "@type": "xsd:string"
+    },
+    "named": {
+      "@id": "outreach:named",
+      "@type": "xsd:boolean"
+    },
+    "naturalName": {
+      "@id": "outreach:naturalName",
+      "@type": "xsd:string"
+    },
+    "numberOfEmployees": {
+      "@id": "outreach:numberOfEmployees",
+      "@type": "xsd:integer"
+    },
+    "sharingTeamId": {
+      "@id": "outreach:sharingTeamId",
+      "@type": "xsd:string"
+    },
+    "sicCodes": {
+      "@id": "outreach:sicCodes",
+      "@container": "@list"
+    },
+    "tags": {
+      "@id": "outreach:tags",
+      "@container": "@list"
+    },
+    "tickerSymbol": {
+      "@id": "outreach:tickerSymbol",
+      "@type": "xsd:string"
+    },
+    "touchedAt": {
+      "@id": "outreach:touchedAt",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "outreach:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "websiteUrl": {
+      "@id": "outreach:websiteUrl",
+      "@type": "xsd:string"
+    },
+    "accountRelationships": "outreach:accountRelationships",
+    "assignedTeams": {
+      "@id": "outreach:assignedTeams"
+    },
+    "assignedUsers": {
+      "@id": "outreach:assignedUsers"
+    },
+    "batches": {
+      "@id": "outreach:batches"
+    },
+    "creator": {
+      "@id": "outreach:creator"
+    },
+    "defaultPluginMapping": {
+      "@id": "outreach:defaultPluginMapping"
+    },
+    "favorites": {
+      "@id": "outreach:favorites"
+    },
+    "owner": {
+      "@id": "outreach:owner"
+    },
+    "primaryRecordTeam": {
+      "@id": "outreach:primaryRecordTeam"
+    },
+    "prospects": {
+      "@id": "outreach:prospects"
+    },
+    "purchases": {
+      "@id": "outreach:purchases"
+    },
+    "recordTeamMembers": {
+      "@id": "outreach:recordTeamMembers"
+    },
+    "recordTeams": {
+      "@id": "outreach:recordTeams"
+    },
+    "tasks": {
+      "@id": "outreach:tasks"
+    },
+    "updater": {
+      "@id": "outreach:updater"
+    },
+    "accountNote": "outreach:accountNote",
+    "message": {
+      "@id": "outreach:message",
+      "@type": "xsd:string"
+    },
+    "noteType": {
+      "@id": "outreach:noteType",
+      "@type": "xsd:string"
+    },
+    "opportunityAssociationRule": {
+      "@id": "outreach:opportunityAssociationRule",
+      "@type": "xsd:string"
+    },
+    "pinned": {
+      "@id": "outreach:pinned",
+      "@type": "xsd:boolean"
+    },
+    "accountNoteResponse": "outreach:accountNoteResponse",
+    "accountNoteRelationships": "outreach:accountNoteRelationships",
+    "opportunity": {
+      "@id": "outreach:opportunity"
+    },
+    "auditLogResponse": "outreach:auditLogResponse",
+    "auditLog": "outreach:auditLog",
+    "action": {
+      "@id": "outreach:action",
+      "@type": "xsd:string"
+    },
+    "additionalInfo": {
+      "@id": "outreach:additionalInfo",
+      "@container": "@list"
+    },
+    "agent": {
+      "@id": "outreach:agent"
+    },
+    "changes": {
+      "@id": "outreach:changes",
+      "@container": "@list"
+    },
+    "eventName": {
+      "@id": "outreach:eventName",
+      "@type": "xsd:string"
+    },
+    "globalId": {
+      "@id": "outreach:globalId",
+      "@type": "xsd:string"
+    },
+    "orgId": {
+      "@id": "outreach:orgId",
+      "@type": "xsd:string"
+    },
+    "requestId": {
+      "@id": "outreach:requestId",
+      "@type": "xsd:string"
+    },
+    "result": {
+      "@id": "outreach:result",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "outreach:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "batchResponse": "outreach:batchResponse",
+    "batch": "outreach:batch",
+    "canceledAt": {
+      "@id": "outreach:canceledAt",
+      "@type": "xsd:dateTime"
+    },
+    "confirmCount": {
+      "@id": "outreach:confirmCount",
+      "@type": "xsd:integer"
+    },
+    "confirmedAt": {
+      "@id": "outreach:confirmedAt",
+      "@type": "xsd:dateTime"
+    },
+    "confirmedCountRequired": {
+      "@id": "outreach:confirmedCountRequired",
+      "@type": "xsd:boolean"
+    },
+    "externalStartPayload": {
+      "@id": "outreach:externalStartPayload",
+      "@type": "xsd:string"
+    },
+    "failures": {
+      "@id": "outreach:failures",
+      "@type": "xsd:integer"
+    },
+    "finishedAt": {
+      "@id": "outreach:finishedAt",
+      "@type": "xsd:dateTime"
+    },
+    "payload": {
+      "@id": "outreach:payload"
+    },
+    "pending": {
+      "@id": "outreach:pending",
+      "@type": "xsd:integer"
+    },
+    "startedAt": {
+      "@id": "outreach:startedAt",
+      "@type": "xsd:dateTime"
+    },
+    "state": {
+      "@id": "outreach:state",
+      "@type": "xsd:string"
+    },
+    "summary": {
+      "@id": "outreach:summary"
+    },
+    "total": {
+      "@id": "outreach:total",
+      "@type": "xsd:integer"
+    },
+    "batchRelationships": "outreach:batchRelationships",
+    "batchItems": {
+      "@id": "outreach:batchItems"
+    },
+    "batchItemResponse": "outreach:batchItemResponse",
+    "batchItemRelationships": "outreach:batchItemRelationships",
+    "batchItem": "outreach:batchItem",
+    "batchId": {
+      "@id": "outreach:batchId",
+      "@type": "xsd:integer"
+    },
+    "data": {
+      "@id": "outreach:data",
+      "@type": "xsd:string"
+    },
+    "failed": {
+      "@id": "outreach:failed",
+      "@type": "xsd:boolean"
+    },
+    "info": {
+      "@id": "outreach:info",
+      "@type": "xsd:string"
+    },
+    "callRelationships": "outreach:callRelationships",
+    "associatedId": {
+      "@id": "outreach:associatedId"
+    },
+    "callDisposition": {
+      "@id": "outreach:callDisposition"
+    },
+    "callPurpose": {
+      "@id": "outreach:callPurpose"
+    },
+    "kaiaCrmRecording": {
+      "@id": "outreach:kaiaCrmRecording"
+    },
+    "outboundVoicemail": {
+      "@id": "outreach:outboundVoicemail"
+    },
+    "phone": {
+      "@id": "outreach:phone"
+    },
+    "phoneNumber": {
+      "@id": "outreach:phoneNumber"
+    },
+    "prospect": {
+      "@id": "outreach:prospect"
+    },
+    "sequence": {
+      "@id": "outreach:sequence"
+    },
+    "sequenceState": {
+      "@id": "outreach:sequenceState"
+    },
+    "sequenceStep": {
+      "@id": "outreach:sequenceStep"
+    },
+    "task": {
+      "@id": "outreach:task"
+    },
+    "user": {
+      "@id": "outreach:user"
+    },
+    "call": "outreach:call",
+    "answeredAt": {
+      "@id": "outreach:answeredAt",
+      "@type": "xsd:dateTime"
+    },
+    "completedAt": {
+      "@id": "outreach:completedAt",
+      "@type": "xsd:dateTime"
+    },
+    "dialedAt": {
+      "@id": "outreach:dialedAt",
+      "@type": "xsd:dateTime"
+    },
+    "direction": {
+      "@id": "outreach:direction",
+      "@type": "xsd:string"
+    },
+    "externalVendor": {
+      "@id": "outreach:externalVendor",
+      "@type": "xsd:string"
+    },
+    "from": {
+      "@id": "outreach:from",
+      "@type": "xsd:string"
+    },
+    "note": {
+      "@id": "outreach:note",
+      "@type": "xsd:string"
+    },
+    "outcome": {
+      "@id": "outreach:outcome",
+      "@type": "xsd:string"
+    },
+    "recordingUrl": {
+      "@id": "outreach:recordingUrl",
+      "@type": "xsd:string"
+    },
+    "returnedAt": {
+      "@id": "outreach:returnedAt",
+      "@type": "xsd:dateTime"
+    },
+    "sequenceAction": {
+      "@id": "outreach:sequenceAction",
+      "@type": "xsd:string"
+    },
+    "shouldRecordCall": {
+      "@id": "outreach:shouldRecordCall",
+      "@type": "xsd:boolean"
+    },
+    "stateChangedAt": {
+      "@id": "outreach:stateChangedAt",
+      "@type": "xsd:dateTime"
+    },
+    "to": {
+      "@id": "outreach:to",
+      "@type": "xsd:string"
+    },
+    "uid": {
+      "@id": "outreach:uid",
+      "@type": "xsd:string"
+    },
+    "userCallType": {
+      "@id": "outreach:userCallType",
+      "@type": "xsd:string"
+    },
+    "vendorCallId": {
+      "@id": "outreach:vendorCallId",
+      "@type": "xsd:string"
+    },
+    "voicemailRecordingUrl": {
+      "@id": "outreach:voicemailRecordingUrl",
+      "@type": "xsd:string"
+    },
+    "callResponse": "outreach:callResponse",
+    "callDispositionResponse": "outreach:callDispositionResponse",
+    "callDispositionRelationships": "outreach:callDispositionRelationships",
+    "calls": {
+      "@id": "outreach:calls"
+    },
+    "callPurposeRelationships": "outreach:callPurposeRelationships",
+    "callPurposeResponse": "outreach:callPurposeResponse",
+    "complianceRequestResponse": "outreach:complianceRequestResponse",
+    "complianceRequest": "outreach:complianceRequest",
+    "batchComplianceRequestUuid": {
+      "@id": "outreach:batchComplianceRequestUuid",
+      "@type": "xsd:string"
+    },
+    "objectType": {
+      "@id": "outreach:objectType",
+      "@type": "xsd:string"
+    },
+    "pii": {
+      "@id": "outreach:pii"
+    },
+    "requestObjectId": {
+      "@id": "outreach:requestObjectId",
+      "@type": "xsd:string"
+    },
+    "requestType": {
+      "@id": "outreach:requestType",
+      "@type": "xsd:string"
+    },
+    "requesterId": {
+      "@id": "outreach:requesterId",
+      "@type": "xsd:integer"
+    },
+    "uuid": {
+      "@id": "outreach:uuid",
+      "@type": "xsd:string"
+    },
+    "complianceRequestRelationships": "outreach:complianceRequestRelationships",
+    "requester": {
+      "@id": "outreach:requester"
+    },
+    "contentCategory": "outreach:contentCategory",
+    "allowSequences": {
+      "@id": "outreach:allowSequences",
+      "@type": "xsd:boolean"
+    },
+    "allowSnippets": {
+      "@id": "outreach:allowSnippets",
+      "@type": "xsd:boolean"
+    },
+    "allowTemplates": {
+      "@id": "outreach:allowTemplates",
+      "@type": "xsd:boolean"
+    },
+    "color": {
+      "@id": "outreach:color",
+      "@type": "xsd:string"
+    },
+    "contentCategoryResponse": "outreach:contentCategoryResponse",
+    "contentCategoryRelationships": "outreach:contentCategoryRelationships",
+    "teams": {
+      "@id": "outreach:teams"
+    },
+    "contentCategoryMembership": "outreach:contentCategoryMembership",
+    "contentCategoryMembershipResponse": "outreach:contentCategoryMembershipResponse",
+    "contentCategoryMembershipRelationships": "outreach:contentCategoryMembershipRelationships",
+    "content": {
+      "@id": "outreach:content"
+    },
+    "contentCategoryOwnership": "outreach:contentCategoryOwnership",
+    "contentCategoryOwnershipRelationships": "outreach:contentCategoryOwnershipRelationships",
+    "contentCategoryOwnershipResponse": "outreach:contentCategoryOwnershipResponse",
+    "customDuty": "outreach:customDuty",
+    "dutyType": {
+      "@id": "outreach:dutyType",
+      "@type": "xsd:string"
+    },
+    "customDutyResponse": "outreach:customDutyResponse",
+    "dutyResponse": "outreach:dutyResponse",
+    "duty": "outreach:duty",
+    "symbolicName": {
+      "@id": "outreach:symbolicName",
+      "@type": "xsd:string"
+    },
+    "emailAddressResponse": "outreach:emailAddressResponse",
+    "emailAddressRelationships": "outreach:emailAddressRelationships",
+    "emailAddress": "outreach:emailAddress",
+    "email": {
+      "@id": "outreach:email",
+      "@type": "xsd:string"
+    },
+    "emailType": {
+      "@id": "outreach:emailType",
+      "@type": "xsd:string"
+    },
+    "order": {
+      "@id": "outreach:order",
+      "@type": "xsd:integer"
+    },
+    "status": {
+      "@id": "outreach:status",
+      "@type": "xsd:string"
+    },
+    "statusChangedAt": {
+      "@id": "outreach:statusChangedAt",
+      "@type": "xsd:dateTime"
+    },
+    "unsubscribedAt": {
+      "@id": "outreach:unsubscribedAt",
+      "@type": "xsd:dateTime"
+    },
+    "event": "outreach:event",
+    "body": {
+      "@id": "outreach:body",
+      "@type": "xsd:string"
+    },
+    "eventAt": {
+      "@id": "outreach:eventAt",
+      "@type": "xsd:dateTime"
+    },
+    "externalUrl": {
+      "@id": "outreach:externalUrl",
+      "@type": "xsd:string"
+    },
+    "requestCity": {
+      "@id": "outreach:requestCity",
+      "@type": "xsd:string"
+    },
+    "requestDevice": {
+      "@id": "outreach:requestDevice",
+      "@type": "xsd:string"
+    },
+    "requestHost": {
+      "@id": "outreach:requestHost",
+      "@type": "xsd:string"
+    },
+    "requestProxied": {
+      "@id": "outreach:requestProxied",
+      "@type": "xsd:boolean"
+    },
+    "requestRegion": {
+      "@id": "outreach:requestRegion",
+      "@type": "xsd:string"
+    },
+    "eventResponse": "outreach:eventResponse",
+    "eventRelationships": "outreach:eventRelationships",
+    "mailing": {
+      "@id": "outreach:mailing"
+    },
+    "plugin": {
+      "@id": "outreach:plugin"
+    },
+    "favoriteResponse": "outreach:favoriteResponse",
+    "favorite": "outreach:favorite",
+    "targetId": {
+      "@id": "outreach:targetId",
+      "@type": "xsd:integer"
+    },
+    "targetType": {
+      "@id": "outreach:targetType",
+      "@type": "xsd:string"
+    },
+    "favoriteRelationships": "outreach:favoriteRelationships",
+    "target": {
+      "@id": "outreach:target"
+    },
+    "validateUploadResponse": "outreach:validateUploadResponse",
+    "importResponse": "outreach:importResponse",
+    "importRelationships": "outreach:importRelationships",
+    "import": "outreach:import",
+    "dupeMethod": {
+      "@id": "outreach:dupeMethod",
+      "@type": "xsd:string"
+    },
+    "dupes": {
+      "@id": "outreach:dupes",
+      "@type": "xsd:integer"
+    },
+    "errorReason": {
+      "@id": "outreach:errorReason",
+      "@type": "xsd:string"
+    },
+    "externalId": {
+      "@id": "outreach:externalId",
+      "@type": "xsd:string"
+    },
+    "externalName": {
+      "@id": "outreach:externalName",
+      "@type": "xsd:string"
+    },
+    "externalType": {
+      "@id": "outreach:externalType",
+      "@type": "xsd:string"
+    },
+    "fileName": {
+      "@id": "outreach:fileName",
+      "@type": "xsd:string"
+    },
+    "fileSize": {
+      "@id": "outreach:fileSize",
+      "@type": "xsd:integer"
+    },
+    "frequency": {
+      "@id": "outreach:frequency",
+      "@type": "xsd:string"
+    },
+    "importType": {
+      "@id": "outreach:importType",
+      "@type": "xsd:string"
+    },
+    "loadFromPlugin": {
+      "@id": "outreach:loadFromPlugin",
+      "@type": "xsd:boolean"
+    },
+    "mappings": {
+      "@id": "outreach:mappings"
+    },
+    "pluginId": {
+      "@id": "outreach:pluginId",
+      "@type": "xsd:integer"
+    },
+    "prospectOwnerId": {
+      "@id": "outreach:prospectOwnerId",
+      "@type": "xsd:integer"
+    },
+    "recurring": {
+      "@id": "outreach:recurring",
+      "@type": "xsd:boolean"
+    },
+    "reportInstanceId": {
+      "@id": "outreach:reportInstanceId",
+      "@type": "xsd:string"
+    },
+    "scheduledAt": {
+      "@id": "outreach:scheduledAt",
+      "@type": "xsd:dateTime"
+    },
+    "source": {
+      "@id": "outreach:source",
+      "@type": "xsd:string"
+    },
+    "stageId": {
+      "@id": "outreach:stageId",
+      "@type": "xsd:integer"
+    },
+    "syncedUntil": {
+      "@id": "outreach:syncedUntil",
+      "@type": "xsd:dateTime"
+    },
+    "timeZone": {
+      "@id": "outreach:timeZone",
+      "@type": "xsd:string"
+    },
+    "uploadResponse": "outreach:uploadResponse",
+    "kaiaRecordingRelationships": "outreach:kaiaRecordingRelationships",
+    "kaiaRecording": "outreach:kaiaRecording",
+    "botInMeetingSeconds": {
+      "@id": "outreach:botInMeetingSeconds",
+      "@type": "xsd:string"
+    },
+    "endTime": {
+      "@id": "outreach:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "format": {
+      "@id": "outreach:format",
+      "@type": "xsd:string"
+    },
+    "host": {
+      "@id": "outreach:host"
+    },
+    "instanceId": {
+      "@id": "outreach:instanceId",
+      "@type": "xsd:string"
+    },
+    "mediaDurationSeconds": {
+      "@id": "outreach:mediaDurationSeconds",
+      "@type": "xsd:string"
+    },
+    "participantCount": {
+      "@id": "outreach:participantCount",
+      "@type": "xsd:integer"
+    },
+    "participants": {
+      "@id": "outreach:participants",
+      "@container": "@list"
+    },
+    "provider": {
+      "@id": "outreach:provider",
+      "@type": "xsd:string"
+    },
+    "sourceId": {
+      "@id": "outreach:sourceId",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "outreach:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "title": {
+      "@id": "outreach:title",
+      "@type": "xsd:string"
+    },
+    "topics": {
+      "@id": "outreach:topics",
+      "@container": "@list"
+    },
+    "transcriptUrl": {
+      "@id": "outreach:transcriptUrl",
+      "@type": "xsd:string"
+    },
+    "kaiaRecordingResponse": "outreach:kaiaRecordingResponse",
+    "kaiaVoiceImportResponse": "outreach:kaiaVoiceImportResponse",
+    "kaiaVoiceImport": "outreach:kaiaVoiceImport",
+    "callId": {
+      "@id": "outreach:callId",
+      "@type": "xsd:string"
+    },
+    "metadata": {
+      "@id": "outreach:metadata",
+      "@type": "xsd:string"
+    },
+    "mailAlias": "outreach:mailAlias",
+    "canSend": {
+      "@id": "outreach:canSend",
+      "@type": "xsd:boolean"
+    },
+    "emailHash": {
+      "@id": "outreach:emailHash",
+      "@type": "xsd:string"
+    },
+    "mailAliasResponse": "outreach:mailAliasResponse",
+    "mailAliasRelationships": "outreach:mailAliasRelationships",
+    "mailbox": {
+      "@id": "outreach:mailbox"
+    },
+    "mailboxResponse": "outreach:mailboxResponse",
+    "mailboxRelationships": "outreach:mailboxRelationships",
+    "mailAliases": {
+      "@id": "outreach:mailAliases"
+    },
+    "mailings": {
+      "@id": "outreach:mailings"
+    },
+    "mailingResponse": "outreach:mailingResponse",
+    "mailingRelationships": "outreach:mailingRelationships",
+    "attachments": {
+      "@id": "outreach:attachments"
+    },
+    "bccEntitiesId": {
+      "@id": "outreach:bccEntitiesId"
+    },
+    "calendar": {
+      "@id": "outreach:calendar"
+    },
+    "ccEntitiesId": {
+      "@id": "outreach:ccEntitiesId"
+    },
+    "followUpSequence": {
+      "@id": "outreach:followUpSequence"
+    },
+    "prospectsIds": {
+      "@id": "outreach:prospectsIds"
+    },
+    "recipients": {
+      "@id": "outreach:recipients"
+    },
+    "schedule": {
+      "@id": "outreach:schedule"
+    },
+    "template": {
+      "@id": "outreach:template"
+    },
+    "toEntitiesId": {
+      "@id": "outreach:toEntitiesId"
+    },
+    "opportunityResponse": "outreach:opportunityResponse",
+    "opportunityRelationships": "outreach:opportunityRelationships",
+    "externalCreator": {
+      "@id": "outreach:externalCreator"
+    },
+    "opportunityHealthFactors": {
+      "@id": "outreach:opportunityHealthFactors"
+    },
+    "opportunityLineItems": {
+      "@id": "outreach:opportunityLineItems"
+    },
+    "opportunityStage": {
+      "@id": "outreach:opportunityStage"
+    },
+    "primaryProspect": {
+      "@id": "outreach:primaryProspect"
+    },
+    "stage": {
+      "@id": "outreach:stage"
+    },
+    "territory": {
+      "@id": "outreach:territory"
+    },
+    "opportunityProspectRoleRelationships": "outreach:opportunityProspectRoleRelationships",
+    "opportunityProspectRoleResponse": "outreach:opportunityProspectRoleResponse",
+    "opportunityProspectRole": "outreach:opportunityProspectRole",
+    "primary": {
+      "@id": "outreach:primary",
+      "@type": "xsd:boolean"
+    },
+    "role": {
+      "@id": "outreach:role",
+      "@type": "xsd:string"
+    },
+    "opportunityStageResponse": "outreach:opportunityStageResponse",
+    "opportunityStageRelationships": "outreach:opportunityStageRelationships",
+    "opportunities": {
+      "@id": "outreach:opportunities"
+    },
+    "orgSetting": "outreach:orgSetting",
+    "contactExclusions": {
+      "@id": "outreach:contactExclusions",
+      "@type": "xsd:string"
+    },
+    "prospectEmailExclusions": {
+      "@id": "outreach:prospectEmailExclusions",
+      "@type": "xsd:string"
+    },
+    "sendExclusions": {
+      "@id": "outreach:sendExclusions",
+      "@type": "xsd:string"
+    },
+    "orgSettingResponse": "outreach:orgSettingResponse",
+    "personaRelationships": "outreach:personaRelationships",
+    "personaResponse": "outreach:personaResponse",
+    "persona": "outreach:persona",
+    "phoneNumberRelationships": "outreach:phoneNumberRelationships",
+    "phoneNumberResponse": "outreach:phoneNumberResponse",
+    "productResponse": "outreach:productResponse",
+    "productRelationships": "outreach:productRelationships",
+    "product": "outreach:product",
+    "classification": {
+      "@id": "outreach:classification",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "outreach:code",
+      "@type": "xsd:string"
+    },
+    "deleted": {
+      "@id": "outreach:deleted",
+      "@type": "xsd:boolean"
+    },
+    "productFamily": {
+      "@id": "outreach:productFamily",
+      "@type": "xsd:string"
+    },
+    "unitOfMeasure": {
+      "@id": "outreach:unitOfMeasure",
+      "@type": "xsd:string"
+    },
+    "website": {
+      "@id": "outreach:website",
+      "@type": "xsd:string"
+    },
+    "profileResponse": "outreach:profileResponse",
+    "profile": "outreach:profile",
+    "isAdmin": {
+      "@id": "outreach:isAdmin",
+      "@type": "xsd:boolean"
+    },
+    "specialId": {
+      "@id": "outreach:specialId",
+      "@type": "xsd:string"
+    },
+    "prospectRelationships": "outreach:prospectRelationships",
+    "activeSequenceStates": {
+      "@id": "outreach:activeSequenceStates"
+    },
+    "emailAddresses": {
+      "@id": "outreach:emailAddresses"
+    },
+    "opportunityProspectRoles": {
+      "@id": "outreach:opportunityProspectRoles"
+    },
+    "phoneNumbers": {
+      "@id": "outreach:phoneNumbers"
+    },
+    "sequenceStates": {
+      "@id": "outreach:sequenceStates"
+    },
+    "trashedByAccount": {
+      "@id": "outreach:trashedByAccount"
+    },
+    "prospectResponse": "outreach:prospectResponse",
+    "prospectNote": "outreach:prospectNote",
+    "prospectNoteRelationships": "outreach:prospectNoteRelationships",
+    "prospectNoteResponse": "outreach:prospectNoteResponse",
+    "purchaseRelationships": "outreach:purchaseRelationships",
+    "purchase": "outreach:purchase",
+    "currency": {
+      "@id": "outreach:currency",
+      "@type": "xsd:string"
+    },
+    "endDate": {
+      "@id": "outreach:endDate",
+      "@type": "xsd:date"
+    },
+    "potentialQuantity": {
+      "@id": "outreach:potentialQuantity",
+      "@type": "xsd:decimal"
+    },
+    "potentialValue": {
+      "@id": "outreach:potentialValue",
+      "@type": "xsd:decimal"
+    },
+    "saturation": {
+      "@id": "outreach:saturation",
+      "@type": "xsd:decimal"
+    },
+    "startDate": {
+      "@id": "outreach:startDate",
+      "@type": "xsd:date"
+    },
+    "totalQuantity": {
+      "@id": "outreach:totalQuantity",
+      "@type": "xsd:decimal"
+    },
+    "totalValue": {
+      "@id": "outreach:totalValue",
+      "@type": "xsd:decimal"
+    },
+    "purchaseResponse": "outreach:purchaseResponse",
+    "recipient": "outreach:recipient",
+    "recipientType": {
+      "@id": "outreach:recipientType",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "outreach:value",
+      "@type": "xsd:string"
+    },
+    "recipientRelationships": "outreach:recipientRelationships",
+    "recipientResponse": "outreach:recipientResponse",
+    "roleRelationships": "outreach:roleRelationships",
+    "childRoles": {
+      "@id": "outreach:childRoles"
+    },
+    "parentRole": {
+      "@id": "outreach:parentRole"
+    },
+    "roleResponse": "outreach:roleResponse",
+    "rulesetRelationships": "outreach:rulesetRelationships",
+    "bouncedStage": {
+      "@id": "outreach:bouncedStage"
+    },
+    "callTaskPriority": {
+      "@id": "outreach:callTaskPriority"
+    },
+    "callTaskPriorityFromClicks": {
+      "@id": "outreach:callTaskPriorityFromClicks"
+    },
+    "callTaskPriorityFromOpens": {
+      "@id": "outreach:callTaskPriorityFromOpens"
+    },
+    "completedStage": {
+      "@id": "outreach:completedStage"
+    },
+    "deliveredStage": {
+      "@id": "outreach:deliveredStage"
+    },
+    "finishedStage": {
+      "@id": "outreach:finishedStage"
+    },
+    "optedOutStage": {
+      "@id": "outreach:optedOutStage"
+    },
+    "repliedStage": {
+      "@id": "outreach:repliedStage"
+    },
+    "sequences": {
+      "@id": "outreach:sequences"
+    },
+    "startedStage": {
+      "@id": "outreach:startedStage"
+    },
+    "ruleset": "outreach:ruleset",
+    "applyCompletedStageIn": {
+      "@id": "outreach:applyCompletedStageIn",
+      "@type": "xsd:integer"
+    },
+    "autoResumeOotoProspects": {
+      "@id": "outreach:autoResumeOotoProspects",
+      "@type": "xsd:boolean"
+    },
+    "autoResumeOotoProspectsExpiresIn": {
+      "@id": "outreach:autoResumeOotoProspectsExpiresIn",
+      "@type": "xsd:integer"
+    },
+    "autoResumeOotoProspectsIn": {
+      "@id": "outreach:autoResumeOotoProspectsIn",
+      "@type": "xsd:integer"
+    },
+    "callOptOutAction": {
+      "@id": "outreach:callOptOutAction",
+      "@type": "xsd:string"
+    },
+    "clicksNeededBeforeCallTaskCreated": {
+      "@id": "outreach:clicksNeededBeforeCallTaskCreated",
+      "@type": "xsd:integer"
+    },
+    "emailOptOutAction": {
+      "@id": "outreach:emailOptOutAction",
+      "@type": "xsd:string"
+    },
+    "includeUnsubscribeLinks": {
+      "@id": "outreach:includeUnsubscribeLinks",
+      "@type": "xsd:boolean"
+    },
+    "meetingBookedAction": {
+      "@id": "outreach:meetingBookedAction",
+      "@type": "xsd:string"
+    },
+    "minimumProspectTouchedInterval": {
+      "@id": "outreach:minimumProspectTouchedInterval",
+      "@type": "xsd:integer"
+    },
+    "ootoAutoExtractionEnabled": {
+      "@id": "outreach:ootoAutoExtractionEnabled",
+      "@type": "xsd:boolean"
+    },
+    "opensNeededBeforeCallTaskCreated": {
+      "@id": "outreach:opensNeededBeforeCallTaskCreated",
+      "@type": "xsd:integer"
+    },
+    "permitDuplicateProspects": {
+      "@id": "outreach:permitDuplicateProspects",
+      "@type": "xsd:string"
+    },
+    "sequenceExclusivity": {
+      "@id": "outreach:sequenceExclusivity",
+      "@type": "xsd:string"
+    },
+    "smsOptOutAction": {
+      "@id": "outreach:smsOptOutAction",
+      "@type": "xsd:string"
+    },
+    "smsReceivedAction": {
+      "@id": "outreach:smsReceivedAction",
+      "@type": "xsd:string"
+    },
+    "stepOverridesEnabled": {
+      "@id": "outreach:stepOverridesEnabled",
+      "@type": "xsd:boolean"
+    },
+    "rulesetResponse": "outreach:rulesetResponse",
+    "sequenceRelationships": "outreach:sequenceRelationships",
+    "contentCategoryMemberships": {
+      "@id": "outreach:contentCategoryMemberships"
+    },
+    "sequenceSteps": {
+      "@id": "outreach:sequenceSteps"
+    },
+    "sequenceResponse": "outreach:sequenceResponse",
+    "sequenceStateRelationships": "outreach:sequenceStateRelationships",
+    "activeStepMailings": {
+      "@id": "outreach:activeStepMailings"
+    },
+    "activeStepTasks": {
+      "@id": "outreach:activeStepTasks"
+    },
+    "batchItemCreator": {
+      "@id": "outreach:batchItemCreator"
+    },
+    "sequenceStateRecipients": {
+      "@id": "outreach:sequenceStateRecipients"
+    },
+    "sequenceStateResponse": "outreach:sequenceStateResponse",
+    "sequenceStepResponse": "outreach:sequenceStepResponse",
+    "sequenceStepRelationships": "outreach:sequenceStepRelationships",
+    "sequenceTemplates": {
+      "@id": "outreach:sequenceTemplates"
+    },
+    "taskPriority": {
+      "@id": "outreach:taskPriority"
+    },
+    "sequenceTemplateRelationships": "outreach:sequenceTemplateRelationships",
+    "sequenceTemplate": "outreach:sequenceTemplate",
+    "bounceCount": {
+      "@id": "outreach:bounceCount",
+      "@type": "xsd:integer"
+    },
+    "clickCount": {
+      "@id": "outreach:clickCount",
+      "@type": "xsd:integer"
+    },
+    "deliverCount": {
+      "@id": "outreach:deliverCount",
+      "@type": "xsd:integer"
+    },
+    "enabled": {
+      "@id": "outreach:enabled",
+      "@type": "xsd:boolean"
+    },
+    "enabledAt": {
+      "@id": "outreach:enabledAt",
+      "@type": "xsd:dateTime"
+    },
+    "failureCount": {
+      "@id": "outreach:failureCount",
+      "@type": "xsd:integer"
+    },
+    "isReply": {
+      "@id": "outreach:isReply",
+      "@type": "xsd:boolean"
+    },
+    "negativeReplyCount": {
+      "@id": "outreach:negativeReplyCount",
+      "@type": "xsd:integer"
+    },
+    "neutralReplyCount": {
+      "@id": "outreach:neutralReplyCount",
+      "@type": "xsd:integer"
+    },
+    "openCount": {
+      "@id": "outreach:openCount",
+      "@type": "xsd:integer"
+    },
+    "optOutCount": {
+      "@id": "outreach:optOutCount",
+      "@type": "xsd:integer"
+    },
+    "positiveReplyCount": {
+      "@id": "outreach:positiveReplyCount",
+      "@type": "xsd:integer"
+    },
+    "replyCount": {
+      "@id": "outreach:replyCount",
+      "@type": "xsd:integer"
+    },
+    "scheduleCount": {
+      "@id": "outreach:scheduleCount",
+      "@type": "xsd:integer"
+    },
+    "sequenceTemplateResponse": "outreach:sequenceTemplateResponse",
+    "snippetRelationships": "outreach:snippetRelationships",
+    "snippetResponse": "outreach:snippetResponse",
+    "snippet": "outreach:snippet",
+    "bodyHtml": {
+      "@id": "outreach:bodyHtml",
+      "@type": "xsd:string"
+    },
+    "bodyText": {
+      "@id": "outreach:bodyText",
+      "@type": "xsd:string"
+    },
+    "shareType": {
+      "@id": "outreach:shareType",
+      "@type": "xsd:string"
+    },
+    "stageResponse": "outreach:stageResponse",
+    "stageRelationships": "outreach:stageRelationships",
+    "taskResponse": "outreach:taskResponse",
+    "taskRelationships": "outreach:taskRelationships",
+    "completer": {
+      "@id": "outreach:completer"
+    },
+    "prospectAccount": {
+      "@id": "outreach:prospectAccount"
+    },
+    "prospectContacts": {
+      "@id": "outreach:prospectContacts"
+    },
+    "prospectOwner": {
+      "@id": "outreach:prospectOwner"
+    },
+    "prospectPhoneNumbers": {
+      "@id": "outreach:prospectPhoneNumbers"
+    },
+    "prospectStage": {
+      "@id": "outreach:prospectStage"
+    },
+    "sequenceSequenceSteps": {
+      "@id": "outreach:sequenceSequenceSteps"
+    },
+    "sequenceStateSequenceStep": {
+      "@id": "outreach:sequenceStateSequenceStep"
+    },
+    "sequenceStateSequenceStepOverrides": {
+      "@id": "outreach:sequenceStateSequenceStepOverrides"
+    },
+    "sequenceStateStartingTemplate": {
+      "@id": "outreach:sequenceStateStartingTemplate"
+    },
+    "sequenceStepOverrideTemplates": {
+      "@id": "outreach:sequenceStepOverrideTemplates"
+    },
+    "sequenceTemplateTemplate": {
+      "@id": "outreach:sequenceTemplateTemplate"
+    },
+    "subject": {
+      "@id": "outreach:subject"
+    },
+    "taskDisposition": {
+      "@id": "outreach:taskDisposition"
+    },
+    "taskPurpose": {
+      "@id": "outreach:taskPurpose"
+    },
+    "taskTheme": {
+      "@id": "outreach:taskTheme"
+    },
+    "team": {
+      "@id": "outreach:team"
+    },
+    "taskDispositionRelationships": "outreach:taskDispositionRelationships",
+    "taskDispositionResponse": "outreach:taskDispositionResponse",
+    "taskPriorityResponse": "outreach:taskPriorityResponse",
+    "taskPriorityRelationships": "outreach:taskPriorityRelationships",
+    "taskPurposeRelationships": "outreach:taskPurposeRelationships",
+    "taskPurposeResponse": "outreach:taskPurposeResponse"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Outreach API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Outreach's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-12) from openapi/outreach-account-api-openapi.yml, openapi/outreach-account-note-api-openapi.yml, openapi/outreach-audit-log-api-openapi.yml.",
+  "dcterms:created": "2026-10-12",
+  "dcterms:source": [
+    "openapi/outreach-account-api-openapi.yml",
+    "openapi/outreach-account-note-api-openapi.yml",
+    "openapi/outreach-audit-log-api-openapi.yml",
+    "openapi/outreach-batch-api-openapi.yml",
+    "openapi/outreach-batch-item-api-openapi.yml"
+  ]
+}

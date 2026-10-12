@@ -1,0 +1,1562 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/outreach/integrations
+- https://n8n.io/integrations/outreach/
+- https://composio.dev/toolkits/outreach
+- https://monid.ai/tools/outreach
+checked:
+- https://composio.dev/toolkits/outreach
+- https://marketplace.outreach.io/category/all
+- https://monid.ai/tools/outreach
+- https://n8n.io/integrations/outreach/
+- https://www.make.com/en/integrations/outreach
+- https://www.workato.com/integrations/outreach
+- https://zapier.com/apps/outreach/integrations
+summary: 148 partner apps listed on the Outreach Marketplace (18 of them MCP connectors) plus 11 partner apps named
+  with Outreach on Zapier.
+marketplace_apps: []
+edges:
+- partner_name: 6sense
+  partner: 6sense
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Know Everything So You Can Do Anything
+  relationship: platform-app
+  partner_match: domain
+- partner_name: 6sense MCP Connector
+  partner: 6sense
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: 6sense intelligence, account insights, 6QA, and keyword intent callable from Outreach
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Accord
+  partner: accord
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Empower Accord meeting intelligence with Kaia transcripts
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Aircall
+  partner: aircall
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Superpower your phone calls with Aircall and Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Allegrow
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Reach the primary inbox, rather than the spam folder.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Alyce
+  partner: alyce
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Break into more key accounts with personal gifting that drives action
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Amplitude MCP Connector
+  partner: amplitude
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Product usage insights that power smarter revenue engagement
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Autobound
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Transform Outreach sequences with AI personalization. Boost engagement and replies effortlessly.
+  relationship: platform-app
+  partner_match: null
+- partner_name: AWS Marketplace
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Purchase Outreach's powerful Sales Execution Platform via the AWS Marketplace
+  relationship: platform-app
+  partner_match: null
+- partner_name: B2Brain
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Automate account intelligence in Outreach to put your best pitch forward.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Bearworks
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: AI-powered Parallel Dialer and Virtual Salesfloor
+  relationship: platform-app
+  partner_match: null
+- partner_name: Bigtincan for Outreach
+  partner: bigtincan
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Seamlessly find and share relevant and engaging content directly within Outreach.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Birdie
+  partner: birdie
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: AI Copilot for social selling with Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: BombBomb
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Record & send BombBomb videos for clearer communication & more connectionsMake your sales personal w
+  relationship: platform-app
+  partner_match: null
+- partner_name: Boomerang
+  partner: boomerang
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Boost revenue growth by monitoring customer job changes & automating multi-threaded follow-ups.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: boring
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Adds email verification, a LinkedIn integration, and a power dialer embedded into Outreach.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Caddy Coaching Platform & Reports
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Inspect what you expect. Find outliers, optimize performance.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Chili Piper
+  partner: chili-piper
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Automate scheduling directly in Outreach ; Add a Prospect to a Sequence from Distro!
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Clari
+  partner: clari
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Your Go-to-Market Teams, United
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Clay
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Clay is the go-to GTM platform combining 100+ data sources, AI workflows, and automation!
+  relationship: platform-app
+  partner_match: null
+- partner_name: Clay MCP Connector
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: With Clay, enrich as you prospect.
+  relationship: agent-tooling
+  partner_match: null
+- partner_name: cloudeagle.ai
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Single app to govern, manage, renew all your SaaS apps
+  relationship: platform-app
+  partner_match: null
+- partner_name: Coefficient
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect Outreach to Google Sheets / Excel to import prospects, sequences, mailings & opportunities.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Cognism
+  partner: cognism
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Easily Export and Sync your Contacts & Leads
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Common Room
+  partner: common-room
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Add members to an Outreach sequence directly from Common Room
+  relationship: platform-app
+  partner_match: domain
+- partner_name: ConnectAndSell
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Spend more time connecting with prospects, less time dialing.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Consensus
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Adds personalized product experiences to Outreach content to shorten sales cycles and enable buyers.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Crayon MCP Connector
+  partner: crayon
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Competitive intelligence that powers smarter revenue workflows
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Crossbeam Copilot for Outreach
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Put the power of your ecosystem in the hands of sellers.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Crossbeam MCP Connector
+  partner: crossbeam
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Partner ecosystem insights that drive smarter revenue workflows
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Crunchbase
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Get continuously updated information on funding activity, investors, the latest news, and more.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Crunchbase Pro
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Discover, qualify, and connect with prospects from a single place
+  relationship: platform-app
+  partner_match: null
+- partner_name: Crystal
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Understand a prospect's personality and how to best communicate with them
+  relationship: platform-app
+  partner_match: null
+- partner_name: Databricks
+  partner: databricks
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Breakdown data silos and accelerate data-driven decisions with Outreach + Databricks.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Databricks MCP Connector
+  partner: databricks
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Data and AI insights that power revenue execution
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: DataGrail
+  partner: datagrail
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Build trust and eliminate risk with automated data mapping
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Demandbase
+  partner: demandbase
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Access Demandbase’s account and prospect insights without leaving Outreach!
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Demandbase MCP Connector
+  partner: demandbase
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Account intelligence that powers targeted revenue engagement
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Dialpad
+  partner: dialpad
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Call, Connect, and Coach without ever leaving Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: DocSend
+  partner: docsend
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Track shared content with DocSend
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Domo
+  partner: domo
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Outreach and Domo make it easy to see all the information you care about in one place
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Enrich emails
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: This plugin automatically replaces your prospects' invalid email addresses with valid ones.
+  relationship: platform-app
+  partner_match: null
+- partner_name: EveryoneSocial - Beta
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Empower your team to share and create important marketing, recruiting, and sales content on social.
+  relationship: platform-app
+  partner_match: null
+- partner_name: ExecVision
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Better insight, better conversations, better results – period.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Falcon Shield for Outreach
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Monitor access, enforce security best practices, and detect threats in Outreach with Falcon Shield.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Fivetran
+  partner: fivetran
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Arm your data team with valuable customer engagement insights from Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Folloze
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Deliver highly personalized content experience and track customer engagement
+  relationship: platform-app
+  partner_match: null
+- partner_name: G2 Crowd
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Use G2 Buyer Intent to build accurate, effective sequences.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Glean MCP Connector
+  partner: glean
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Enterprise AI insights that power connected revenue workflows
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Gmail
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Personalize emails, automate tasks and track engagements
+  relationship: platform-app
+  partner_match: null
+- partner_name: Google Calendar
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Easily connect Outreach with Google Calendar
+  relationship: platform-app
+  partner_match: null
+- partner_name: Google Maps
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect with your customers where they are with Google Maps
+  relationship: platform-app
+  partner_match: null
+- partner_name: HG Insights
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Embed HG Sales Copilot and enable "Add to sequence" from Sales Copilot
+  relationship: platform-app
+  partner_match: null
+- partner_name: Highspot
+  partner: highspot
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Engage Buyers with Content at Scale
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Hippo Video
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect better & convert more with personalized videos inside Outreach
+  relationship: platform-app
+  partner_match: null
+- partner_name: HubSpot
+  partner: hubspot
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: An automatic, bi-directional sync between HubSpot and Outreach.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Hull
+  partner: hull
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Unify & sync data between Outreach and all your sales & marketing tools
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Influ2
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Make ads an essential part of the sales conversation.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Informa TechTarget
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Turn intent signals into sales conversations with active buyers who actually respond.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Intercom
+  partner: intercom
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect All Parts of Your Customer's Journey with Intercom + Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Koncert Dialer
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Ultra-low latency AI powered dialer with Remote Salesfloor
+  relationship: platform-app
+  partner_match: null
+- partner_name: Lantern
+  partner: lantern
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Proactively route customers based on all data sources
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Lavender
+  partner: lavender
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Write Better Emails, Faster
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Leaderbird
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Empower your sales team with automated leaderboards, competitive power hours and gamified goals
+  relationship: platform-app
+  partner_match: null
+- partner_name: LeadIQ
+  partner: leadiq
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: LeadIQ integration allows you to easily sync contact information from the LeadIQ extension
+  relationship: platform-app
+  partner_match: domain
+- partner_name: LeadIQ Data Enrichment
+  partner: leadiq
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Build targeted prospect lists with verified contacts and AI-powered messaging
+  relationship: platform-app
+  partner_match: domain
+- partner_name: LeanData
+  partner: leandata
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Perform actions in Outreach directly from LeanData FlowBuilder
+  relationship: platform-app
+  partner_match: domain
+- partner_name: LeanData MCP
+  partner: leandata
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Manage the meeting lifecycle, administer pools, and book routed meetings.
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: LeanData Scheduling
+  partner: leandata
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Book meetings with qualified prospects and insert live availability into emails
+  relationship: platform-app
+  partner_match: domain
+- partner_name: LinkedIn Sales Navigator
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: The power of LinkedIn Sales Navigator, built right into your workflow
+  relationship: platform-app
+  partner_match: null
+- partner_name: Lusha
+  partner: lusha
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Locate B2B contact & company data and save it directly to your Outreach CRM.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Lusha MCP Connector
+  partner: lusha
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: With Lusha, reach the right people, faster.
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Make
+  partner: make
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Make - Workflow Automation for Outreach and more
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Microsoft Dynamics 365 Sales
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: The action of Outreach + the power of Microsoft
+  relationship: platform-app
+  partner_match: null
+- partner_name: Microsoft Exchange
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect your Exchange email address to Outreach to send as yourself, no matter where you are
+  relationship: platform-app
+  partner_match: null
+- partner_name: Microsoft Teams
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Outreach’s AI-powered virtual sales assistant integrated with Microsoft Teams
+  relationship: platform-app
+  partner_match: null
+- partner_name: Mindtickle
+  partner: mindtickle
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Easy asset sharing and engagement tracking with Mindtickle
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Mindtickle MCP Connector
+  partner: mindtickle
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Sales readiness insights that power stronger revenue execution
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: MonsterConnect
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: We make the calls, you close the deals | Meet our Agent-Assisted PowerDialer
+  relationship: platform-app
+  partner_match: null
+- partner_name: Mutiny Outreach Extension
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Identify your prospects and track activity on your website with Mutiny.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Navattic
+  partner: navattic
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Share and track interactive product demos through Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Noble for Outbound
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Noble shows your prospects which of your customers they know, directly in your outbound emails.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Okta
+  partner: okta
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Prevent password headaches with Okta and Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Oktopost
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Share approved social content directly in Outreach to boost engagement and reach.
+  relationship: platform-app
+  partner_match: null
+- partner_name: ON24
+  partner: on24
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Display ON24 Prospect Engagement Profile data in Prospect records.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Onelogin
+  partner: onelogin
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Prevent password headaches with OneLogin and Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: OneMob
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Record, add and track video and content from any email you send
+  relationship: platform-app
+  partner_match: null
+- partner_name: Opensense
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Email signatures just got a whole lot easier.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Orum
+  partner: orum
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Orum is the calling performance system built to make the phone your most reliable pipeline channel.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Outgrow
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Boost leads with Outgrow's no-code tools
+  relationship: platform-app
+  partner_match: null
+- partner_name: Outlook
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: The power of Outreach built right into Outlook.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Outlook Calendar
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Book and hold more meetings with Outreach Meetings for Outlook.
+  relationship: platform-app
+  partner_match: null
+- partner_name: PhoneBurner
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Supercharge call sequences without leaving Outreach
+  relationship: platform-app
+  partner_match: null
+- partner_name: Polytomic
+  partner: polytomic
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Sync between your data warehouse and Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Postal
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Send gifts via Postal through Outreach
+  relationship: platform-app
+  partner_match: null
+- partner_name: Quack Parallel Dialer
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Quack is a power/parallel dialer built for SDR teams to connect with prospects faster over the phone
+  relationship: platform-app
+  partner_match: null
+- partner_name: Qualified
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Grow pipeline with AI-powered live chat and chatbots
+  relationship: platform-app
+  partner_match: null
+- partner_name: Qualified Signals
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Target high-intent buyers with personalized outreach and drive more pipeline, more efficiently
+  relationship: platform-app
+  partner_match: null
+- partner_name: Reachdesk
+  partner: reachdesk
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Break through to prospects with personalized direct mail and gifts.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Reco
+  partner: reco
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Reco extends Outreach with comprehensive SaaS security and AI governance.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: RingCentral
+  partner: ringcentral
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Integrate RingCentral with Outreach to accelerate lead conversion
+  relationship: platform-app
+  partner_match: domain
+- partner_name: RocketReach
+  partner: rocketreach
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Spend less time on searching and more on selling.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Salesfinity
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Enrich contacts with validated mobile numbers, get 5.2X more call connects with AI parallel dialer,
+  relationship: platform-app
+  partner_match: null
+- partner_name: Salesforce
+  partner: salesforce
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Automatic, real-time updates in and out of Salesforce.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Salesforce MCP Connector
+  partner: salesforce
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connected AI agents for customer intelligence and execution
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: SalesIntel
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Find your ideal prospects and export them directly to Outreach.
+  relationship: platform-app
+  partner_match: null
+- partner_name: SalesIntel Data Enrichment
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Boost your pipeline with human-verified data and actionable sales signals.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Seismic
+  partner: seismic
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Infuse every message with the most relevant and up-to-date content
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Seismic MCP Connector
+  partner: seismic
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: AI-powered content and enablement workflows for revenue teams
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: SendGrid
+  partner: sendgrid
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect Outreach and SendGrid to send email via the Sendgrid API
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Sendoso
+  partner: sendoso
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Complete sending directly from Outreach with the Sendoso app!
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Sendoso MCP Connector
+  partner: sendoso
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Personalized gifting workflows that drive customer engagement
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Sequence to PDF
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Export your Outreach sequences directly as formatted PDFs or DOCX files
+  relationship: platform-app
+  partner_match: null
+- partner_name: ServiceNow
+  partner: servicenow
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Automatic, real-time updates in and out of ServiceNow.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Showpad
+  partner: showpad
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Engage your prospects with just the right content.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Skyvia
+  partner: skyvia
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: 'Skyvia is a no-code cloud platform for data integration: ETL/ELT, Reverse ETL, data sync, etc.'
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Slack MCP Connector
+  partner: slack
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connected collaboration workflows for revenue teams
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Slintel
+  partner: slintel
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Crush your pipeline goals by efficiently engaging with prospects.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Snowflake
+  partner: snowflake
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Breakdown data silos and accelerate data-driven decisions with Outreach + Snowflake
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Snowflake MCP Connector
+  partner: snowflake
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Unified data insights that power AI-driven revenue workflows
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Spinify
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: 'Elevate Your Sales Game: Spinify''s AI-Driven Gamification for Peak Performance'
+  relationship: platform-app
+  partner_match: null
+- partner_name: Storylane
+  partner: storylane
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Share killer product demos with your prospects in minutes and track engagement.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Supercadence
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Humanize outreach, maximize conversions
+  relationship: platform-app
+  partner_match: null
+- partner_name: Superhuman MCP Connector
+  partner: superhuman
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: With Superhuman Docs, your team's knowledge shows up where you sell.
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: Surfe
+  partner: surfe
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect Outreach with LinkedIn in 60 seconds
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Syft AI
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Find Value Matched accounts, contacts, and automate generation of value based sequences.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Tendril Connect
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Skip the wait, get right to talking. Tendril Connect accelerates meaningful conversations
+  relationship: platform-app
+  partner_match: null
+- partner_name: Terminus
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Create connected experiences with buyers from wherever you are working
+  relationship: platform-app
+  partner_match: null
+- partner_name: Tolstoy
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: A new way to communicate, with interactive video.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Transcend
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Automate data subject requests within Outreach
+  relationship: platform-app
+  partner_match: null
+- partner_name: tray.io
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Easily convert more leads + win more deals faster with automation.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Tribyl
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Make reps domain experts in every email and call. Improve ramp time and productivity.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Troops
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect Outreach to Slack and Microsoft Teams.
+  relationship: platform-app
+  partner_match: null
+- partner_name: upcell
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Modern Sales Intelligence at a Fraction of the Cost
+  relationship: platform-app
+  partner_match: null
+- partner_name: Vidyard
+  partner: vidyard
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Connect, Convert & Close with Video in Outreach
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Warmly
+  partner: warmly
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Auto sequence your hottest website and signaled leads in Outreach — no manual prospecting required.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Webex
+  partner: webex
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Outreach’s AI-powered Conversation Intelligence, Kaia, integrated with Cisco Webex
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Wiza
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Sync new prospects directly to Outreach.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Workato
+  partner: workato
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Prospect better and close more deals with intelligent automation.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: X (Twitter)
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: See your prospects' and accounts' live X feeds right where you work.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Zapier
+  partner: zapier
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Workflow automation software for everyone
+  relationship: platform-app
+  partner_match: domain
+- partner_name: ZeroBounce
+  partner: zerobounce
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Give your Outreach a boost with cleaner, validated email data from ZeroBounce
+  relationship: platform-app
+  partner_match: domain
+- partner_name: Zoom
+  partner: zoom
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Outreach’s AI-powered virtual sales assistant integrated with Zoom
+  relationship: platform-app
+  partner_match: domain
+- partner_name: ZoomInfo
+  partner: zoominfo
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Prospect better and close more deals with intelligent automation.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: ZoomInfo Data Enrichment
+  partner: zoominfo
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Accelerate your pipeline with enriched data, intent insights, and actionable sales signals.
+  relationship: platform-app
+  partner_match: domain
+- partner_name: ZoomInfo MCP Connector
+  partner: zoominfo
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Go-to-market intelligence that powers AI-driven sales execution.
+  relationship: agent-tooling
+  partner_match: domain
+- partner_name: ZoomInfo Powered by DiscoverOrg
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Find and upload new accounts and prospects directly to Outreach.
+  relationship: platform-app
+  partner_match: null
+- partner_name: Zoom Phone
+  partner: null
+  type: claimed
+  evidence: https://marketplace.outreach.io/category/all
+  marketplace: Outreach Marketplace
+  direction: unknown
+  use_case: Enhance your Outreach experience and streamline your workflows with Outreach & Zoom Phone
+  relationship: platform-app
+  partner_match: null
+- partner_name: Airtable
+  partner: airtable
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: domain
+- partner_name: Attio
+  partner: attio
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: domain
+- partner_name: Clay
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: Facebook Lead Ads
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: Google Sheets
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: HubSpot
+  partner: hubspot
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: domain
+- partner_name: LinkedIn
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: LinkedIn Ads
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: Marketo
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: Microsoft Dynamics CRM
+  partner: null
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: null
+- partner_name: Notion
+  partner: notion
+  type: marketplace
+  evidence: https://zapier.com/apps/outreach/integrations
+  marketplace: Zapier
+  direction: third-party
+  relationship: workflow
+  operations:
+  - New Account
+  - New Call
+  - New Opportunity
+  - New Prospect
+  - New Task
+  - Create Prospect
+  - Add Prospect to Sequence
+  - Find Sequence
+  partner_match: domain
+templates: []
+skips:
+- label: Attio
+  cause: catalog
+  why: Zapier names Attio with no published Outreach template; deferred to the 8-per-run cap after four template-backed
+    flows.
+- label: Notion
+  cause: catalog
+  why: No named Outreach template on Zapier; deferred.
+- label: LinkedIn
+  cause: partner-contract
+  why: LinkedIn member/profile data is not exposed as a public lead source in its spec; Zapier template uses LinkedIn
+    Ads lead-gen forms.
+- label: LinkedIn Ads
+  cause: partner-contract
+  why: The linkedin-ads specs in the catalog hold no lead-gen form response operation.
+- label: Microsoft Dynamics CRM
+  cause: catalog
+  why: No catalog repo matched the Microsoft Dynamics partner by domain.
+note: Outreach rebranded its site from outreach.io to outreach.ai (www.outreach.io 301s there), which the automated
+  sweep read as a name collision and wrote an empty graph. The Outreach Marketplace (marketplace.outreach.io, JS-rendered,
+  read with a headless browser) lists every partner app below as type claimed; Zapier lists Outreach triggers/actions
+  with the named partner apps. make.com answered 403 to our crawler and n8n 404; Workato 200 lists an Outreach connector
+  but its partner list was not machine-readable.

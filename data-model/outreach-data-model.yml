@@ -3,11 +3,9 @@ method: derived
 source: openapi/_original/outreach-openapi.json
 provider: Outreach
 providerId: outreach
-notes: Derived from the JSON:API relationship objects declared in the Outreach REST API OpenAPI (components.schemas.<entity>Relationships).
-  Outreach implements JSON API 1.0, so every relationship is expressed as either a resource-identifier object (to-one)
-  or a related link / array (to-many); the target type is read from the relationship resource-identifier `type`
-  value in the spec. Related resources are traversed at request time with the `include` query parameter and trimmed
-  with `fields[<type>]` sparse fieldsets.
+notes: Derived from the JSON:API relationship objects declared in the Outreach REST API OpenAPI (components.schemas.<entity>Relationships). Outreach implements JSON API 1.0, so every relationship is expressed
+  as either a resource-identifier object (to-one) or a related link / array (to-many); the target type is read from the relationship resource-identifier `type` value in the spec. Related resources are traversed
+  at request time with the `include` query parameter and trimmed with `fields[<type>]` sparse fieldsets.
 id_convention: integer, org-scoped, exposed as JSON:API `data.id`
 traversal:
   include_param: include
@@ -60,6 +58,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: account
 - entity: accountNote
   schema: components.schemas.accountNote
   relationships:
@@ -75,6 +74,7 @@ entities:
     type: has_one
     target: opportunity
     via: opportunity
+  name: accountNote
 - entity: accountProspectRelationship
   schema: components.schemas.accountProspectRelationshipRelationships
   relationships:
@@ -94,6 +94,7 @@ entities:
     type: has_one
     target: plugin
     via: updater
+  name: accountProspectRelationship
 - entity: accountTeamMember
   schema: components.schemas.accountTeamMemberRelationships
   relationships:
@@ -109,15 +110,19 @@ entities:
     type: has_one
     target: user
     via: user
+  name: accountTeamMember
 - entity: address
   schema: components.schemas.addressRelationships
   relationships: []
+  name: address
 - entity: attachment
   schema: components.schemas.attachmentRelationships
   relationships: []
+  name: attachment
 - entity: auditLog
   schema: components.schemas.auditLog
   relationships: []
+  name: auditLog
 - entity: batch
   schema: components.schemas.batch
   relationships:
@@ -125,6 +130,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: batch
 - entity: batchItem
   schema: components.schemas.batchItem
   relationships:
@@ -132,9 +138,11 @@ entities:
     type: has_one
     target: batch
     via: batch
+  name: batchItem
 - entity: blockedNumber
   schema: components.schemas.blockedNumberRelationships
   relationships: []
+  name: blockedNumber
 - entity: calendar
   schema: components.schemas.calendarRelationships
   relationships:
@@ -158,6 +166,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: calendar
 - entity: calendarEvent
   schema: components.schemas.calendarEventRelationships
   relationships:
@@ -209,6 +218,7 @@ entities:
     type: has_many
     target: user
     via: users
+  name: calendarEvent
 - entity: calendarEventAttendee
   schema: components.schemas.calendarEventAttendeeRelationships
   relationships:
@@ -224,9 +234,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: calendarEventAttendee
 - entity: calendarUrl
   schema: components.schemas.calendarUrlRelationships
   relationships: []
+  name: calendarUrl
 - entity: call
   schema: components.schemas.call
   relationships:
@@ -286,6 +298,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: call
 - entity: callDisposition
   schema: components.schemas.callDisposition
   relationships:
@@ -293,6 +306,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: callDisposition
 - entity: callPurpose
   schema: components.schemas.callPurpose
   relationships:
@@ -300,6 +314,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: callPurpose
 - entity: complianceRequest
   schema: components.schemas.complianceRequest
   relationships:
@@ -307,6 +322,7 @@ entities:
     type: has_one
     target: user
     via: requester
+  name: complianceRequest
 - entity: contentCategory
   schema: components.schemas.contentCategory
   relationships:
@@ -318,6 +334,7 @@ entities:
     type: has_many
     target: team
     via: teams
+  name: contentCategory
 - entity: contentCategoryMembership
   schema: components.schemas.contentCategoryMembership
   relationships:
@@ -333,6 +350,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: contentCategoryMembership
 - entity: contentCategoryOwnership
   schema: components.schemas.contentCategoryOwnership
   relationships:
@@ -348,6 +366,7 @@ entities:
     type: has_one
     target: team
     via: owner
+  name: contentCategoryOwnership
 - entity: crmFieldPermission
   schema: components.schemas.crmFieldPermissionRelationships
   relationships:
@@ -355,15 +374,19 @@ entities:
     type: has_one
     target: crmProfile
     via: crmProfile
+  name: crmFieldPermission
 - entity: crmProfile
   schema: components.schemas.crmProfileRelationships
   relationships: []
+  name: crmProfile
 - entity: currencyType
   schema: components.schemas.currencyTypeRelationships
   relationships: []
+  name: currencyType
 - entity: customDuty
   schema: components.schemas.customDuty
   relationships: []
+  name: customDuty
 - entity: customValidation
   schema: components.schemas.customValidationRelationships
   relationships:
@@ -375,12 +398,15 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: customValidation
 - entity: datedConversionRate
   schema: components.schemas.datedConversionRateRelationships
   relationships: []
+  name: datedConversionRate
 - entity: duty
   schema: components.schemas.duty
   relationships: []
+  name: duty
 - entity: emailAddress
   schema: components.schemas.emailAddress
   relationships:
@@ -388,6 +414,7 @@ entities:
     type: has_one
     target: prospect
     via: prospect
+  name: emailAddress
 - entity: event
   schema: components.schemas.event
   relationships:
@@ -435,6 +462,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: event
 - entity: experiment
   schema: components.schemas.experimentRelationships
   relationships:
@@ -454,6 +482,7 @@ entities:
     type: has_one
     target: sequence
     via: sequenceB
+  name: experiment
 - entity: export
   schema: components.schemas.exportRelationships
   relationships:
@@ -461,9 +490,11 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: export
 - entity: externalRecordType
   schema: components.schemas.externalRecordTypeRelationships
   relationships: []
+  name: externalRecordType
 - entity: favorite
   schema: components.schemas.favorite
   relationships:
@@ -479,9 +510,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: favorite
 - entity: featureFlag
   schema: components.schemas.featureFlagRelationships
   relationships: []
+  name: featureFlag
 - entity: featureFlagParticipation
   schema: components.schemas.featureFlagParticipationRelationships
   relationships:
@@ -489,6 +522,7 @@ entities:
     type: has_one
     target: featureFlag
     via: featureFlag
+  name: featureFlagParticipation
 - entity: gmailMessageMetadatum
   schema: components.schemas.gmailMessageMetadatumRelationships
   relationships:
@@ -496,6 +530,7 @@ entities:
     type: has_many
     target: mailing
     via: mailings
+  name: gmailMessageMetadatum
 - entity: import
   schema: components.schemas.import
   relationships:
@@ -503,6 +538,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: import
 - entity: inboxSetting
   schema: components.schemas.inboxSettingRelationships
   relationships:
@@ -510,9 +546,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: inboxSetting
 - entity: jobRole
   schema: components.schemas.jobRoleRelationships
   relationships: []
+  name: jobRole
 - entity: kaiaCrmRecording
   schema: components.schemas.kaiaCrmRecordingRelationships
   relationships:
@@ -520,12 +558,15 @@ entities:
     type: has_many
     target: prospect
     via: prospects
+  name: kaiaCrmRecording
 - entity: kaiaRecording
   schema: components.schemas.kaiaRecording
   relationships: []
+  name: kaiaRecording
 - entity: kaiaVoiceImport
   schema: components.schemas.kaiaVoiceImport
   relationships: []
+  name: kaiaVoiceImport
 - entity: mailAlias
   schema: components.schemas.mailAlias
   relationships:
@@ -533,6 +574,7 @@ entities:
     type: has_one
     target: mailbox
     via: mailbox
+  name: mailAlias
 - entity: mailbox
   schema: components.schemas.mailbox
   relationships:
@@ -548,6 +590,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: mailbox
 - entity: mailboxContact
   schema: components.schemas.mailboxContactRelationships
   relationships:
@@ -555,6 +598,7 @@ entities:
     type: has_one
     target: mailbox
     via: mailbox
+  name: mailboxContact
 - entity: mailing
   schema: components.schemas.mailing
   relationships:
@@ -618,6 +662,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: mailing
 - entity: meeting
   schema: components.schemas.meetingRelationships
   relationships:
@@ -629,9 +674,11 @@ entities:
     type: has_one
     target: calendarEvent
     via: primaryEvent
+  name: meeting
 - entity: meetingField
   schema: components.schemas.meetingFieldRelationships
   relationships: []
+  name: meetingField
 - entity: meetingType
   schema: components.schemas.meetingTypeRelationships
   relationships:
@@ -647,6 +694,7 @@ entities:
     type: has_one
     target: team
     via: team
+  name: meetingType
 - entity: messengerGroup
   schema: components.schemas.messengerGroupRelationships
   relationships:
@@ -654,9 +702,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: messengerGroup
 - entity: modelSchemaVersion
   schema: components.schemas.modelSchemaVersionRelationships
   relationships: []
+  name: modelSchemaVersion
 - entity: note
   schema: components.schemas.noteRelationships
   relationships:
@@ -664,6 +714,7 @@ entities:
     type: has_one
     target: opportunity
     via: opportunity
+  name: note
 - entity: opportunity
   schema: components.schemas.opportunity
   relationships:
@@ -727,9 +778,11 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: opportunity
 - entity: opportunityFieldHistory
   schema: components.schemas.opportunityFieldHistoryRelationships
   relationships: []
+  name: opportunityFieldHistory
 - entity: opportunityHealthFactor
   schema: components.schemas.opportunityHealthFactorRelationships
   relationships:
@@ -737,9 +790,11 @@ entities:
     type: has_one
     target: opportunity
     via: opportunity
+  name: opportunityHealthFactor
 - entity: opportunityHistory
   schema: components.schemas.opportunityHistoryRelationships
   relationships: []
+  name: opportunityHistory
 - entity: opportunityLineItem
   schema: components.schemas.opportunityLineItemRelationships
   relationships:
@@ -763,6 +818,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: opportunityLineItem
 - entity: opportunityProspectRole
   schema: components.schemas.opportunityProspectRole
   relationships:
@@ -774,6 +830,7 @@ entities:
     type: has_one
     target: prospect
     via: prospect
+  name: opportunityProspectRole
 - entity: opportunitySplit
   schema: components.schemas.opportunitySplitRelationships
   relationships:
@@ -789,12 +846,15 @@ entities:
     type: has_one
     target: opportunitySplitType
     via: splitType
+  name: opportunitySplit
 - entity: opportunitySplitFieldHistory
   schema: components.schemas.opportunitySplitFieldHistoryRelationships
   relationships: []
+  name: opportunitySplitFieldHistory
 - entity: opportunitySplitType
   schema: components.schemas.opportunitySplitTypeRelationships
   relationships: []
+  name: opportunitySplitType
 - entity: opportunityStage
   schema: components.schemas.opportunityStage
   relationships:
@@ -802,6 +862,7 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: opportunityStage
 - entity: opportunityTeamMembership
   schema: components.schemas.opportunityTeamMembershipRelationships
   relationships:
@@ -821,9 +882,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: opportunityTeamMembership
 - entity: orgSetting
   schema: components.schemas.orgSetting
   relationships: []
+  name: orgSetting
 - entity: outboundVoicemail
   schema: components.schemas.outboundVoicemailRelationships
   relationships:
@@ -831,6 +894,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: outboundVoicemail
 - entity: outlookAddInEwsItem
   schema: components.schemas.outlookAddInEwsItemRelationships
   relationships:
@@ -838,12 +902,15 @@ entities:
     type: has_one
     target: mailbox
     via: mailbox
+  name: outlookAddInEwsItem
 - entity: permissionGrant
   schema: components.schemas.permissionGrantRelationships
   relationships: []
+  name: permissionGrant
 - entity: persona
   schema: components.schemas.persona
   relationships: []
+  name: persona
 - entity: phone
   schema: components.schemas.phoneRelationships
   relationships:
@@ -859,6 +926,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: phone
 - entity: phoneIdentity
   schema: components.schemas.phoneIdentityRelationships
   relationships:
@@ -866,6 +934,7 @@ entities:
     type: has_one
     target: user
     via: owner
+  name: phoneIdentity
 - entity: phoneNumber
   schema: components.schemas.phoneNumber
   relationships:
@@ -873,6 +942,7 @@ entities:
     type: has_one
     target: prospect
     via: prospect
+  name: phoneNumber
 - entity: phoneNumberPrediction
   schema: components.schemas.phoneNumberPredictionRelationships
   relationships:
@@ -880,12 +950,15 @@ entities:
     type: has_one
     target: referralPrediction
     via: referralPrediction
+  name: phoneNumberPrediction
 - entity: plugin
   schema: components.schemas.pluginRelationships
   relationships: []
+  name: plugin
 - entity: pluginErrorLogPreSignedUrl
   schema: components.schemas.pluginErrorLogPreSignedUrlRelationships
   relationships: []
+  name: pluginErrorLogPreSignedUrl
 - entity: pluginMapping
   schema: components.schemas.pluginMappingRelationships
   relationships:
@@ -893,6 +966,7 @@ entities:
     type: has_one
     target: plugin
     via: plugin
+  name: pluginMapping
 - entity: product
   schema: components.schemas.product
   relationships:
@@ -908,9 +982,11 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: product
 - entity: profile
   schema: components.schemas.profile
   relationships: []
+  name: profile
 - entity: prospect
   schema: components.schemas.prospect
   relationships:
@@ -978,6 +1054,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: prospect
 - entity: prospectNote
   schema: components.schemas.prospectNote
   relationships:
@@ -993,6 +1070,7 @@ entities:
     type: has_one
     target: prospect
     via: prospect
+  name: prospectNote
 - entity: purchase
   schema: components.schemas.purchase
   relationships:
@@ -1016,6 +1094,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: purchase
 - entity: recipient
   schema: components.schemas.recipient
   relationships:
@@ -1027,6 +1106,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: recipient
 - entity: recordActorAssignment
   schema: components.schemas.recordActorAssignmentRelationships
   relationships:
@@ -1042,6 +1122,7 @@ entities:
     type: has_one
     target: account
     via: record
+  name: recordActorAssignment
 - entity: referralPrediction
   schema: components.schemas.referralPredictionRelationships
   relationships:
@@ -1061,6 +1142,7 @@ entities:
     type: has_one
     target: sequenceState
     via: sequenceState
+  name: referralPrediction
 - entity: returnDatePrediction
   schema: components.schemas.returnDatePredictionRelationships
   relationships:
@@ -1076,6 +1158,7 @@ entities:
     type: has_one
     target: sequenceState
     via: sequenceState
+  name: returnDatePrediction
 - entity: role
   schema: components.schemas.role
   relationships:
@@ -1087,6 +1170,7 @@ entities:
     type: has_one
     target: role
     via: parentRole
+  name: role
 - entity: ruleset
   schema: components.schemas.ruleset
   relationships:
@@ -1134,6 +1218,7 @@ entities:
     type: has_one
     target: stage
     via: startedStage
+  name: ruleset
 - entity: schedule
   schema: components.schemas.scheduleRelationships
   relationships:
@@ -1141,6 +1226,7 @@ entities:
     type: has_one
     target: user
     via: owner
+  name: schedule
 - entity: sequence
   schema: components.schemas.sequence
   relationships:
@@ -1172,6 +1258,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: sequence
 - entity: sequenceState
   schema: components.schemas.sequenceState
   relationships:
@@ -1223,6 +1310,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: sequenceState
 - entity: sequenceStateRecipient
   schema: components.schemas.sequenceStateRecipientRelationships
   relationships:
@@ -1234,6 +1322,7 @@ entities:
     type: has_one
     target: sequenceState
     via: sequenceState
+  name: sequenceStateRecipient
 - entity: sequenceStep
   schema: components.schemas.sequenceStep
   relationships:
@@ -1265,9 +1354,11 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: sequenceStep
 - entity: sequenceStepOverride
   schema: components.schemas.sequenceStepOverrideRelationships
   relationships: []
+  name: sequenceStepOverride
 - entity: sequenceTemplate
   schema: components.schemas.sequenceTemplate
   relationships:
@@ -1287,6 +1378,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: sequenceTemplate
 - entity: smartView
   schema: components.schemas.smartViewRelationships
   relationships:
@@ -1294,6 +1386,7 @@ entities:
     type: has_one
     target: user
     via: owner
+  name: smartView
 - entity: smartViewNotification
   schema: components.schemas.smartViewNotificationRelationships
   relationships:
@@ -1305,6 +1398,7 @@ entities:
     type: has_one
     target: smartView
     via: smartView
+  name: smartViewNotification
 - entity: snippet
   schema: components.schemas.snippet
   relationships:
@@ -1328,6 +1422,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: snippet
 - entity: stage
   schema: components.schemas.stage
   relationships:
@@ -1339,6 +1434,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: stage
 - entity: survey
   schema: components.schemas.surveyRelationships
   relationships:
@@ -1350,6 +1446,7 @@ entities:
     type: has_many
     target: surveyUserResponse
     via: surveyUserResponses
+  name: survey
 - entity: surveyQuestion
   schema: components.schemas.surveyQuestionRelationships
   relationships:
@@ -1365,6 +1462,7 @@ entities:
     type: has_many
     target: surveyUserResponse
     via: surveyUserResponses
+  name: surveyQuestion
 - entity: surveyQuestionOption
   schema: components.schemas.surveyQuestionOptionRelationships
   relationships:
@@ -1376,6 +1474,7 @@ entities:
     type: has_many
     target: surveyUserResponse
     via: surveyUserResponses
+  name: surveyQuestionOption
 - entity: surveyUserResponse
   schema: components.schemas.surveyUserResponseRelationships
   relationships:
@@ -1395,9 +1494,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: surveyUserResponse
 - entity: tag
   schema: components.schemas.tagRelationships
   relationships: []
+  name: tag
 - entity: task
   schema: components.schemas.task
   relationships:
@@ -1525,6 +1626,7 @@ entities:
     type: has_one
     target: template
     via: template
+  name: task
 - entity: taskDisposition
   schema: components.schemas.taskDisposition
   relationships:
@@ -1532,9 +1634,11 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: taskDisposition
 - entity: taskPriority
   schema: components.schemas.taskPriority
   relationships: []
+  name: taskPriority
 - entity: taskPurpose
   schema: components.schemas.taskPurpose
   relationships:
@@ -1542,9 +1646,11 @@ entities:
     type: has_one
     target: user
     via: creator
+  name: taskPurpose
 - entity: taskTheme
   schema: components.schemas.taskThemeRelationships
   relationships: []
+  name: taskTheme
 - entity: team
   schema: components.schemas.team
   relationships:
@@ -1584,6 +1690,7 @@ entities:
     type: has_many
     target: user
     via: users
+  name: team
 - entity: teamMembership
   schema: components.schemas.teamMembershipRelationships
   relationships:
@@ -1595,6 +1702,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: teamMembership
 - entity: teamRecord
   schema: components.schemas.teamRecordRelationships
   relationships:
@@ -1606,6 +1714,7 @@ entities:
     type: has_one
     target: team
     via: team
+  name: teamRecord
 - entity: teamSettings
   schema: components.schemas.teamSettingsRelationships
   relationships:
@@ -1617,6 +1726,7 @@ entities:
     type: has_one
     target: team
     via: team
+  name: teamSettings
 - entity: template
   schema: components.schemas.template
   relationships:
@@ -1656,6 +1766,7 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: template
 - entity: territory
   schema: components.schemas.territoryRelationships
   relationships:
@@ -1683,12 +1794,15 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: territory
 - entity: territoryModel
   schema: components.schemas.territoryModelRelationships
   relationships: []
+  name: territoryModel
 - entity: territoryType
   schema: components.schemas.territoryTypeRelationships
   relationships: []
+  name: territoryType
 - entity: user
   schema: components.schemas.user
   relationships:
@@ -1772,6 +1886,7 @@ entities:
     type: has_many
     target: voicemailPrompt
     via: voicemailPrompts
+  name: user
 - entity: userTerritoryAssociation
   schema: components.schemas.userTerritoryAssociationRelationships
   relationships:
@@ -1791,9 +1906,11 @@ entities:
     type: has_one
     target: user
     via: user
+  name: userTerritoryAssociation
 - entity: voicePlugin
   schema: components.schemas.voicePluginRelationships
   relationships: []
+  name: voicePlugin
 - entity: voicemailPrompt
   schema: components.schemas.voicemailPromptRelationships
   relationships:
@@ -1801,6 +1918,7 @@ entities:
     type: has_one
     target: user
     via: user
+  name: voicemailPrompt
 - entity: webhook
   schema: components.schemas.webhook
   relationships:
@@ -1816,3 +1934,1441 @@ entities:
     type: has_one
     target: user
     via: updater
+  name: webhook
+relationships:
+- from: account
+  to: team
+  type: has_many
+  via: assignedTeams
+- from: account
+  to: user
+  type: has_many
+  via: assignedUsers
+- from: account
+  to: user
+  type: has_one
+  via: creator
+- from: account
+  to: pluginMapping
+  type: has_one
+  via: defaultPluginMapping
+- from: account
+  to: favorite
+  type: has_many
+  via: favorites
+- from: account
+  to: user
+  type: has_one
+  via: owner
+- from: account
+  to: team
+  type: has_one
+  via: primaryRecordTeam
+- from: account
+  to: user
+  type: has_many
+  via: recordTeamMembers
+- from: account
+  to: team
+  type: has_many
+  via: recordTeams
+- from: account
+  to: user
+  type: has_one
+  via: updater
+- from: accountNote
+  to: account
+  type: has_one
+  via: account
+- from: accountNote
+  to: user
+  type: has_one
+  via: creator
+- from: accountNote
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: accountProspectRelationship
+  to: account
+  type: has_one
+  via: account
+- from: accountProspectRelationship
+  to: plugin
+  type: has_one
+  via: creator
+- from: accountProspectRelationship
+  to: prospect
+  type: has_one
+  via: prospect
+- from: accountProspectRelationship
+  to: plugin
+  type: has_one
+  via: updater
+- from: accountTeamMember
+  to: account
+  type: has_one
+  via: account
+- from: accountTeamMember
+  to: jobRole
+  type: has_one
+  via: jobRole
+- from: accountTeamMember
+  to: user
+  type: has_one
+  via: user
+- from: batch
+  to: user
+  type: has_one
+  via: creator
+- from: batchItem
+  to: batch
+  type: has_one
+  via: batch
+- from: calendar
+  to: user
+  type: has_one
+  via: creator
+- from: calendar
+  to: meetingType
+  type: has_one
+  via: meetingType
+- from: calendar
+  to: schedule
+  type: has_one
+  via: schedule
+- from: calendar
+  to: user
+  type: has_one
+  via: updater
+- from: calendar
+  to: user
+  type: has_one
+  via: user
+- from: calendarEvent
+  to: account
+  type: has_one
+  via: account
+- from: calendarEvent
+  to: user
+  type: has_one
+  via: booker
+- from: calendarEvent
+  to: calendar
+  type: has_one
+  via: calendar
+- from: calendarEvent
+  to: user
+  type: has_one
+  via: creator
+- from: calendarEvent
+  to: kaiaCrmRecording
+  type: has_one
+  via: kaiaCrmRecording
+- from: calendarEvent
+  to: meeting
+  type: has_one
+  via: meeting
+- from: calendarEvent
+  to: meetingType
+  type: has_one
+  via: meetingType
+- from: calendarEvent
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: calendarEvent
+  to: prospect
+  type: has_one
+  via: prospect
+- from: calendarEvent
+  to: prospect
+  type: has_many
+  via: prospects
+- from: calendarEvent
+  to: user
+  type: has_one
+  via: user
+- from: calendarEvent
+  to: user
+  type: has_many
+  via: users
+- from: calendarEventAttendee
+  to: calendarEvent
+  type: has_one
+  via: calendarEvent
+- from: calendarEventAttendee
+  to: prospect
+  type: has_one
+  via: prospect
+- from: calendarEventAttendee
+  to: user
+  type: has_one
+  via: user
+- from: call
+  to: account
+  type: has_one
+  via: associatedId
+- from: call
+  to: callDisposition
+  type: has_one
+  via: callDisposition
+- from: call
+  to: callPurpose
+  type: has_one
+  via: callPurpose
+- from: call
+  to: kaiaCrmRecording
+  type: has_one
+  via: kaiaCrmRecording
+- from: call
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: call
+  to: outboundVoicemail
+  type: has_one
+  via: outboundVoicemail
+- from: call
+  to: phone
+  type: has_one
+  via: phone
+- from: call
+  to: phoneNumber
+  type: has_one
+  via: phoneNumber
+- from: call
+  to: prospect
+  type: has_one
+  via: prospect
+- from: call
+  to: sequence
+  type: has_one
+  via: sequence
+- from: call
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: call
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: call
+  to: task
+  type: has_one
+  via: task
+- from: call
+  to: user
+  type: has_one
+  via: user
+- from: callDisposition
+  to: user
+  type: has_one
+  via: creator
+- from: callPurpose
+  to: user
+  type: has_one
+  via: creator
+- from: complianceRequest
+  to: user
+  type: has_one
+  via: requester
+- from: contentCategory
+  to: user
+  type: has_one
+  via: creator
+- from: contentCategory
+  to: team
+  type: has_many
+  via: teams
+- from: contentCategoryMembership
+  to: sequence
+  type: has_one
+  via: content
+- from: contentCategoryMembership
+  to: contentCategory
+  type: has_one
+  via: contentCategory
+- from: contentCategoryMembership
+  to: user
+  type: has_one
+  via: creator
+- from: contentCategoryOwnership
+  to: contentCategory
+  type: has_one
+  via: contentCategory
+- from: contentCategoryOwnership
+  to: user
+  type: has_one
+  via: creator
+- from: contentCategoryOwnership
+  to: team
+  type: has_one
+  via: owner
+- from: crmFieldPermission
+  to: crmProfile
+  type: has_one
+  via: crmProfile
+- from: customValidation
+  to: user
+  type: has_one
+  via: creator
+- from: customValidation
+  to: user
+  type: has_one
+  via: updater
+- from: emailAddress
+  to: prospect
+  type: has_one
+  via: prospect
+- from: event
+  to: account
+  type: has_one
+  via: account
+- from: event
+  to: call
+  type: has_one
+  via: call
+- from: event
+  to: mailing
+  type: has_one
+  via: mailing
+- from: event
+  to: note
+  type: has_one
+  via: note
+- from: event
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: event
+  to: plugin
+  type: has_one
+  via: plugin
+- from: event
+  to: prospect
+  type: has_one
+  via: prospect
+- from: event
+  to: sequence
+  type: has_one
+  via: sequence
+- from: event
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: event
+  to: task
+  type: has_one
+  via: task
+- from: event
+  to: user
+  type: has_one
+  via: user
+- from: experiment
+  to: user
+  type: has_one
+  via: creator
+- from: experiment
+  to: user
+  type: has_one
+  via: owner
+- from: experiment
+  to: sequence
+  type: has_one
+  via: sequenceA
+- from: experiment
+  to: sequence
+  type: has_one
+  via: sequenceB
+- from: export
+  to: user
+  type: has_one
+  via: creator
+- from: favorite
+  to: user
+  type: has_one
+  via: creator
+- from: favorite
+  to: account
+  type: has_one
+  via: target
+- from: favorite
+  to: user
+  type: has_one
+  via: user
+- from: featureFlagParticipation
+  to: featureFlag
+  type: has_one
+  via: featureFlag
+- from: gmailMessageMetadatum
+  to: mailing
+  type: has_many
+  via: mailings
+- from: import
+  to: user
+  type: has_one
+  via: creator
+- from: inboxSetting
+  to: user
+  type: has_one
+  via: user
+- from: kaiaCrmRecording
+  to: prospect
+  type: has_many
+  via: prospects
+- from: mailAlias
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: mailbox
+  to: user
+  type: has_one
+  via: creator
+- from: mailbox
+  to: user
+  type: has_one
+  via: updater
+- from: mailbox
+  to: user
+  type: has_one
+  via: user
+- from: mailboxContact
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: mailing
+  to: attachment
+  type: has_many
+  via: attachments
+- from: mailing
+  to: calendar
+  type: has_one
+  via: calendar
+- from: mailing
+  to: sequence
+  type: has_one
+  via: followUpSequence
+- from: mailing
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: mailing
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: mailing
+  to: prospect
+  type: has_one
+  via: prospect
+- from: mailing
+  to: recipient
+  type: has_many
+  via: recipients
+- from: mailing
+  to: schedule
+  type: has_one
+  via: schedule
+- from: mailing
+  to: sequence
+  type: has_one
+  via: sequence
+- from: mailing
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: mailing
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: mailing
+  to: task
+  type: has_one
+  via: task
+- from: mailing
+  to: task
+  type: has_many
+  via: tasks
+- from: mailing
+  to: template
+  type: has_one
+  via: template
+- from: mailing
+  to: user
+  type: has_one
+  via: user
+- from: meeting
+  to: calendarEventAttendee
+  type: has_many
+  via: meetingAttendees
+- from: meeting
+  to: calendarEvent
+  type: has_one
+  via: primaryEvent
+- from: meetingType
+  to: user
+  type: has_one
+  via: creator
+- from: meetingType
+  to: user
+  type: has_one
+  via: owner
+- from: meetingType
+  to: team
+  type: has_one
+  via: team
+- from: messengerGroup
+  to: user
+  type: has_one
+  via: user
+- from: note
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunity
+  to: account
+  type: has_one
+  via: account
+- from: opportunity
+  to: team
+  type: has_many
+  via: assignedTeams
+- from: opportunity
+  to: user
+  type: has_many
+  via: assignedUsers
+- from: opportunity
+  to: user
+  type: has_one
+  via: creator
+- from: opportunity
+  to: pluginMapping
+  type: has_one
+  via: defaultPluginMapping
+- from: opportunity
+  to: user
+  type: has_one
+  via: externalCreator
+- from: opportunity
+  to: favorite
+  type: has_many
+  via: favorites
+- from: opportunity
+  to: opportunityHealthFactor
+  type: has_many
+  via: opportunityHealthFactors
+- from: opportunity
+  to: opportunityLineItem
+  type: has_many
+  via: opportunityLineItems
+- from: opportunity
+  to: opportunityStage
+  type: has_one
+  via: opportunityStage
+- from: opportunity
+  to: user
+  type: has_one
+  via: owner
+- from: opportunity
+  to: prospect
+  type: has_one
+  via: primaryProspect
+- from: opportunity
+  to: opportunityStage
+  type: has_one
+  via: stage
+- from: opportunity
+  to: territory
+  type: has_one
+  via: territory
+- from: opportunity
+  to: user
+  type: has_one
+  via: updater
+- from: opportunityHealthFactor
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunityLineItem
+  to: user
+  type: has_one
+  via: creator
+- from: opportunityLineItem
+  to: user
+  type: has_one
+  via: externalCreator
+- from: opportunityLineItem
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunityLineItem
+  to: user
+  type: has_one
+  via: owner
+- from: opportunityLineItem
+  to: user
+  type: has_one
+  via: updater
+- from: opportunityProspectRole
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunityProspectRole
+  to: prospect
+  type: has_one
+  via: prospect
+- from: opportunitySplit
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunitySplit
+  to: user
+  type: has_one
+  via: splitOwner
+- from: opportunitySplit
+  to: opportunitySplitType
+  type: has_one
+  via: splitType
+- from: opportunityStage
+  to: user
+  type: has_one
+  via: creator
+- from: opportunityTeamMembership
+  to: jobRole
+  type: has_one
+  via: jobRole
+- from: opportunityTeamMembership
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: opportunityTeamMembership
+  to: team
+  type: has_one
+  via: team
+- from: opportunityTeamMembership
+  to: user
+  type: has_one
+  via: user
+- from: outboundVoicemail
+  to: user
+  type: has_one
+  via: user
+- from: outlookAddInEwsItem
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: phone
+  to: address
+  type: has_one
+  via: address
+- from: phone
+  to: phoneIdentity
+  type: has_one
+  via: phoneIdentity
+- from: phone
+  to: user
+  type: has_one
+  via: user
+- from: phoneIdentity
+  to: user
+  type: has_one
+  via: owner
+- from: phoneNumber
+  to: prospect
+  type: has_one
+  via: prospect
+- from: phoneNumberPrediction
+  to: referralPrediction
+  type: has_one
+  via: referralPrediction
+- from: pluginMapping
+  to: plugin
+  type: has_one
+  via: plugin
+- from: product
+  to: user
+  type: has_one
+  via: creator
+- from: product
+  to: user
+  type: has_one
+  via: owner
+- from: product
+  to: user
+  type: has_one
+  via: updater
+- from: prospect
+  to: account
+  type: has_one
+  via: account
+- from: prospect
+  to: sequenceState
+  type: has_many
+  via: activeSequenceStates
+- from: prospect
+  to: team
+  type: has_many
+  via: assignedTeams
+- from: prospect
+  to: user
+  type: has_many
+  via: assignedUsers
+- from: prospect
+  to: user
+  type: has_one
+  via: creator
+- from: prospect
+  to: pluginMapping
+  type: has_one
+  via: defaultPluginMapping
+- from: prospect
+  to: emailAddress
+  type: has_many
+  via: emailAddresses
+- from: prospect
+  to: favorite
+  type: has_many
+  via: favorites
+- from: prospect
+  to: opportunity
+  type: has_many
+  via: opportunities
+- from: prospect
+  to: opportunityProspectRole
+  type: has_many
+  via: opportunityProspectRoles
+- from: prospect
+  to: user
+  type: has_one
+  via: owner
+- from: prospect
+  to: persona
+  type: has_one
+  via: persona
+- from: prospect
+  to: phoneNumber
+  type: has_many
+  via: phoneNumbers
+- from: prospect
+  to: stage
+  type: has_one
+  via: stage
+- from: prospect
+  to: account
+  type: has_one
+  via: trashedByAccount
+- from: prospect
+  to: user
+  type: has_one
+  via: updater
+- from: prospectNote
+  to: user
+  type: has_one
+  via: creator
+- from: prospectNote
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: prospectNote
+  to: prospect
+  type: has_one
+  via: prospect
+- from: purchase
+  to: account
+  type: has_one
+  via: account
+- from: purchase
+  to: user
+  type: has_one
+  via: creator
+- from: purchase
+  to: user
+  type: has_one
+  via: owner
+- from: purchase
+  to: product
+  type: has_one
+  via: product
+- from: purchase
+  to: user
+  type: has_one
+  via: updater
+- from: recipient
+  to: prospect
+  type: has_one
+  via: prospect
+- from: recipient
+  to: user
+  type: has_one
+  via: user
+- from: recordActorAssignment
+  to: user
+  type: has_one
+  via: actor
+- from: recordActorAssignment
+  to: jobRole
+  type: has_one
+  via: jobRole
+- from: recordActorAssignment
+  to: account
+  type: has_one
+  via: record
+- from: referralPrediction
+  to: gmailMessageMetadatum
+  type: has_one
+  via: gmailMessageMetadatum
+- from: referralPrediction
+  to: phoneNumberPrediction
+  type: has_many
+  via: phoneNumberPredictions
+- from: referralPrediction
+  to: prospect
+  type: has_one
+  via: prospect
+- from: referralPrediction
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: returnDatePrediction
+  to: gmailMessageMetadatum
+  type: has_one
+  via: gmailMessageMetadatum
+- from: returnDatePrediction
+  to: prospect
+  type: has_one
+  via: prospect
+- from: returnDatePrediction
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: role
+  to: role
+  type: has_many
+  via: childRoles
+- from: role
+  to: role
+  type: has_one
+  via: parentRole
+- from: ruleset
+  to: stage
+  type: has_one
+  via: bouncedStage
+- from: ruleset
+  to: taskPriority
+  type: has_one
+  via: callTaskPriority
+- from: ruleset
+  to: taskPriority
+  type: has_one
+  via: callTaskPriorityFromClicks
+- from: ruleset
+  to: taskPriority
+  type: has_one
+  via: callTaskPriorityFromOpens
+- from: ruleset
+  to: stage
+  type: has_one
+  via: completedStage
+- from: ruleset
+  to: stage
+  type: has_one
+  via: deliveredStage
+- from: ruleset
+  to: stage
+  type: has_one
+  via: finishedStage
+- from: ruleset
+  to: stage
+  type: has_one
+  via: optedOutStage
+- from: ruleset
+  to: user
+  type: has_one
+  via: owner
+- from: ruleset
+  to: stage
+  type: has_one
+  via: repliedStage
+- from: ruleset
+  to: stage
+  type: has_one
+  via: startedStage
+- from: schedule
+  to: user
+  type: has_one
+  via: owner
+- from: sequence
+  to: contentCategoryMembership
+  type: has_many
+  via: contentCategoryMemberships
+- from: sequence
+  to: user
+  type: has_one
+  via: creator
+- from: sequence
+  to: user
+  type: has_one
+  via: owner
+- from: sequence
+  to: ruleset
+  type: has_one
+  via: ruleset
+- from: sequence
+  to: schedule
+  type: has_one
+  via: schedule
+- from: sequence
+  to: sequenceStep
+  type: has_many
+  via: sequenceSteps
+- from: sequence
+  to: user
+  type: has_one
+  via: updater
+- from: sequenceState
+  to: account
+  type: has_one
+  via: account
+- from: sequenceState
+  to: mailing
+  type: has_many
+  via: activeStepMailings
+- from: sequenceState
+  to: task
+  type: has_many
+  via: activeStepTasks
+- from: sequenceState
+  to: batchItem
+  type: has_one
+  via: batchItemCreator
+- from: sequenceState
+  to: user
+  type: has_one
+  via: creator
+- from: sequenceState
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: sequenceState
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: sequenceState
+  to: prospect
+  type: has_one
+  via: prospect
+- from: sequenceState
+  to: sequence
+  type: has_one
+  via: sequence
+- from: sequenceState
+  to: sequenceStateRecipient
+  type: has_many
+  via: sequenceStateRecipients
+- from: sequenceState
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: sequenceState
+  to: user
+  type: has_one
+  via: user
+- from: sequenceStateRecipient
+  to: prospect
+  type: has_one
+  via: prospect
+- from: sequenceStateRecipient
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: sequenceStep
+  to: callPurpose
+  type: has_one
+  via: callPurpose
+- from: sequenceStep
+  to: user
+  type: has_one
+  via: creator
+- from: sequenceStep
+  to: schedule
+  type: has_one
+  via: schedule
+- from: sequenceStep
+  to: sequence
+  type: has_one
+  via: sequence
+- from: sequenceStep
+  to: sequenceTemplate
+  type: has_many
+  via: sequenceTemplates
+- from: sequenceStep
+  to: taskPriority
+  type: has_one
+  via: taskPriority
+- from: sequenceStep
+  to: user
+  type: has_one
+  via: updater
+- from: sequenceTemplate
+  to: user
+  type: has_one
+  via: creator
+- from: sequenceTemplate
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: sequenceTemplate
+  to: template
+  type: has_one
+  via: template
+- from: sequenceTemplate
+  to: user
+  type: has_one
+  via: updater
+- from: smartView
+  to: user
+  type: has_one
+  via: owner
+- from: smartViewNotification
+  to: user
+  type: has_one
+  via: owner
+- from: smartViewNotification
+  to: smartView
+  type: has_one
+  via: smartView
+- from: snippet
+  to: contentCategoryMembership
+  type: has_many
+  via: contentCategoryMemberships
+- from: snippet
+  to: user
+  type: has_one
+  via: creator
+- from: snippet
+  to: favorite
+  type: has_many
+  via: favorites
+- from: snippet
+  to: user
+  type: has_one
+  via: owner
+- from: snippet
+  to: user
+  type: has_one
+  via: updater
+- from: stage
+  to: user
+  type: has_one
+  via: creator
+- from: stage
+  to: user
+  type: has_one
+  via: updater
+- from: survey
+  to: surveyQuestion
+  type: has_many
+  via: surveyQuestions
+- from: survey
+  to: surveyUserResponse
+  type: has_many
+  via: surveyUserResponses
+- from: surveyQuestion
+  to: survey
+  type: has_one
+  via: survey
+- from: surveyQuestion
+  to: surveyQuestionOption
+  type: has_many
+  via: surveyQuestionOptions
+- from: surveyQuestion
+  to: surveyUserResponse
+  type: has_many
+  via: surveyUserResponses
+- from: surveyQuestionOption
+  to: surveyQuestion
+  type: has_one
+  via: surveyQuestion
+- from: surveyQuestionOption
+  to: surveyUserResponse
+  type: has_many
+  via: surveyUserResponses
+- from: surveyUserResponse
+  to: survey
+  type: has_one
+  via: survey
+- from: surveyUserResponse
+  to: surveyQuestion
+  type: has_one
+  via: surveyQuestion
+- from: surveyUserResponse
+  to: surveyQuestionOption
+  type: has_one
+  via: surveyQuestionOption
+- from: surveyUserResponse
+  to: user
+  type: has_one
+  via: user
+- from: task
+  to: account
+  type: has_one
+  via: account
+- from: task
+  to: call
+  type: has_one
+  via: call
+- from: task
+  to: user
+  type: has_one
+  via: completer
+- from: task
+  to: sequenceStep
+  type: has_one
+  via: creator
+- from: task
+  to: pluginMapping
+  type: has_one
+  via: defaultPluginMapping
+- from: task
+  to: mailing
+  type: has_one
+  via: mailing
+- from: task
+  to: opportunity
+  type: has_one
+  via: opportunity
+- from: task
+  to: user
+  type: has_one
+  via: owner
+- from: task
+  to: prospect
+  type: has_one
+  via: prospect
+- from: task
+  to: account
+  type: has_one
+  via: prospectAccount
+- from: task
+  to: emailAddress
+  type: has_many
+  via: prospectContacts
+- from: task
+  to: user
+  type: has_one
+  via: prospectOwner
+- from: task
+  to: phoneNumber
+  type: has_many
+  via: prospectPhoneNumbers
+- from: task
+  to: stage
+  type: has_one
+  via: prospectStage
+- from: task
+  to: sequence
+  type: has_one
+  via: sequence
+- from: task
+  to: sequenceStep
+  type: has_many
+  via: sequenceSequenceSteps
+- from: task
+  to: sequenceState
+  type: has_one
+  via: sequenceState
+- from: task
+  to: sequenceStep
+  type: has_one
+  via: sequenceStateSequenceStep
+- from: task
+  to: sequenceStepOverride
+  type: has_many
+  via: sequenceStateSequenceStepOverrides
+- from: task
+  to: template
+  type: has_one
+  via: sequenceStateStartingTemplate
+- from: task
+  to: sequenceStep
+  type: has_one
+  via: sequenceStep
+- from: task
+  to: template
+  type: has_many
+  via: sequenceStepOverrideTemplates
+- from: task
+  to: sequenceTemplate
+  type: has_one
+  via: sequenceTemplate
+- from: task
+  to: template
+  type: has_one
+  via: sequenceTemplateTemplate
+- from: task
+  to: account
+  type: has_one
+  via: subject
+- from: task
+  to: taskDisposition
+  type: has_one
+  via: taskDisposition
+- from: task
+  to: taskPriority
+  type: has_one
+  via: taskPriority
+- from: task
+  to: taskPurpose
+  type: has_one
+  via: taskPurpose
+- from: task
+  to: taskTheme
+  type: has_one
+  via: taskTheme
+- from: task
+  to: team
+  type: has_one
+  via: team
+- from: task
+  to: template
+  type: has_one
+  via: template
+- from: taskDisposition
+  to: user
+  type: has_one
+  via: creator
+- from: taskPurpose
+  to: user
+  type: has_one
+  via: creator
+- from: team
+  to: contentCategory
+  type: has_many
+  via: contentCategories
+- from: team
+  to: user
+  type: has_one
+  via: creator
+- from: team
+  to: favorite
+  type: has_many
+  via: favorites
+- from: team
+  to: user
+  type: has_many
+  via: roleAssignedUsers
+- from: team
+  to: teamMembership
+  type: has_many
+  via: teamMemberships
+- from: team
+  to: teamRecord
+  type: has_many
+  via: teamRecords
+- from: team
+  to: teamSettings
+  type: has_one
+  via: teamSettings
+- from: team
+  to: user
+  type: has_one
+  via: updater
+- from: team
+  to: user
+  type: has_many
+  via: users
+- from: teamMembership
+  to: team
+  type: has_one
+  via: team
+- from: teamMembership
+  to: user
+  type: has_one
+  via: user
+- from: teamRecord
+  to: role
+  type: has_one
+  via: record
+- from: teamRecord
+  to: team
+  type: has_one
+  via: team
+- from: teamSettings
+  to: profile
+  type: has_one
+  via: profile
+- from: teamSettings
+  to: team
+  type: has_one
+  via: team
+- from: template
+  to: attachment
+  type: has_many
+  via: attachments
+- from: template
+  to: contentCategoryMembership
+  type: has_many
+  via: contentCategoryMemberships
+- from: template
+  to: user
+  type: has_one
+  via: creator
+- from: template
+  to: favorite
+  type: has_many
+  via: favorites
+- from: template
+  to: user
+  type: has_one
+  via: owner
+- from: template
+  to: recipient
+  type: has_many
+  via: recipients
+- from: template
+  to: sequenceTemplate
+  type: has_many
+  via: sequenceTemplates
+- from: template
+  to: template
+  type: has_one
+  via: statsTarget
+- from: template
+  to: user
+  type: has_one
+  via: updater
+- from: territory
+  to: user
+  type: has_one
+  via: creator
+- from: territory
+  to: user
+  type: has_one
+  via: forecastManager
+- from: territory
+  to: territory
+  type: has_one
+  via: parentTerritory
+- from: territory
+  to: territoryModel
+  type: has_one
+  via: territoryModel
+- from: territory
+  to: territoryType
+  type: has_one
+  via: territoryType
+- from: territory
+  to: user
+  type: has_one
+  via: updater
+- from: user
+  to: calendar
+  type: has_one
+  via: calendar
+- from: user
+  to: contentCategory
+  type: has_many
+  via: contentCategories
+- from: user
+  to: contentCategoryOwnership
+  type: has_many
+  via: contentCategoryOwnerships
+- from: user
+  to: user
+  type: has_one
+  via: creator
+- from: user
+  to: team
+  type: has_many
+  via: directAssignedTeams
+- from: user
+  to: favorite
+  type: has_many
+  via: favorites
+- from: user
+  to: jobRole
+  type: has_one
+  via: jobRole
+- from: user
+  to: mailbox
+  type: has_one
+  via: mailbox
+- from: user
+  to: mailbox
+  type: has_many
+  via: mailboxes
+- from: user
+  to: outboundVoicemail
+  type: has_many
+  via: outboundVoicemails
+- from: user
+  to: phone
+  type: has_one
+  via: phone
+- from: user
+  to: phone
+  type: has_many
+  via: phones
+- from: user
+  to: profile
+  type: has_one
+  via: profile
+- from: user
+  to: recipient
+  type: has_many
+  via: recipients
+- from: user
+  to: role
+  type: has_one
+  via: role
+- from: user
+  to: team
+  type: has_many
+  via: roleAssignedTeams
+- from: user
+  to: phone
+  type: has_one
+  via: smsPhone
+- from: user
+  to: team
+  type: has_many
+  via: teams
+- from: user
+  to: user
+  type: has_one
+  via: updater
+- from: user
+  to: voicemailPrompt
+  type: has_many
+  via: voicemailPrompts
+- from: userTerritoryAssociation
+  to: user
+  type: has_one
+  via: creator
+- from: userTerritoryAssociation
+  to: territory
+  type: has_one
+  via: territory
+- from: userTerritoryAssociation
+  to: user
+  type: has_one
+  via: updater
+- from: userTerritoryAssociation
+  to: user
+  type: has_one
+  via: user
+- from: voicemailPrompt
+  to: user
+  type: has_one
+  via: user
+- from: webhook
+  to: user
+  type: has_one
+  via: authorizer
+- from: webhook
+  to: user
+  type: has_one
+  via: creator
+- from: webhook
+  to: user
+  type: has_one
+  via: updater

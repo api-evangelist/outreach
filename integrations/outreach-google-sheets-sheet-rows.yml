@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Google Sheets rows to Outreach prospects in a sequence
+  version: 1.0.0
+  description: 'Reads rows from a Google Sheets range, creates each as an Outreach prospect and adds it to a sequence (Zapier template: add new or updated Google Sheets rows to Outreach as prospects).'
+sourceDescriptions:
+- name: partner
+  url: https://raw.githubusercontent.com/api-evangelist/google-sheets/refs/heads/main/openapi/google-sheets-values-api-openapi.yml
+  type: openapi
+- name: outreachProspects
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-prospect-api-openapi.yml
+  type: openapi
+- name: outreachSequenceStates
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-sequence-state-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: sheet-rows-to-outreach-prospect
+  summary: Google Sheets rows to Outreach prospects in a sequence
+  inputs:
+    type: object
+    properties:
+      spreadsheetId:
+        type: string
+      range:
+        type: string
+      sequenceId:
+        type: integer
+      mailboxId:
+        type: integer
+  steps:
+  - stepId: readPartner
+    operationId: $sourceDescriptions.partner.getValues
+    parameters:
+    - name: spreadsheetId
+      in: path
+      value: $inputs.spreadsheetId
+    - name: range
+      in: path
+      value: $inputs.range
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/values/0/0
+      firstName: $response.body#/values/0/1
+      lastName: $response.body#/values/0/2
+  - stepId: createProspect
+    operationId: $sourceDescriptions.outreachProspects.postProspects
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: prospect
+          attributes:
+            emails:
+            - $steps.readPartner.outputs.email
+            firstName: $steps.readPartner.outputs.firstName
+            lastName: $steps.readPartner.outputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prospectId: $response.body#/data/id
+  - stepId: addToSequence
+    operationId: $sourceDescriptions.outreachSequenceStates.postSequenceStates
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: sequenceState
+          relationships:
+            prospect:
+              data:
+                type: prospect
+                id: $steps.createProspect.outputs.prospectId
+            sequence:
+              data:
+                type: sequence
+                id: $inputs.sequenceId
+            mailbox:
+              data:
+                type: mailbox
+                id: $inputs.mailboxId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sequenceStateId: $response.body#/data/id
+x-integration:
+  partner: google-sheets
+  edge_evidence: https://zapier.com/apps/outreach/integrations
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: enrichment pass local-v5 (Claude)
+  guessed_steps:
+  - step: readPartner
+    cause: partner-contract
+    why: Sheets values are untyped arrays; the column order (email, first, last) is a user choice, not in the spec.
+  - step: createProspect
+    cause: provider-contract
+    why: The Outreach prospect spec does not fully constrain the JSON:API attributes payload; emails/firstName/lastName names follow the Outreach docs object, not a required schema.

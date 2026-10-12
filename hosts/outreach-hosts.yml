@@ -1,0 +1,115 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 8
+  own: 1
+  other_domain: 5
+  platform: 2
+  roles:
+  - api
+  - identity
+  - other
+  - portal
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: accounts.outreach.io
+  found_by:
+  - pointer
+  types:
+  - Login
+  serves: []
+  registrable_domain: outreach.io
+  role: identity
+  relation: other-domain
+- host: api.outreach.io
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: outreach.io
+  role: api
+  relation: other-domain
+- host: developers.outreach.io
+  found_by:
+  - pointer
+  - apis[]
+  - vendor-detect
+  types:
+  - Deprecation
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - LlmsText
+  serves:
+  - docs
+  - cdn
+  vendor: cloudfront
+  registrable_domain: outreach.io
+  role: portal
+  relation: other-domain
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: status.outreach.io
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: outreach.io
+  role: status
+  relation: other-domain
+- host: support.outreach.io
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - support
+  vendor: freshdesk
+  registrable_domain: outreach.io
+  role: support
+  relation: other-domain
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.outreach.ai
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Newsroom
+  - Compliance
+  - Security
+  - Website
+  - Pricing
+  - SignUp
+  - TermsOfService
+  - PrivacyPolicy
+  - Blog
+  serves:
+  - cdn
+  vendor: cloudflare
+  registrable_domain: outreach.ai
+  role: website
+  relation: own

@@ -1,3 +1,4 @@
+name: Outreach API Rate Limits
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
@@ -18,16 +19,10 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: >-
-  Published rate limits for the Outreach REST API. Outreach rate-limits primarily on a per-user basis at
-  10,000 requests per hour, with tighter org-level limits on Kaia recordings/transcripts, a token-minting
-  throttle on the OAuth token endpoint, and a separate annual API-call entitlement attached to each
-  commercial plan (250,000 to 1,000,000 calls depending on tier — see plans/outreach-plans-pricing.yml).
-notes: >-
-  Harvested from the provider's own Getting Started documentation and pricing page. Outreach explicitly
-  reserves the right to adjust limits at any time. Limits were not observed on a live unauthenticated
-  response — every api.outreach.io route returns 401 without a token — so the values and headers below are
-  the documented contract, not a probe.
+description: Published rate limits for the Outreach REST API. Outreach rate-limits primarily on a per-user basis at 10,000 requests per hour, with tighter org-level limits on Kaia recordings/transcripts,
+  a token-minting throttle on the OAuth token endpoint, and a separate annual API-call entitlement attached to each commercial plan (250,000 to 1,000,000 calls depending on tier — see plans/outreach-plans-pricing.yml).
+notes: Harvested from the provider's own Getting Started documentation and pricing page. Outreach explicitly reserves the right to adjust limits at any time. Limits were not observed on a live unauthenticated
+  response — every api.outreach.io route returns 401 without a token — so the values and headers below are the documented contract, not a probe.
 sources:
 - https://developers.outreach.io/api/getting-started#rate-limiting
 - https://developers.outreach.io/api/getting-started#token-availability
@@ -43,8 +38,7 @@ headers:
 - name: X-RateLimit-Reset
   description: When the rate-limit counter resets. Aliased as the Retry-After header.
 - name: Retry-After
-  description: Alias of X-RateLimit-Reset on 429; on 503 carries an ISO-8601 timestamp for the end of the
-    maintenance window.
+  description: Alias of X-RateLimit-Reset on 429; on 503 carries an ISO-8601 timestamp for the end of the maintenance window.
 header_coverage: All responses include the three X-RateLimit-* headers.
 limit_count: 4
 limits:
@@ -56,18 +50,22 @@ limits:
   status_on_exhaustion: 429
   error_id: rateLimitExceeded
   source: https://developers.outreach.io/api/getting-started#rate-limiting
+  limit_text: with a limit of 10,000 requests per hour
 - name: Kaia recordings and transcripts (burst)
   scope: per-org
   metric: requests
   limit: 3
   window: second
   source: https://developers.outreach.io/api/getting-started#rate-limiting
+  limit_text: 3 API calls per second
+  kind: burst
 - name: Kaia recordings and transcripts (daily)
   scope: per-org
   metric: requests
   limit: 6000
   window: day
   source: https://developers.outreach.io/api/getting-started#rate-limiting
+  limit_text: 6,000 API calls per day
 - name: OAuth access-token minting
   scope: per-user-per-application
   metric: token requests
@@ -76,6 +74,7 @@ limits:
   status_on_exhaustion: 429
   notes: Applications must cache the access token for its full 2-hour life rather than re-minting.
   source: https://developers.outreach.io/api/getting-started#token-availability
+  limit_text: your application can only retrieve an access token for a user once every 60 seconds
 quotas:
 - name: Active refresh tokens
   scope: per-user-per-application
@@ -84,8 +83,7 @@ quotas:
 - name: Plan API call entitlement
   scope: per-subscription
   limit: 250000 - 1000000 per plan tier
-  notes: Amplify Essentials/Core 250,000; Amplify Plus 500,000; Amplify Pro 1,000,000. See
-    plans/outreach-plans-pricing.yml.
+  notes: Amplify Essentials/Core 250,000; Amplify Plus 500,000; Amplify Pro 1,000,000. See plans/outreach-plans-pricing.yml.
   source: https://www.outreach.ai/pricing
 - name: Offset pagination ceiling
   scope: per-request
@@ -93,8 +91,7 @@ quotas:
   source: https://developers.outreach.io/api/making-requests#offset-pagination-deprecated
 policies:
 - name: Backoff strategy
-  description: Honor X-RateLimit-Reset / Retry-After before retrying. Outreach reserves the right to adjust
-    API rate limits at any time to safeguard platform performance.
+  description: Honor X-RateLimit-Reset / Retry-After before retrying. Outreach reserves the right to adjust API rate limits at any time to safeguard platform performance.
 - name: Endpoint-specific rules
   description: Some endpoints (bulk/batch API, Kaia) apply special rules beyond the per-user default.
 maintainers:

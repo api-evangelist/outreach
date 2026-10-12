@@ -1,0 +1,38 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/outreach-account-api-openapi.yml
+- openapi/outreach-account-note-api-openapi.yml
+- openapi/outreach-audit-log-api-openapi.yml
+- openapi/outreach-batch-api-openapi.yml
+- openapi/outreach-batch-item-api-openapi.yml
+- openapi/outreach-call-api-openapi.yml
+- openapi/outreach-call-disposition-api-openapi.yml
+- openapi/outreach-call-purpose-api-openapi.yml
+- openapi/outreach-compliance-request-api-openapi.yml
+- openapi/outreach-content-category-api-openapi.yml
+- openapi/outreach-content-category-membership-api-openapi.yml
+- openapi/outreach-content-category-ownership-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/vnd.api+json
+  schema: null
+coverage:
+  operations: 253
+  statuses_declared: 2
+problems:
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 46
+  media_types:
+  - application/vnd.api+json
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: JSON error message
+  operations: 207
+  media_types:
+  - application/vnd.api+json
+  schema: null

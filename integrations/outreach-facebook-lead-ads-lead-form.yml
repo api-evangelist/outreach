@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Facebook Lead Ads leads to Outreach prospects in a sequence
+  version: 1.0.0
+  description: 'Lists leads submitted to a Facebook lead-gen form and creates each as an Outreach prospect enrolled in a sequence (Zapier template: create prospects in Outreach from new leads in Facebook
+    Lead Ads).'
+sourceDescriptions:
+- name: partner
+  url: https://raw.githubusercontent.com/api-evangelist/facebook-lead-ads/refs/heads/main/openapi/facebook-lead-ads-leads-api-openapi.yml
+  type: openapi
+- name: outreachProspects
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-prospect-api-openapi.yml
+  type: openapi
+- name: outreachSequenceStates
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-sequence-state-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: lead-form-to-outreach-prospect
+  summary: Facebook Lead Ads leads to Outreach prospects in a sequence
+  inputs:
+    type: object
+    properties:
+      form-id:
+        type: string
+      sequenceId:
+        type: integer
+      mailboxId:
+        type: integer
+  steps:
+  - stepId: readPartner
+    operationId: $sourceDescriptions.partner.listLeadsForForm
+    parameters:
+    - name: form-id
+      in: path
+      value: $inputs.form-id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/data/0/field_data/0/values/0
+      firstName: $response.body#/data/0/field_data/1/values/0
+      lastName: $response.body#/data/0/field_data/2/values/0
+  - stepId: createProspect
+    operationId: $sourceDescriptions.outreachProspects.postProspects
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: prospect
+          attributes:
+            emails:
+            - $steps.readPartner.outputs.email
+            firstName: $steps.readPartner.outputs.firstName
+            lastName: $steps.readPartner.outputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prospectId: $response.body#/data/id
+  - stepId: addToSequence
+    operationId: $sourceDescriptions.outreachSequenceStates.postSequenceStates
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: sequenceState
+          relationships:
+            prospect:
+              data:
+                type: prospect
+                id: $steps.createProspect.outputs.prospectId
+            sequence:
+              data:
+                type: sequence
+                id: $inputs.sequenceId
+            mailbox:
+              data:
+                type: mailbox
+                id: $inputs.mailboxId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sequenceStateId: $response.body#/data/id
+x-integration:
+  partner: facebook-lead-ads
+  edge_evidence: https://zapier.com/apps/outreach/integrations
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: enrichment pass local-v5 (Claude)
+  guessed_steps:
+  - step: readPartner
+    cause: partner-contract
+    why: field_data entries are form-defined name/value pairs; which index holds email/name depends on the form.
+  - step: createProspect
+    cause: provider-contract
+    why: The Outreach prospect spec does not fully constrain the JSON:API attributes payload; emails/firstName/lastName names follow the Outreach docs object, not a required schema.

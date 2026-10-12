@@ -1,5 +1,5 @@
 ---
-name: Connect an agent to the Outreach MCP server
+name: connect-mcp-agent
 description: Wire an MCP client to Outreach over OAuth 2.1 with Dynamic Client Registration, and know which of the 41 tools are safe to auto-approve and where the tool surface stops.
 api: mcp/outreach-mcp.yml
 generated: '2026-08-13'
@@ -8,13 +8,14 @@ source: https://developers.outreach.io/mcp-server + probed https://api.outreach.
 endpoint: https://api.outreach.io/mcp
 transport: streamable-http
 tools:
-  - current_user
-  - prospect_search
-  - prospect_create
-  - sequence_search
-  - sequence_add_prospects
-  - account_answer_question
-  - input_fields_fetch
+- current_user
+- prospect_search
+- prospect_create
+- sequence_search
+- sequence_add_prospects
+- account_answer_question
+- input_fields_fetch
+title: Connect an agent to the Outreach MCP server
 ---
 
 # Connect an agent to the Outreach MCP server

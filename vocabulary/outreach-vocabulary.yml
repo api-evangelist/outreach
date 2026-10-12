@@ -1,0 +1,493 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/outreach-account-api-openapi.yml
+- openapi/outreach-account-note-api-openapi.yml
+- openapi/outreach-audit-log-api-openapi.yml
+- openapi/outreach-batch-api-openapi.yml
+- openapi/outreach-batch-item-api-openapi.yml
+vocabulary:
+  name: Outreach Domain Vocabulary
+  description: 'Terms declared by Outreach''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: Account
+    definition: '## Account Relationships ## Account Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-account-api-openapi.yml
+  - term: Account Note
+    definition: '## Account Note Relationships ## ⌵ Account Note Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-account-note-api-openapi.yml
+  - term: Audit Log
+    definition: '## Audit Log Custom Filters | **NAME**| **VALUE TYPE** | **VALUE KIND** | **VALUE LENGTH** | | --- | --- | --- | --- | | agentEmail
+      | string| single| N/A| | agentIpAddress | string| single| N/A| ## ⌵ Audit Log Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-audit-log-api-openapi.yml
+  - term: Batch
+    definition: '## Batch Relationships ## Batch Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | ---
+      | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | ##
+      ⌵ Batch Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-batch-api-openapi.yml
+  - term: Batch Item
+    definition: '## Batch Item Relationships ## ⌵ Batch Item Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-batch-item-api-openapi.yml
+  - term: Call
+    definition: '## Call Relationships ## Call Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- |
+      | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-call-api-openapi.yml
+  - term: Call Disposition
+    definition: '## Call Disposition Relationships ## Call Disposition Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM**
+      | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAut'
+    tags:
+    - Resource Group
+    source: openapi/outreach-call-disposition-api-openapi.yml
+  - term: Call Purpose
+    definition: '## Call Purpose Relationships ## Call Purpose Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | ---
+      | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizati'
+    tags:
+    - Resource Group
+    source: openapi/outreach-call-purpose-api-openapi.yml
+  - term: Compliance Request
+    definition: '## Compliance Request Relationships ## ⌵ Compliance Request Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-compliance-request-api-openapi.yml
+  - term: Content Category
+    definition: '## Content Category Relationships ## Content Category Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM**
+      | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAut'
+    tags:
+    - Resource Group
+    source: openapi/outreach-content-category-api-openapi.yml
+  - term: Content Category Membership
+    definition: '## Content Category Membership Relationships ## Content Category Membership Resource Metadata | **METADATA NAME**| **DESCRIPTION**
+      | **QUERY PARAM** | | --- | --- | --- | | canDelete | A boolean value indicating whether the current API user has delete access to this
+      resource. | provideAuthorizationMeta | ## ⌵ Content Category Membership Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-content-category-membership-api-openapi.yml
+  - term: Content Category Ownership
+    definition: '## Content Category Ownership Relationships ## Content Category Ownership Resource Metadata | **METADATA NAME**| **DESCRIPTION**
+      | **QUERY PARAM** | | --- | --- | --- | | canDelete | A boolean value indicating whether the current API user has delete access to this
+      resource. | provideAuthorizationMeta | ## ⌵ Content Category Ownership Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-content-category-ownership-api-openapi.yml
+  - term: Custom Duty
+    definition: '## ⌵ Custom Duty Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-custom-duty-api-openapi.yml
+  - term: Duty
+    definition: '## ⌵ Duty Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-duty-api-openapi.yml
+  - term: Email Address
+    definition: '## Email Address Relationships ## Email Address Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | |
+      --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthoriza'
+    tags:
+    - Resource Group
+    source: openapi/outreach-email-address-api-openapi.yml
+  - term: Event
+    definition: '## Event Relationships ## Event Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | ---
+      | | dataConnections | The set of connections a given Event has to external sources. | provideDataConnections | ## ⌵ Event Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-event-api-openapi.yml
+  - term: Favorite
+    definition: '## Favorite Relationships ## Favorite Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta
+      | ## ⌵ Favorite Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-favorite-api-openapi.yml
+  - term: Import
+    definition: '## Import Relationships ## Import Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | ---
+      | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | ##
+      ⌵ Import Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-import-api-openapi.yml
+  - term: Kaia Recording
+    definition: '## Kaia Recording Relationships ## ⌵ Kaia Recording Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-kaia-recording-api-openapi.yml
+  - term: Kaia Voice Import
+    definition: '## ⌵ Kaia Voice Import Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-kaia-voice-import-api-openapi.yml
+  - term: Mail Alias
+    definition: '## Mail Alias Relationships ## ⌵ Mail Alias Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-mail-alias-api-openapi.yml
+  - term: Mailbox
+    definition: '## Mailbox Relationships ## Mailbox Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+      #'
+    tags:
+    - Resource Group
+    source: openapi/outreach-mailbox-api-openapi.yml
+  - term: Mailing
+    definition: '## Mailing Relationships ## Mailing Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | dataConnections | The set of connections a given Mailing has to external sources. | provideDataConnections | ## ⌵ Mailing Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-mailing-api-openapi.yml
+  - term: Opportunity
+    definition: '## Opportunity Relationships ## Opportunity Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | ---
+      | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-opportunity-api-openapi.yml
+  - term: Opportunity Prospect Role
+    definition: '## Opportunity Prospect Role Relationships ## Opportunity Prospect Role Resource Metadata | **METADATA NAME**| **DESCRIPTION**
+      | **QUERY PARAM** | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.
+      | provideAuthorizationMeta | | canDelete | A boolean value indicating whether the current API user has delete access to this reso'
+    tags:
+    - Resource Group
+    source: openapi/outreach-opportunity-prospect-role-api-openapi.yml
+  - term: Opportunity Stage
+    definition: '## Opportunity Stage Relationships ## Opportunity Stage Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM**
+      | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-opportunity-stage-api-openapi.yml
+  - term: Org Setting
+    definition: '## ⌵ Org Setting Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-org-setting-api-openapi.yml
+  - term: Persona
+    definition: '## Persona Relationships ## Persona Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+      #'
+    tags:
+    - Resource Group
+    source: openapi/outreach-persona-api-openapi.yml
+  - term: Phone Number
+    definition: '## Phone Number Relationships ## Phone Number Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | ---
+      | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizati'
+    tags:
+    - Resource Group
+    source: openapi/outreach-phone-number-api-openapi.yml
+  - term: Product
+    definition: '## Product Relationships ## Product Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-product-api-openapi.yml
+  - term: Profile
+    definition: '## Profile Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- | | canWrite | A boolean
+      value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | | canDelete | A boolean value
+      indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta | ## ⌵ Profile Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-profile-api-openapi.yml
+  - term: Prospect
+    definition: '## Prospect Relationships ## Prospect Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-prospect-api-openapi.yml
+  - term: Prospect Note
+    definition: '## Prospect Note Relationships ## ⌵ Prospect Note Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-prospect-note-api-openapi.yml
+  - term: Purchase
+    definition: '## Purchase Relationships ## Purchase Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-purchase-api-openapi.yml
+  - term: Recipient
+    definition: '## Recipient Relationships ## Recipient Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta'
+    tags:
+    - Resource Group
+    source: openapi/outreach-recipient-api-openapi.yml
+  - term: Role
+    definition: '## Role Relationships ## Role Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- |
+      | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | | canDelete
+      | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta | ## ⌵ Ro'
+    tags:
+    - Resource Group
+    source: openapi/outreach-role-api-openapi.yml
+  - term: Rule Set
+    definition: '## Ruleset Relationships ## Ruleset Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+      #'
+    tags:
+    - Resource Group
+    source: openapi/outreach-rule-set-api-openapi.yml
+  - term: Sequence
+    definition: '## Sequence Relationships ## Sequence Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |'
+    tags:
+    - Resource Group
+    source: openapi/outreach-sequence-api-openapi.yml
+  - term: Sequence State
+    definition: '## Sequence State Relationships ## Sequence State Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** |
+      | --- | --- | --- | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta
+      | ## ⌵ Sequence State Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-sequence-state-api-openapi.yml
+  - term: Sequence Step
+    definition: '## Sequence Step Relationships ## Sequence Step Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | |
+      --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthoriza'
+    tags:
+    - Resource Group
+    source: openapi/outreach-sequence-step-api-openapi.yml
+  - term: Sequence Template
+    definition: '## Sequence Template Relationships ## Sequence Template Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM**
+      | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideA'
+    tags:
+    - Resource Group
+    source: openapi/outreach-sequence-template-api-openapi.yml
+  - term: Snippet
+    definition: '## Snippet Relationships ## Snippet Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+      #'
+    tags:
+    - Resource Group
+    source: openapi/outreach-snippet-api-openapi.yml
+  - term: Stage
+    definition: '## Stage Relationships ## Stage Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | ---
+      | | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-stage-api-openapi.yml
+  - term: Task
+    definition: '## Task Relationships ## Task Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- |
+      | canWrite | A boolean value indicating whether the current API user has write access to this resource.'
+    tags:
+    - Resource Group
+    source: openapi/outreach-task-api-openapi.yml
+  - term: Task Disposition
+    definition: '## Task Disposition Relationships ## Task Disposition Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM**
+      | | --- | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAut'
+    tags:
+    - Resource Group
+    source: openapi/outreach-task-disposition-api-openapi.yml
+  - term: Task Priority
+    definition: '## Task Priority Relationships ## ⌵ Task Priority Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-task-priority-api-openapi.yml
+  - term: Task Purpose
+    definition: '## Task Purpose Relationships ## Task Purpose Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | ---
+      | --- | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizati'
+    tags:
+    - Resource Group
+    source: openapi/outreach-task-purpose-api-openapi.yml
+  - term: Team
+    definition: '## Team Relationships ## Team Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- |
+      | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | | canDelete
+      | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta | ## ⌵ Te'
+    tags:
+    - Resource Group
+    source: openapi/outreach-team-api-openapi.yml
+  - term: Template
+    definition: '## Template Relationships ## Template Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | ---
+      | --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |'
+    tags:
+    - Resource Group
+    source: openapi/outreach-template-api-openapi.yml
+  - term: User
+    definition: '## User Relationships ## User Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- | --- |
+      | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta | | dataConnections
+      | The set of connections a given User has to external sources. | provideDataConnections | ## ⌵ User Actions'
+    tags:
+    - Resource Group
+    source: openapi/outreach-user-api-openapi.yml
+  - term: Webhook
+    definition: '## Webhook Relationships ## Webhook Resource Metadata | **METADATA NAME**| **DESCRIPTION** | **QUERY PARAM** | | --- | --- |
+      --- | | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta
+      | | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+      #'
+    tags:
+    - Resource Group
+    source: openapi/outreach-webhook-api-openapi.yml
+  - term: accountResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-account-api-openapi.yml#/components/schemas/accountResponse
+  - term: account
+    definition: A descriptor of a named company used to categorize prospects within an account-based sales approach.
+    tags:
+    - Object
+    source: openapi/outreach-account-api-openapi.yml#/components/schemas/account
+  - term: accountRelationships
+    definition: 'Object declared by the contract with fields: assignedTeams, assignedUsers, batches, creator, defaultPluginMapping, favorites,
+      owner, primaryRecordTeam, prospects, purchases, recordTeamMembers, recordTeams. (2 more)'
+    tags:
+    - Object
+    source: openapi/outreach-account-api-openapi.yml#/components/schemas/accountRelationships
+  - term: accountNote
+    definition: Notes related to accounts
+    tags:
+    - Object
+    source: openapi/outreach-account-note-api-openapi.yml#/components/schemas/accountNote
+  - term: accountNoteResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-account-note-api-openapi.yml#/components/schemas/accountNoteResponse
+  - term: accountNoteRelationships
+    definition: 'Object declared by the contract with fields: account, creator, opportunity.'
+    tags:
+    - Object
+    source: openapi/outreach-account-note-api-openapi.yml#/components/schemas/accountNoteRelationships
+  - term: auditLogResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-audit-log-api-openapi.yml#/components/schemas/auditLogResponse
+  - term: auditLog
+    definition: 'Audit log events are usually kept for 90 days. Based on your Outreach usage, configuration and licence type, you might encounter
+      the following event types: | eventName | action | | --- | --- | | content_card | create, delete, update | | csv_downloaded | download |
+      | custom_topic | create, delete, update | | docdrive_limits | update | | export_created | create | | export_downloaded | download | | g'
+    tags:
+    - Object
+    source: openapi/outreach-audit-log-api-openapi.yml#/components/schemas/auditLog
+  - term: batchResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-batch-api-openapi.yml#/components/schemas/batchResponse
+  - term: batch
+    definition: A group of records (Prospect, Account, etc.) in which the same particular action was performed.
+    tags:
+    - Object
+    source: openapi/outreach-batch-api-openapi.yml#/components/schemas/batch
+  - term: batchRelationships
+    definition: 'Object declared by the contract with fields: batchItems, creator.'
+    tags:
+    - Object
+    source: openapi/outreach-batch-api-openapi.yml#/components/schemas/batchRelationships
+  - term: batchItemResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-batch-item-api-openapi.yml#/components/schemas/batchItemResponse
+  - term: batchItemRelationships
+    definition: 'Object declared by the contract with fields: batch.'
+    tags:
+    - Object
+    source: openapi/outreach-batch-item-api-openapi.yml#/components/schemas/batchItemRelationships
+  - term: batchItem
+    definition: A record associated with a batch in which a particular action was performed.
+    tags:
+    - Object
+    source: openapi/outreach-batch-item-api-openapi.yml#/components/schemas/batchItem
+  - term: callRelationships
+    definition: 'Object declared by the contract with fields: associatedId, batches, callDisposition, callPurpose, kaiaCrmRecording, opportunity,
+      outboundVoicemail, phone, phoneNumber, prospect, sequence, sequenceState. (3 more)'
+    tags:
+    - Object
+    source: openapi/outreach-call-api-openapi.yml#/components/schemas/callRelationships
+  - term: call
+    definition: A log of an inbound or outbound call made with a prospect.
+    tags:
+    - Object
+    source: openapi/outreach-call-api-openapi.yml#/components/schemas/call
+  - term: callResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-call-api-openapi.yml#/components/schemas/callResponse
+  - term: callDispositionResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-call-disposition-api-openapi.yml#/components/schemas/callDispositionResponse
+  - term: callDispositionRelationships
+    definition: 'Object declared by the contract with fields: calls, creator.'
+    tags:
+    - Object
+    source: openapi/outreach-call-disposition-api-openapi.yml#/components/schemas/callDispositionRelationships
+  - term: callDisposition
+    definition: A ready-made collection of call dispositions that help categorize your call logs.
+    tags:
+    - Object
+    source: openapi/outreach-call-disposition-api-openapi.yml#/components/schemas/callDisposition
+  - term: callPurposeRelationships
+    definition: 'Object declared by the contract with fields: calls, creator.'
+    tags:
+    - Object
+    source: openapi/outreach-call-purpose-api-openapi.yml#/components/schemas/callPurposeRelationships
+  - term: callPurposeResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-call-purpose-api-openapi.yml#/components/schemas/callPurposeResponse
+  - term: callPurpose
+    definition: A ready-made collection of call purposes that help categorize your call logs.
+    tags:
+    - Object
+    source: openapi/outreach-call-purpose-api-openapi.yml#/components/schemas/callPurpose
+  - term: complianceRequestResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-compliance-request-api-openapi.yml#/components/schemas/complianceRequestResponse
+  - term: complianceRequest
+    definition: A regulatory request to delete or export an individual's PII.
+    tags:
+    - Object
+    source: openapi/outreach-compliance-request-api-openapi.yml#/components/schemas/complianceRequest
+  - term: complianceRequestRelationships
+    definition: 'Object declared by the contract with fields: requester.'
+    tags:
+    - Object
+    source: openapi/outreach-compliance-request-api-openapi.yml#/components/schemas/complianceRequestRelationships
+  - term: contentCategory
+    definition: Content can be grouped into content categories to help discoverability.
+    tags:
+    - Object
+    source: openapi/outreach-content-category-api-openapi.yml#/components/schemas/contentCategory
+  - term: contentCategoryResponse
+    definition: 'Object declared by the contract with fields: attributes, id, relationships, type.'
+    tags:
+    - Object
+    source: openapi/outreach-content-category-api-openapi.yml#/components/schemas/contentCategoryResponse
+  - term: contentCategoryRelationships
+    definition: 'Object declared by the contract with fields: creator, teams.'
+    tags:
+    - Object
+    source: openapi/outreach-content-category-api-openapi.yml#/components/schemas/contentCategoryRelationships

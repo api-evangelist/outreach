@@ -1,26 +1,27 @@
 ---
-name: Enroll a prospect in an Outreach sequence
+name: enroll-prospect-in-sequence
 description: Create an account and prospect in Outreach, find the right sequence, and enroll the prospect — the core outbound motion, done correctly against the JSON:API contract.
 api: openapi/outreach-openapi.yml
 generated: '2026-08-13'
 method: generated
 source: openapi/_original/outreach-openapi.json + https://developers.outreach.io/api/common-patterns
 operations:
-  - POST /accounts
-  - POST /prospects
-  - GET /sequences
-  - POST /sequenceStates
-  - GET /sequenceStates
+- postAccounts
+- postProspects
+- getSequences
+- postSequenceStates
+- getSequenceStates
 scopes:
-  - accounts.write
-  - prospects.write
-  - sequences.read
-  - sequenceStates.all
+- accounts.write
+- prospects.write
+- sequences.read
+- sequenceStates.all
 mcp_equivalent:
-  - prospect_create
-  - sequence_search
-  - sequence_add_prospects
-  - sequence_state_search
+- prospect_create
+- sequence_search
+- sequence_add_prospects
+- sequence_state_search
+title: Enroll a prospect in an Outreach sequence
 ---
 
 # Enroll a prospect in an Outreach sequence

@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Marketo leads to Outreach prospects in a sequence
+  version: 1.0.0
+  description: 'Queries Marketo leads by a filter and creates each as an Outreach prospect enrolled in a sequence (Zapier template: create prospects in Outreach from new leads in Marketo).'
+sourceDescriptions:
+- name: partner
+  url: https://raw.githubusercontent.com/api-evangelist/marketo/refs/heads/main/openapi/marketo-leads-api-openapi.yml
+  type: openapi
+- name: outreachProspects
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-prospect-api-openapi.yml
+  type: openapi
+- name: outreachSequenceStates
+  url: https://raw.githubusercontent.com/api-evangelist/outreach/refs/heads/main/openapi/outreach-sequence-state-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: new-leads-to-outreach-prospect
+  summary: Marketo leads to Outreach prospects in a sequence
+  inputs:
+    type: object
+    properties:
+      filterType:
+        type: string
+      filterValues:
+        type: string
+      sequenceId:
+        type: integer
+      mailboxId:
+        type: integer
+  steps:
+  - stepId: readPartner
+    operationId: $sourceDescriptions.partner.getLeadsByFilterUsingGET
+    parameters:
+    - name: filterType
+      in: query
+      value: $inputs.filterType
+    - name: filterValues
+      in: query
+      value: $inputs.filterValues
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      email: $response.body#/result/0/email
+      firstName: $response.body#/result/0/firstName
+      lastName: $response.body#/result/0/lastName
+  - stepId: createProspect
+    operationId: $sourceDescriptions.outreachProspects.postProspects
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: prospect
+          attributes:
+            emails:
+            - $steps.readPartner.outputs.email
+            firstName: $steps.readPartner.outputs.firstName
+            lastName: $steps.readPartner.outputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prospectId: $response.body#/data/id
+  - stepId: addToSequence
+    operationId: $sourceDescriptions.outreachSequenceStates.postSequenceStates
+    requestBody:
+      contentType: application/vnd.api+json
+      payload:
+        data:
+          type: sequenceState
+          relationships:
+            prospect:
+              data:
+                type: prospect
+                id: $steps.createProspect.outputs.prospectId
+            sequence:
+              data:
+                type: sequence
+                id: $inputs.sequenceId
+            mailbox:
+              data:
+                type: mailbox
+                id: $inputs.mailboxId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sequenceStateId: $response.body#/data/id
+x-integration:
+  partner: marketo
+  edge_evidence: https://zapier.com/apps/outreach/integrations
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: enrichment pass local-v5 (Claude)
+  guessed_steps:
+  - step: readPartner
+    cause: partner-contract
+    why: Lead result fields are the default Marketo fields; the spec types result items loosely.
+  - step: createProspect
+    cause: provider-contract
+    why: The Outreach prospect spec does not fully constrain the JSON:API attributes payload; emails/firstName/lastName names follow the Outreach docs object, not a required schema.

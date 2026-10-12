@@ -11,40 +11,33 @@ providerId: outreach
 base_url: https://api.outreach.io/api/v2
 standard: JSON API 1.0
 media_type: application/vnd.api+json
-
 authentication:
   style: OAuth 2.0 bearer token (authorization code) — see authentication/outreach-authentication.yml
   header: 'Authorization: Bearer <access_token>'
-  alternative: S2S application token (JWT signed with a customer-registered RSA public key) for a limited
-    subset of endpoints — https://developers.outreach.io/api/s2s-access
+  alternative: S2S application token (JWT signed with a customer-registered RSA public key) for a limited subset of endpoints — https://developers.outreach.io/api/s2s-access
   access_token_ttl: 2 hours
   refresh_token_ttl: 14 days
   token_cap: 100 active refresh tokens per user/application pair
   token_mint_throttle: one access token per user per 60 seconds (429 beyond that)
-
 content_negotiation:
   required_request_header: 'Content-Type: application/vnd.api+json'
   on_violation: 415 with error id `unsupportedMediaType`
   response_media_type: application/vnd.api+json
-
 idempotency:
   supported: false
-  note: >-
-    Outreach publishes no idempotency-key contract. There is no `Idempotency-Key` header or parameter in the
-    documentation or in the OpenAPI, and retries of POST/PATCH are not deduplicated. Safe retries are limited
-    to GET and DELETE by HTTP semantics. The MCP server advertises MCP `idempotentHint` per tool, but that is
-    a client-side annotation describing read-only tools, not a server-side idempotency guarantee — read tools
-    are marked idempotent, every write tool is explicitly `idempotentHint: false`.
+  note: 'Outreach publishes no idempotency-key contract. There is no `Idempotency-Key` header or parameter in the documentation or in the OpenAPI, and retries of POST/PATCH are not deduplicated. Safe retries
+    are limited to GET and DELETE by HTTP semantics. The MCP server advertises MCP `idempotentHint` per tool, but that is a client-side annotation describing read-only tools, not a server-side idempotency
+    guarantee — read tools are marked idempotent, every write tool is explicitly `idempotentHint: false`.'
   mcp_annotation: idempotentHint mirrors readOnlyHint on every tool (see mcp/outreach-mcp.yml)
-
+  coverage: none
 pagination:
   styles:
   - style: cursor
     status: recommended
     params:
-    - 'page[size]'
-    - 'page[after]'
-    - 'page[before]'
+    - page[size]
+    - page[after]
+    - page[before]
     - count
     response_fields:
     - links.first
@@ -54,8 +47,8 @@ pagination:
   - style: offset
     status: deprecated
     params:
-    - 'page[offset]'
-    - 'page[limit]'
+    - page[offset]
+    - page[limit]
     response_fields:
     - links.first
     - links.prev
@@ -71,38 +64,32 @@ pagination:
     - meta.count
     - meta.count_truncated
     max_total_count: 2000000
-    note: >-
-      Counting is truncated at 2,000,000 matches (`count_truncated: true`) and may be suppressed entirely
-      under load (`count: 0, count_truncated: true`). Applications registered after 2024-10-13 default to
-      `count=false` and must pass `count=true` explicitly.
-
+    note: 'Counting is truncated at 2,000,000 matches (`count_truncated: true`) and may be suppressed entirely under load (`count: 0, count_truncated: true`). Applications registered after 2024-10-13 default
+      to `count=false` and must pass `count=true` explicitly.'
 filtering:
-  param: 'filter[<attribute>]'
+  param: filter[<attribute>]
   operators:
-  - exact: 'filter[firstName]=Sally'
-  - list: 'filter[id]=1,2,3,5,8,13'
-  - range: 'filter[id]=5..10'
-  - open_range: 'filter[updatedAt]=neginf..2017-01-01 / 2017-01-01..inf'
-  - 'null': 'filter[buyerIntentScore]=__null__ / __notnull__'
-  - prefix_search: 'filter[q]=aaa (Accounts and Prospects only)'
+  - exact: filter[firstName]=Sally
+  - list: filter[id]=1,2,3,5,8,13
+  - range: filter[id]=5..10
+  - open_range: filter[updatedAt]=neginf..2017-01-01 / 2017-01-01..inf
+  - 'null': filter[buyerIntentScore]=__null__ / __notnull__
+  - prefix_search: filter[q]=aaa (Accounts and Prospects only)
   new_syntax:
     param: newFilterSyntax=true
     reason: Lets values contain literal `,` and `..`
     forms:
-    - 'filter[firstName][]=Sally&filter[firstName][]=Katie'
-    - 'filter[id][gte]=5&filter[id][lte]=10'
+    - filter[firstName][]=Sally&filter[firstName][]=Katie
+    - filter[id][gte]=5&filter[id][lte]=10
   relationship_filtering:
     supported: partial
-    note: Filtering by a relationship's non-id attributes was deprecated in May 2023; only
-      `filter[<relationship>][id]` is broadly supported. Consult the reference per relationship.
-
+    note: Filtering by a relationship's non-id attributes was deprecated in May 2023; only `filter[<relationship>][id]` is broadly supported. Consult the reference per relationship.
 sorting:
   param: sort
   ascending: sort=firstName
   descending: sort=-firstName
   multiple: sort=lastName,-firstName
   relationship_sort: deprecated May 2023 — sort locally after including the attribute
-
 field_expansion:
   include:
     param: include
@@ -110,10 +97,9 @@ field_expansion:
     response_field: included[]
     restriction: Not supported on create/update responses since May 2023 — issue a follow-up GET.
   sparse_fieldsets:
-    param: 'fields[<type>]'
-    form: 'fields[prospect]=firstName,lastName&fields[account]=name'
+    param: fields[<type>]
+    form: fields[prospect]=firstName,lastName&fields[account]=name
     note: Type key is the resource TYPE, not the relationship name (e.g. `fields[user]` for `owner`).
-
 resource_shape:
   envelope: data
   object:
@@ -132,7 +118,6 @@ resource_shape:
   read_only_fields:
   - createdAt
   - updatedAt
-
 write_semantics:
   create: POST /{plural} — resource object without `id`; 201 on success, 422 on validation failure
   update: PATCH /{plural}/{id} — `type` and `id` required and must match the URL; only present fields change
@@ -140,26 +125,24 @@ write_semantics:
   relationship_writes: to-one relationships are generally writable; to-many generally are not
   actions:
     form: POST /{plural}/{id}/actions/{action}
-    params: 'actionParams[<name>]=<value>'
+    params: actionParams[<name>]=<value>
     on_bad_param: 400
     example: POST /api/v2/tasks/1/actions/markComplete?actionParams[completionNote]=I+completed+this
   bulk:
     form: POST /api/v2/batches/actions/{bulkActionName}
-    filter: 'actionParams[filter][...] using newFilterSyntax'
+    filter: actionParams[filter][...] using newFilterSyntax
     scopes_required:
     - batches.read
     - batches.write
-    - '<resource>.write'
+    - <resource>.write
     warning: With no filter the bulk action applies to ALL records it can reach.
     docs: https://developers.outreach.io/api/bulk-api
-
 versioning:
   scheme: uri-path
   current: v2
   base: https://api.outreach.io/api/v2
   breaking_change_policy: Announced on the Deprecated features page with a dated effective window
   docs: https://developers.outreach.io/api/deprecated-features
-
 error_envelope:
   container: errors
   standard: JSON API 1.0 error objects (NOT RFC 9457)
@@ -169,7 +152,6 @@ error_envelope:
   - detail
   - source.pointer
   catalog: errors/outreach-error-codes.yml
-
 rate_limit_signaling:
   headers:
   - X-RateLimit-Limit
@@ -178,17 +160,13 @@ rate_limit_signaling:
   - Retry-After
   exhausted_status: 429
   detail: rate-limits/outreach-rate-limits.yml
-
 request_tracing:
   request_id_header: null
-  note: Outreach documents no request-id / correlation-id response header. Errors are correlated by the
-    error object `id` plus the Support Portal ticket, not by a per-request trace identifier.
-
+  note: Outreach documents no request-id / correlation-id response header. Errors are correlated by the error object `id` plus the Support Portal ticket, not by a per-request trace identifier.
 custom_fields:
   discovery_endpoint: GET https://api.outreach.io/api/v2/types
   json_schema: https://api.outreach.io/api/v2/schema.json (json-schema/outreach-hyper-schema.json)
-  naming: customNN attributes on Account, Opportunity, OpportunityLineItem, OpportunityProspectRole,
-    Product, Prospect, Purchase
+  naming: customNN attributes on Account, Opportunity, OpportunityLineItem, OpportunityProspectRole, Product, Prospect, Purchase
   validation_types:
   - boolean
   - currency
@@ -202,7 +180,6 @@ custom_fields:
   - string
   - url
   docs: https://developers.outreach.io/api/custom-objects
-
 cross_links:
   errors: errors/outreach-error-codes.yml
   lifecycle: lifecycle/outreach-lifecycle.yml
