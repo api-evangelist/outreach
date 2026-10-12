@@ -1814,3 +1814,39 @@
   relationship: workflow
   status: pending-generation
   arazzo: null
+- slug: outreach-supaglue
+  label: supaglue
+  partner: supaglue
+  partner_name: supaglue
+  type: contract
+  channel: partner-built
+  evidence: https://github.com/api-evangelist/supaglue/blob/main/openapi/supaglue-syncconfigs-api-openapi.yml
+  source: edge
+  relationship: processor-connection
+  contract_reference:
+    repo: supaglue
+    spec_file: supaglue-syncconfigs-api-openapi.yml
+    value: outreach
+    property: components.schemas.provider_name
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+  status: not-a-workflow
+  arazzo: null
+- slug: outreach-vessel
+  label: vessel
+  partner: vessel
+  partner_name: vessel
+  type: contract
+  channel: partner-built
+  evidence: https://github.com/api-evangelist/vessel/blob/main/openapi/vessel-connection-api-openapi.yml
+  source: edge
+  relationship: processor-connection
+  contract_reference:
+    repo: vessel
+    spec_file: vessel-connection-api-openapi.yml
+    value: outreach
+    property: schemas.EngIntegration.integrationId
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+  status: not-a-workflow
+  arazzo: null
