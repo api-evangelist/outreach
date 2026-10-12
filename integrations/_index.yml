@@ -1733,24 +1733,26 @@
   arazzo: null
 - slug: outreach-facebook-lead-ads
   label: Facebook Lead Ads
+  partner: facebook-lead-ads
   partner_name: Facebook Lead Ads
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  status: pending-partner-spec
-  arazzo: null
+  arazzo: outreach-facebook-lead-ads-lead-form.yml
+  status: arazzo
 - slug: outreach-google-sheets
   label: Google Sheets
+  partner: google-sheets
   partner_name: Google Sheets
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  status: pending-partner-spec
-  arazzo: null
+  arazzo: outreach-google-sheets-sheet-rows.yml
+  status: arazzo
 - slug: outreach-linkedin
   label: LinkedIn
   partner_name: LinkedIn
@@ -1773,14 +1775,15 @@
   arazzo: null
 - slug: outreach-marketo
   label: Marketo
+  partner: marketo
   partner_name: Marketo
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  status: pending-partner-spec
-  arazzo: null
+  arazzo: outreach-marketo-new-leads.yml
+  status: arazzo
 - slug: outreach-microsoft-dynamics-crm
   label: Microsoft Dynamics CRM
   partner_name: Microsoft Dynamics CRM
