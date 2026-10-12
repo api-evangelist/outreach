@@ -99,7 +99,6 @@
   arazzo: null
 - slug: outreach-aws-marketplace
   label: AWS Marketplace
-  partner: aws-marketplace
   partner_name: AWS Marketplace
   use_case: Purchase Outreach's powerful Sales Execution Platform via the AWS Marketplace
   type: claimed
@@ -581,7 +580,6 @@
   arazzo: null
 - slug: outreach-google-calendar
   label: Google Calendar
-  partner: google-calendar
   partner_name: Google Calendar
   use_case: Easily connect Outreach with Google Calendar
   type: claimed
@@ -593,7 +591,6 @@
   arazzo: null
 - slug: outreach-google-maps
   label: Google Maps
-  partner: google-maps
   partner_name: Google Maps
   use_case: Connect with your customers where they are with Google Maps
   type: claimed
@@ -850,7 +847,6 @@
   arazzo: null
 - slug: outreach-microsoft-dynamics-365-sales
   label: Microsoft Dynamics 365 Sales
-  partner: microsoft-dynamics-365-sales
   partner_name: Microsoft Dynamics 365 Sales
   use_case: The action of Outreach + the power of Microsoft
   type: claimed
@@ -862,7 +858,6 @@
   arazzo: null
 - slug: outreach-microsoft-exchange
   label: Microsoft Exchange
-  partner: microsoft-exchange
   partner_name: Microsoft Exchange
   use_case: Connect your Exchange email address to Outreach to send as yourself, no matter where you are
   type: claimed
@@ -874,7 +869,6 @@
   arazzo: null
 - slug: outreach-microsoft-teams
   label: Microsoft Teams
-  partner: microsoft-teams
   partner_name: Microsoft Teams
   use_case: Outreach’s AI-powered virtual sales assistant integrated with Microsoft Teams
   type: claimed
@@ -1706,7 +1700,6 @@
   arazzo: null
 - slug: outreach-zoom-phone
   label: Zoom Phone
-  partner: zoom-phone
   partner_name: Zoom Phone
   use_case: Enhance your Outreach experience and streamline your workflows with Outreach & Zoom Phone
   type: claimed
@@ -1740,59 +1733,54 @@
   arazzo: null
 - slug: outreach-facebook-lead-ads
   label: Facebook Lead Ads
-  partner: facebook-lead-ads
   partner_name: Facebook Lead Ads
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  arazzo: outreach-facebook-lead-ads-lead-form.yml
-  status: arazzo
+  status: pending-partner-spec
+  arazzo: null
 - slug: outreach-google-sheets
   label: Google Sheets
-  partner: google-sheets
   partner_name: Google Sheets
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  arazzo: outreach-google-sheets-sheet-rows.yml
-  status: arazzo
+  status: pending-partner-spec
+  arazzo: null
 - slug: outreach-linkedin
   label: LinkedIn
-  partner: linkedin
   partner_name: LinkedIn
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: outreach-linkedin-ads
   label: LinkedIn Ads
-  partner: linkedin-ads
   partner_name: LinkedIn Ads
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: outreach-marketo
   label: Marketo
-  partner: marketo
   partner_name: Marketo
   type: marketplace
   marketplace: Zapier
   evidence: https://zapier.com/apps/outreach/integrations
   source: edge
   relationship: workflow
-  arazzo: outreach-marketo-new-leads.yml
-  status: arazzo
+  status: pending-partner-spec
+  arazzo: null
 - slug: outreach-microsoft-dynamics-crm
   label: Microsoft Dynamics CRM
   partner_name: Microsoft Dynamics CRM
