@@ -433,18 +433,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    mailboxResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/mailbox'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/mailboxRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     mailbox:
       description: 'A representation of an email mailbox, used within the application for sending and syncing emails.
 
@@ -1023,6 +1011,18 @@ components:
                   type: string
               type: object
       type: object
+    mailboxResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/mailbox'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/mailboxRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

@@ -63,6 +63,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    customDutyRelationships:
+      type: object
+    customDutyResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/customDuty'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/customDutyRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     customDuty:
       description: 'A freeform user-specified role or job duty played by a user in their organization.
 
@@ -87,20 +101,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    customDutyRelationships:
-      type: object
-    customDutyResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/customDuty'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/customDutyRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

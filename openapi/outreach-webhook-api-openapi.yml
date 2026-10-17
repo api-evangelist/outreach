@@ -343,18 +343,6 @@ components:
                   type: string
               type: object
       type: object
-    webhookResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/webhook'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/webhookRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     webhook:
       description: 'A configurable notification that submits external JSON-API-formatted HTTP requests whenever resources are modified.
 
@@ -468,6 +456,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    webhookResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/webhook'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/webhookRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

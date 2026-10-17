@@ -259,6 +259,52 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    roleRelationships:
+      properties:
+        childRoles:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            '
+          properties:
+            data:
+              items:
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    enum:
+                    - role
+                    type: string
+                type: object
+              type: array
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+        parentRole:
+          description: Roles are heirarchical. This is the parent of the current role. You can use only the attribute id to filter roles by parentRole (e.g. filter[parentRole][id]=X).
+          properties:
+            data:
+              properties:
+                id:
+                  type: integer
+                type:
+                  enum:
+                  - role
+                  type: string
+              type:
+              - object
+              - 'null'
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
     role:
       description: 'Where you fall within your organization''s structure.
 
@@ -306,52 +352,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    roleRelationships:
-      properties:
-        childRoles:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            '
-          properties:
-            data:
-              items:
-                properties:
-                  id:
-                    type: integer
-                  type:
-                    enum:
-                    - role
-                    type: string
-                type: object
-              type: array
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-        parentRole:
-          description: Roles are heirarchical. This is the parent of the current role. You can use only the attribute id to filter roles by parentRole (e.g. filter[parentRole][id]=X).
-          properties:
-            data:
-              properties:
-                id:
-                  type: integer
-                type:
-                  enum:
-                  - role
-                  type: string
-              type:
-              - object
-              - 'null'
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
     roleResponse:
       properties:
         attributes:

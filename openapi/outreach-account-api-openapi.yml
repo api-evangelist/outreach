@@ -269,18 +269,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    accountResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/account'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/accountRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     account:
       description: 'A descriptor of a named company used to categorize prospects within an account-based sales approach.
 
@@ -2045,6 +2033,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    accountResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/account'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/accountRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     accountRelationships:

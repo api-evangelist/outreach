@@ -259,6 +259,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    recipientResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/recipient'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/recipientRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     recipient:
       description: 'Record for a recipient for some communication, such as email
 
@@ -368,18 +380,6 @@ components:
                   type: string
               type: object
       type: object
-    recipientResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/recipient'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/recipientRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

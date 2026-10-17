@@ -256,18 +256,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    profileResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/profile'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/profileRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     profileRelationships:
       type: object
     profile:
@@ -324,6 +312,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    profileResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/profile'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/profileRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

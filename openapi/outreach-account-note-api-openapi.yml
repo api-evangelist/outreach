@@ -303,18 +303,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    accountNoteResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/accountNote'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/accountNoteRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     accountNoteRelationships:
       properties:
         account:
@@ -384,6 +372,18 @@ components:
                   type: string
               type: object
       type: object
+    accountNoteResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/accountNote'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/accountNoteRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

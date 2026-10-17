@@ -497,6 +497,18 @@ components:
                   type: string
               type: object
       type: object
+    callResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/call'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/callRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     call:
       description: 'A log of an inbound or outbound call made with a prospect.
 
@@ -721,18 +733,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    callResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/call'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/callRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

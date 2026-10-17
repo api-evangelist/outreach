@@ -363,6 +363,18 @@ components:
                   type: string
               type: object
       type: object
+    purchaseResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/purchase'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/purchaseRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     purchase:
       description: 'Contains all the list of products which are related to the accounts.
 
@@ -1847,18 +1859,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    purchaseResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/purchase'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/purchaseRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

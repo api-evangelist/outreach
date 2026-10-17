@@ -164,9 +164,11 @@ common:
 
 apis:
 - name: Outreach MCP Server
-  description: Remote Model Context Protocol server exposing Outreach as 41 agent tools (27 read, 11 write, 3 schema introspection) over streamable
-    HTTP, authorized by OAuth 2.1 with PKCE and RFC 7591 Dynamic Client Registration. Tool permissions inherit the authenticated Outreach user's
-    RBAC profile and every call is attributed to that user in Outreach activity history.
+  description: >-
+    Remote Model Context Protocol server exposing Outreach as 41 agent tools (27 read, 11 write, 3 schema
+    introspection) over streamable HTTP, authorized by OAuth 2.1 with PKCE and RFC 7591 Dynamic Client
+    Registration. Tool permissions inherit the authenticated Outreach user's RBAC profile and every call
+    is attributed to that user in Outreach activity history.
   humanURL: https://developers.outreach.io/mcp-server
   baseURL: https://api.outreach.io/mcp
   tags:
@@ -182,9 +184,11 @@ apis:
     url: mcp/outreach-tool-crosswalk.yml
   aid: outreach:outreach-mcp-server
 - name: Outreach Client Extensions API
-  description: Client extensibility surface for embedding a web application inside the Outreach client — shell, tab and tile web-widget extensions,
-    a text-editor extension, activity-feed custom events and a mailing-links custom tracker — brokered by the @getoutreach/extensibility-sdk JavaScript
-    SDK, which resolves an OutreachContext carrying user, org, account, prospect and opportunity data into the hosted iframe.
+  description: >-
+    Client extensibility surface for embedding a web application inside the Outreach client — shell, tab
+    and tile web-widget extensions, a text-editor extension, activity-feed custom events and a mailing-links
+    custom tracker — brokered by the @getoutreach/extensibility-sdk JavaScript SDK, which resolves an
+    OutreachContext carrying user, org, account, prospect and opportunity data into the hosted iframe.
   humanURL: https://developers.outreach.io/client-extensions
   baseURL: https://api.outreach.io
   tags:
@@ -197,9 +201,11 @@ apis:
     url: components/outreach-components.yml
   aid: outreach:outreach-client-extensions-api
 - name: Outreach Data Sharing
-  description: Read-only access to an organization's Outreach data through Snowflake secure data sharing and Delta Sharing, in a ready-to-query
-    format with no data copy or custom pipeline. Roughly 60 documented tables covering accounts, prospects, opportunities, sequences, calls, mailings,
-    meetings, Kaia meeting intelligence, forecasts and funnel insights.
+  description: >-
+    Read-only access to an organization's Outreach data through Snowflake secure data sharing and Delta
+    Sharing, in a ready-to-query format with no data copy or custom pipeline. Roughly 60 documented tables
+    covering accounts, prospects, opportunities, sequences, calls, mailings, meetings, Kaia meeting intelligence,
+    forecasts and funnel insights.
   humanURL: https://developers.outreach.io/data-sharing
   baseURL: https://api.outreach.io
   tags:
@@ -213,9 +219,11 @@ apis:
     url: https://developers.outreach.io/data-sharing/release-notes
   aid: outreach:outreach-data-sharing
 - name: Outreach Webhooks
-  description: Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings, mailings, opportunities,
-    opportunity prospect roles, prospects, sequences, sequence states, tasks and users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks
-    and receive JSON:API style payloads with HMAC signature verification.
+  description: >-
+    Event-driven webhook deliveries for accounts, calls, contacts, email addresses, imports, Kaia recordings,
+    mailings, opportunities, opportunity prospect roles, prospects, sequences, sequence states, tasks
+    and users. Subscribers register HTTPS endpoints via POST /api/v2/webhooks and receive JSON:API style
+    payloads with HMAC signature verification.
   humanURL: https://developers.outreach.io/api/webhooks/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -236,7 +244,8 @@ apis:
   aid: outreach:outreach-webhooks
 - aid: outreach:outreach-account-api
   name: Outreach Account API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/account" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/account" />
 
 
     ## Account Relationships
@@ -252,15 +261,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Account has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Account has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Account Actions'
+    ## ⌵ Account Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -284,7 +296,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-account-note-api
   name: Outreach Account Note API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/accountNote" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/accountNote" />
 
 
     ## Account Note Relationships
@@ -293,7 +306,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/accountNoteRelationships" />
 
 
-    ## ⌵ Account Note Actions'
+    ## ⌵ Account Note Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -317,7 +330,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-audit-log-api
   name: Outreach Audit Log API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/auditLog" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/auditLog" />
 
 
     ## Audit Log Custom Filters
@@ -333,7 +347,7 @@ apis:
 
 
 
-    ## ⌵ Audit Log Actions'
+    ## ⌵ Audit Log Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -359,7 +373,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-batch-api
   name: Outreach Batch API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/batch" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/batch" />
 
 
     ## Batch Relationships
@@ -375,11 +390,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Batch Actions'
+    ## ⌵ Batch Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -403,7 +419,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-batch-item-api
   name: Outreach Batch Item API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/batchItem" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/batchItem" />
 
 
     ## Batch Item Relationships
@@ -412,7 +429,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/batchItemRelationships" />
 
 
-    ## ⌵ Batch Item Actions'
+    ## ⌵ Batch Item Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -436,7 +453,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-call-api
   name: Outreach Call API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/call" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/call" />
 
 
     ## Call Relationships
@@ -452,15 +470,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Call has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Call has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Call Actions'
+    ## ⌵ Call Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -484,7 +505,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-call-disposition-api
   name: Outreach Call Disposition API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/callDisposition" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/callDisposition" />
 
 
     ## Call Disposition Relationships
@@ -500,13 +522,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Call Disposition Actions'
+    ## ⌵ Call Disposition Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -530,7 +554,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-call-purpose-api
   name: Outreach Call Purpose API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/callPurpose" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/callPurpose" />
 
 
     ## Call Purpose Relationships
@@ -546,13 +571,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Call Purpose Actions'
+    ## ⌵ Call Purpose Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -576,7 +603,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-compliance-request-api
   name: Outreach Compliance Request API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/complianceRequest" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/complianceRequest" />
 
 
     ## Compliance Request Relationships
@@ -585,7 +613,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/complianceRequestRelationships" />
 
 
-    ## ⌵ Compliance Request Actions'
+    ## ⌵ Compliance Request Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -609,7 +637,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-content-category-api
   name: Outreach Content Category API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/contentCategory" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategory" />
 
 
     ## Content Category Relationships
@@ -625,13 +654,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Content Category Actions'
+    ## ⌵ Content Category Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -655,7 +686,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-content-category-membership-api
   name: Outreach Content Category Membership API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/contentCategoryMembership" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryMembership" />
 
 
     ## Content Category Membership Relationships
@@ -671,11 +703,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Content Category Membership Actions'
+    ## ⌵ Content Category Membership Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -699,7 +732,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-content-category-ownership-api
   name: Outreach Content Category Ownership API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/contentCategoryOwnership" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/contentCategoryOwnership" />
 
 
     ## Content Category Ownership Relationships
@@ -715,11 +749,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Content Category Ownership Actions'
+    ## ⌵ Content Category Ownership Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -743,10 +778,11 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-custom-duty-api
   name: Outreach Custom Duty API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/customDuty" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/customDuty" />
 
 
-    ## ⌵ Custom Duty Actions'
+    ## ⌵ Custom Duty Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -770,10 +806,11 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-duty-api
   name: Outreach Duty API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/duty" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/duty" />
 
 
-    ## ⌵ Duty Actions'
+    ## ⌵ Duty Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -797,7 +834,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-email-address-api
   name: Outreach Email Address API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/emailAddress" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/emailAddress" />
 
 
     ## Email Address Relationships
@@ -813,13 +851,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Email Address Actions'
+    ## ⌵ Email Address Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -843,7 +883,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-event-api
   name: Outreach Event API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/event" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/event" />
 
 
     ## Event Relationships
@@ -859,11 +900,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  dataConnections | The set of connections a given Event has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Event has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Event Actions'
+    ## ⌵ Event Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -887,7 +929,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-favorite-api
   name: Outreach Favorite API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/favorite" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/favorite" />
 
 
     ## Favorite Relationships
@@ -903,11 +946,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Favorite Actions'
+    ## ⌵ Favorite Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -933,7 +977,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-import-api
   name: Outreach Import API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/import" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/import" />
 
 
     ## Import Relationships
@@ -949,11 +994,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Import Actions'
+    ## ⌵ Import Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -977,7 +1023,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-kaia-recording-api
   name: Outreach Kaia Recording API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/kaiaRecording" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaRecording" />
 
 
     ## Kaia Recording Relationships
@@ -986,7 +1033,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/kaiaRecordingRelationships" />
 
 
-    ## ⌵ Kaia Recording Actions'
+    ## ⌵ Kaia Recording Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1010,10 +1057,11 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-kaia-voice-import-api
   name: Outreach Kaia Voice Import API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/kaiaVoiceImport" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/kaiaVoiceImport" />
 
 
-    ## ⌵ Kaia Voice Import Actions'
+    ## ⌵ Kaia Voice Import Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1037,7 +1085,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-mail-alias-api
   name: Outreach Mail Alias API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/mailAlias" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailAlias" />
 
 
     ## Mail Alias Relationships
@@ -1046,7 +1095,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/mailAliasRelationships" />
 
 
-    ## ⌵ Mail Alias Actions'
+    ## ⌵ Mail Alias Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1070,7 +1119,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-mailbox-api
   name: Outreach Mailbox API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/mailbox" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailbox" />
 
 
     ## Mailbox Relationships
@@ -1086,13 +1136,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Mailbox Actions'
+    ## ⌵ Mailbox Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1116,7 +1168,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-mailing-api
   name: Outreach Mailing API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/mailing" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/mailing" />
 
 
     ## Mailing Relationships
@@ -1132,13 +1185,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Mailing has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Mailing has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Mailing Actions'
+    ## ⌵ Mailing Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1162,7 +1217,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-opportunity-api
   name: Outreach Opportunity API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/opportunity" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunity" />
 
 
     ## Opportunity Relationships
@@ -1178,15 +1234,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Opportunity has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Opportunity has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Opportunity Actions'
+    ## ⌵ Opportunity Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1210,7 +1269,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-opportunity-prospect-role-api
   name: Outreach Opportunity Prospect Role API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/opportunityProspectRole" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityProspectRole" />
 
 
     ## Opportunity Prospect Role Relationships
@@ -1226,13 +1286,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Opportunity Prospect Role Actions'
+    ## ⌵ Opportunity Prospect Role Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1256,7 +1318,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-opportunity-stage-api
   name: Outreach Opportunity Stage API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/opportunityStage" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/opportunityStage" />
 
 
     ## Opportunity Stage Relationships
@@ -1272,15 +1335,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Opportunity Stage has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Opportunity Stage has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Opportunity Stage Actions'
+    ## ⌵ Opportunity Stage Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1304,10 +1370,11 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-org-setting-api
   name: Outreach Org Setting API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/orgSetting" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/orgSetting" />
 
 
-    ## ⌵ Org Setting Actions'
+    ## ⌵ Org Setting Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1331,7 +1398,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-persona-api
   name: Outreach Persona API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/persona" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/persona" />
 
 
     ## Persona Relationships
@@ -1347,13 +1415,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Persona Actions'
+    ## ⌵ Persona Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1379,7 +1449,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-phone-number-api
   name: Outreach Phone Number API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/phoneNumber" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/phoneNumber" />
 
 
     ## Phone Number Relationships
@@ -1395,13 +1466,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Phone Number Actions'
+    ## ⌵ Phone Number Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1427,7 +1500,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-product-api
   name: Outreach Product API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/product" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/product" />
 
 
     ## Product Relationships
@@ -1443,15 +1517,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Product has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Product has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Product Actions'
+    ## ⌵ Product Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1475,7 +1552,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-profile-api
   name: Outreach Profile API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/profile" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/profile" />
 
 
     ## Profile Resource Metadata
@@ -1485,13 +1563,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Profile Actions'
+    ## ⌵ Profile Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1517,7 +1597,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-prospect-api
   name: Outreach Prospect API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/prospect" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/prospect" />
 
 
     ## Prospect Relationships
@@ -1533,15 +1614,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Prospect has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Prospect has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Prospect Actions'
+    ## ⌵ Prospect Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1565,7 +1649,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-prospect-note-api
   name: Outreach Prospect Note API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/prospectNote" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/prospectNote" />
 
 
     ## Prospect Note Relationships
@@ -1574,7 +1659,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/prospectNoteRelationships" />
 
 
-    ## ⌵ Prospect Note Actions'
+    ## ⌵ Prospect Note Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1598,7 +1683,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-purchase-api
   name: Outreach Purchase API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/purchase" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/purchase" />
 
 
     ## Purchase Relationships
@@ -1614,15 +1700,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Purchase has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Purchase has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Purchase Actions'
+    ## ⌵ Purchase Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1646,7 +1735,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-recipient-api
   name: Outreach Recipient API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/recipient" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/recipient" />
 
 
     ## Recipient Relationships
@@ -1662,13 +1752,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Recipient Actions'
+    ## ⌵ Recipient Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1692,7 +1784,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-role-api
   name: Outreach Role API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/role" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/role" />
 
 
     ## Role Relationships
@@ -1708,13 +1801,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Role Actions'
+    ## ⌵ Role Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1738,7 +1833,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-sequence-api
   name: Outreach Sequence API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/sequence" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequence" />
 
 
     ## Sequence Relationships
@@ -1754,13 +1850,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Sequence Actions'
+    ## ⌵ Sequence Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1784,7 +1882,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-sequence-state-api
   name: Outreach Sequence State API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceState" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceState" />
 
 
     ## Sequence State Relationships
@@ -1800,11 +1899,12 @@ apis:
 
     | --- | --- | --- |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Sequence State Actions'
+    ## ⌵ Sequence State Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1828,7 +1928,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-sequence-step-api
   name: Outreach Sequence Step API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceStep" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceStep" />
 
 
     ## Sequence Step Relationships
@@ -1844,13 +1945,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Sequence Step Actions'
+    ## ⌵ Sequence Step Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1874,7 +1977,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-sequence-template-api
   name: Outreach Sequence Template API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/sequenceTemplate" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/sequenceTemplate" />
 
 
     ## Sequence Template Relationships
@@ -1890,13 +1994,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Sequence Template Actions'
+    ## ⌵ Sequence Template Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1920,7 +2026,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-snippet-api
   name: Outreach Snippet API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/snippet" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/snippet" />
 
 
     ## Snippet Relationships
@@ -1936,13 +2043,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Snippet Actions'
+    ## ⌵ Snippet Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -1966,7 +2075,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-stage-api
   name: Outreach Stage API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/stage" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/stage" />
 
 
     ## Stage Relationships
@@ -1982,15 +2092,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Stage has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Stage has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Stage Actions'
+    ## ⌵ Stage Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2016,7 +2129,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-task-api
   name: Outreach Task API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/task" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/task" />
 
 
     ## Task Relationships
@@ -2032,15 +2146,18 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given Task has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given Task has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ Task Actions'
+    ## ⌵ Task Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2064,7 +2181,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-task-disposition-api
   name: Outreach Task Disposition API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/taskDisposition" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskDisposition" />
 
 
     ## Task Disposition Relationships
@@ -2080,13 +2198,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Task Disposition Actions'
+    ## ⌵ Task Disposition Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2110,7 +2230,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-task-priority-api
   name: Outreach Task Priority API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/taskPriority" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskPriority" />
 
 
     ## Task Priority Relationships
@@ -2119,7 +2240,7 @@ apis:
     <SchemaDefinition schemaRef="#/components/schemas/taskPriorityRelationships" />
 
 
-    ## ⌵ Task Priority Actions'
+    ## ⌵ Task Priority Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2143,7 +2264,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-task-purpose-api
   name: Outreach Task Purpose API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/taskPurpose" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/taskPurpose" />
 
 
     ## Task Purpose Relationships
@@ -2159,13 +2281,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Task Purpose Actions'
+    ## ⌵ Task Purpose Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2189,7 +2313,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-team-api
   name: Outreach Team API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/team" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/team" />
 
 
     ## Team Relationships
@@ -2205,13 +2330,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Team Actions'
+    ## ⌵ Team Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2235,7 +2362,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-template-api
   name: Outreach Template API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/template" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/template" />
 
 
     ## Template Relationships
@@ -2251,13 +2379,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Template Actions'
+    ## ⌵ Template Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2283,7 +2413,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-user-api
   name: Outreach User API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/user" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/user" />
 
 
     ## User Relationships
@@ -2299,13 +2430,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  dataConnections | The set of connections a given User has to external sources. | provideDataConnections |
+    |  dataConnections | The set of connections a given User has to external sources. | provideDataConnections
+    |
 
 
 
-    ## ⌵ User Actions'
+    ## ⌵ User Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2329,7 +2462,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-webhook-api
   name: Outreach Webhook API
-  description: '<SchemaDefinition schemaRef="#/components/schemas/webhook" />
+  description: >-
+    <SchemaDefinition schemaRef="#/components/schemas/webhook" />
 
 
     ## Webhook Relationships
@@ -2345,13 +2479,15 @@ apis:
 
     | --- | --- | --- |
 
-    |  canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    |  canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    |  canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
 
-    ## ⌵ Webhook Actions'
+    ## ⌵ Webhook Actions
   humanURL: https://developers.outreach.io/api/
   baseURL: https://api.outreach.io/api/v2
   tags:
@@ -2375,7 +2511,8 @@ apis:
     url: conventions/outreach-conventions.yml
 - aid: outreach:outreach-rule-set-api
   name: Outreach Rule Set API
-  description: '## Ruleset Relationships
+  description: >-
+    ## Ruleset Relationships
 
 
     ## Ruleset Resource Metadata
@@ -2385,12 +2522,14 @@ apis:
 
     | --- | --- | --- |
 
-    | canWrite | A boolean value indicating whether the current API user has write access to this resource. | provideAuthorizationMeta |
+    | canWrite | A boolean value indicating whether the current API user has write access to this resource.
+    | provideAuthorizationMeta |
 
-    | canDelete | A boolean value indicating whether the current API user has delete access to this resource. | provideAuthorizationMeta |
+    | canDelete | A boolean value indicating whether the current API user has delete access to this resource.
+    | provideAuthorizationMeta |
 
 
-    ## ⌵ Ruleset Actions'
+    ## ⌵ Ruleset Actions
   humanURL: https://developers.outreach.io/mcp-server
   baseURL: https://api.outreach.io/mcp
   tags:
@@ -2412,7 +2551,6 @@ apis:
     url: errors/outreach-error-codes.yml
   - type: Conventions
     url: conventions/outreach-conventions.yml
-
 x-enrichment:
   date: '2026-10-12'
   status: enriched

@@ -297,6 +297,18 @@ components:
                   type: string
               type: object
       type: object
+    taskDispositionResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/taskDisposition'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/taskDispositionRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     taskDisposition:
       description: 'A collection of task dispositions that help categorize your tasks.
 
@@ -361,18 +373,6 @@ components:
           - string
           - 'null'
           x-internal: false
-      type: object
-      x-internal: false
-    taskDispositionResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/taskDisposition'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/taskDispositionRelationships'
-        type:
-          type: string
       type: object
       x-internal: false
   securitySchemes:

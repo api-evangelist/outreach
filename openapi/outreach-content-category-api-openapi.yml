@@ -333,18 +333,6 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    contentCategoryResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/contentCategory'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/contentCategoryRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     contentCategoryRelationships:
       properties:
         creator:
@@ -391,6 +379,18 @@ components:
                   type: string
               type: object
       type: object
+    contentCategoryResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/contentCategory'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/contentCategoryRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

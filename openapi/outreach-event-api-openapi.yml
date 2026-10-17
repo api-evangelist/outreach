@@ -109,131 +109,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    event:
-      description: 'Application events, capturing details around the initiator, recipient, etc.
-
-        '
-      properties:
-        body:
-          description: '
-
-
-            The event body (for external events only)'
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the event was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        eventAt:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the event occurred.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        externalUrl:
-          description: '
-
-
-            The external URL associated with this event (for external events only)'
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
-
-
-            The name of the event that took place (e.g. "mailbox_created").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        payload:
-          description: '
-
-
-            The transmitted data for the event (cannot be updated once an event has been created)'
-          type:
-          - object
-          - 'null'
-          x-internal: false
-        requestCity:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The city where the request that created the event was made.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        requestDevice:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The type of device on which the request that created the event was made.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        requestHost:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            Name of the host from which the request was made.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        requestProxied:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            A boolean value whether the request was proxied. For example, when true the request city refers to the location of the email server and not the prospect.'
-          type:
-          - boolean
-          - 'null'
-          x-internal: false
-        requestRegion:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            Name of the region from which the request was made.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-      type: object
-      x-internal: false
-    eventResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/event'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/eventRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     eventRelationships:
       properties:
         account:
@@ -466,6 +341,131 @@ components:
                   type: string
               type: object
       type: object
+    event:
+      description: 'Application events, capturing details around the initiator, recipient, etc.
+
+        '
+      properties:
+        body:
+          description: '
+
+
+            The event body (for external events only)'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the event was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        eventAt:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the event occurred.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        externalUrl:
+          description: '
+
+
+            The external URL associated with this event (for external events only)'
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg>
+
+
+            The name of the event that took place (e.g. "mailbox_created").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        payload:
+          description: '
+
+
+            The transmitted data for the event (cannot be updated once an event has been created)'
+          type:
+          - object
+          - 'null'
+          x-internal: false
+        requestCity:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The city where the request that created the event was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestDevice:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The type of device on which the request that created the event was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestHost:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Name of the host from which the request was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        requestProxied:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            A boolean value whether the request was proxied. For example, when true the request city refers to the location of the email server and not the prospect.'
+          type:
+          - boolean
+          - 'null'
+          x-internal: false
+        requestRegion:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            Name of the region from which the request was made.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+      type: object
+      x-internal: false
+    eventResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/event'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/eventRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

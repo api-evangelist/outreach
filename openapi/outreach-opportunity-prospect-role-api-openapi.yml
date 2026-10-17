@@ -259,6 +259,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    opportunityProspectRoleResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/opportunityProspectRole'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/opportunityProspectRoleRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     opportunityProspectRoleRelationships:
       properties:
         opportunity:
@@ -302,18 +314,6 @@ components:
                   type: string
               type: object
       type: object
-    opportunityProspectRoleResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/opportunityProspectRole'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/opportunityProspectRoleRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     opportunityProspectRole:
       description: 'A prospect''s role and association with an opportunity
 

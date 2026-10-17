@@ -259,33 +259,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    personaRelationships:
-      properties:
-        prospects:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
-
-
-            The prospects with this persona. Relationship prospects cannot be used as a filter.'
-          properties:
-            links:
-              properties:
-                related:
-                  format: uri
-                  type: string
-              type: object
-      type: object
-    personaResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/persona'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/personaRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     persona:
       description: 'A descriptor of a person, used for categorizing Prospects.
 
@@ -333,6 +306,33 @@ components:
           x-internal: false
       type: object
       x-internal: false
+    personaResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/persona'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/personaRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
+    personaRelationships:
+      properties:
+        prospects:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg>
+
+
+            The prospects with this persona. Relationship prospects cannot be used as a filter.'
+          properties:
+            links:
+              properties:
+                related:
+                  format: uri
+                  type: string
+              type: object
+      type: object
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

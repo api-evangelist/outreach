@@ -147,6 +147,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    contentCategoryOwnershipResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/contentCategoryOwnership'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/contentCategoryOwnershipRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     contentCategoryOwnership:
       description: 'A record that maps content categories to owners. This allows categories to be linked to one or more teams.
 
@@ -240,18 +252,6 @@ components:
                   type: string
               type: object
       type: object
-    contentCategoryOwnershipResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/contentCategoryOwnership'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/contentCategoryOwnershipRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

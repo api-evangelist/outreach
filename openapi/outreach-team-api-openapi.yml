@@ -259,71 +259,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    team:
-      description: 'A descriptor of a group of users.
-
-        '
+    teamResponse:
       properties:
-        color:
-          description: '
-
-
-            The color used to label and highlight the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        createdAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the team was created.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        name:
-          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The name of the team (e.g. "SDRs").'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        scimExternalId:
-          description: '
-
-
-            The ID from the SCIM provisioning service used to create the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        scimSource:
-          description: '
-
-
-            The name of the SCIM provisioning source used to create the team.'
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          x-internal: false
-        updatedAt:
-          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
-
-
-            The date and time the team was last updated.'
-          format: date-time
-          type:
-          - string
-          - 'null'
-          x-internal: false
+        attributes:
+          $ref: '#/components/schemas/team'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/teamRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
     teamRelationships:
@@ -530,16 +475,71 @@ components:
                   type: string
               type: object
       type: object
-    teamResponse:
+    team:
+      description: 'A descriptor of a group of users.
+
+        '
       properties:
-        attributes:
-          $ref: '#/components/schemas/team'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/teamRelationships'
-        type:
-          type: string
+        color:
+          description: '
+
+
+            The color used to label and highlight the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        createdAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the team was created.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        name:
+          description: '<img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The name of the team (e.g. "SDRs").'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scimExternalId:
+          description: '
+
+
+            The ID from the SCIM provisioning service used to create the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        scimSource:
+          description: '
+
+
+            The name of the SCIM provisioning source used to create the team.'
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          x-internal: false
+        updatedAt:
+          description: '<img src=https://developers.outreach.io/badges/readonly.svg> <img src=https://developers.outreach.io/badges/filterable.svg> <img src=https://developers.outreach.io/badges/sortable.svg>
+
+
+            The date and time the team was last updated.'
+          format: date-time
+          type:
+          - string
+          - 'null'
+          x-internal: false
       type: object
       x-internal: false
   securitySchemes:

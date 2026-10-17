@@ -374,18 +374,6 @@ components:
                   type: string
               type: object
       type: object
-    snippetResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/snippet'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/snippetRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     snippet:
       description: 'A piece of an email to be reused in multiple messages.
 
@@ -462,6 +450,18 @@ components:
           - string
           - 'null'
           x-internal: false
+      type: object
+      x-internal: false
+    snippetResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/snippet'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/snippetRelationships'
+        type:
+          type: string
       type: object
       x-internal: false
   securitySchemes:

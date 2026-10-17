@@ -129,8 +129,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    orgSettingRelationships:
+    orgSettingResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/orgSetting'
+        id:
+          description: As a UUID
+          type: string
+        relationships:
+          $ref: '#/components/schemas/orgSettingRelationships'
+        type:
+          type: string
       type: object
+      x-internal: false
     orgSetting:
       description: 'The collection of settings for an Org.
 
@@ -168,19 +179,8 @@ components:
           x-internal: false
       type: object
       x-internal: false
-    orgSettingResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/orgSetting'
-        id:
-          description: As a UUID
-          type: string
-        relationships:
-          $ref: '#/components/schemas/orgSettingRelationships'
-        type:
-          type: string
+    orgSettingRelationships:
       type: object
-      x-internal: false
   securitySchemes:
     bearerAuth:
       bearerFormat: JWT

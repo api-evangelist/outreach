@@ -254,18 +254,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    productResponse:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/product'
-        id:
-          type: integer
-        relationships:
-          $ref: '#/components/schemas/productRelationships'
-        type:
-          type: string
-      type: object
-      x-internal: false
     productRelationships:
       properties:
         creator:
@@ -347,6 +335,18 @@ components:
                   type: string
               type: object
       type: object
+    productResponse:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/product'
+        id:
+          type: integer
+        relationships:
+          $ref: '#/components/schemas/productRelationships'
+        type:
+          type: string
+      type: object
+      x-internal: false
     product:
       description: 'Contains all the list of products and maintained by the admin.
 
