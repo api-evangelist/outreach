@@ -1403,7 +1403,9 @@ edges:
 - partner_name: Facebook Lead Ads
   partner: facebook-lead-ads
   partner_match: domain+verified
-  partner_note: "Shared domain facebook.com resolved to the product repo: the Zapier Facebook Lead Ads app (listed on zapier.com/apps/outreach/integrations) links https://www.facebook.com/business/ads/lead-ads, which is exactly facebook-lead-ads Website (verified 2026-10-13)."
+  partner_note: 'Shared domain facebook.com resolved to the product repo: the Zapier Facebook Lead Ads app (listed
+    on zapier.com/apps/outreach/integrations) links https://www.facebook.com/business/ads/lead-ads, which is exactly
+    facebook-lead-ads Website (verified 2026-10-13).'
   type: marketplace
   evidence: https://zapier.com/apps/outreach/integrations
   marketplace: Zapier
@@ -1421,7 +1423,9 @@ edges:
 - partner_name: Google Sheets
   partner: google-sheets
   partner_match: domain+verified
-  partner_note: "Shared domain google.com resolved to the product repo: zapier.com/apps/outreach/integrations/google-sheets links http://sheets.google.com/; google-sheets is the repo for the Sheets product (Portal developers.google.com/workspace/sheets/api) (verified 2026-10-13)."
+  partner_note: 'Shared domain google.com resolved to the product repo: zapier.com/apps/outreach/integrations/google-sheets
+    links http://sheets.google.com/; google-sheets is the repo for the Sheets product (Portal developers.google.com/workspace/sheets/api)
+    (verified 2026-10-13).'
   type: marketplace
   evidence: https://zapier.com/apps/outreach/integrations
   marketplace: Zapier
@@ -1490,7 +1494,8 @@ edges:
 - partner_name: Marketo
   partner: marketo
   partner_match: domain+verified
-  partner_note: "zapier.com/apps/outreach/integrations/marketo links https://marketo.com/ (301 -> business.adobe.com/products/marketo); registrable marketo.com is held only by marketo (Portal developers.marketo.com) (verified 2026-10-13)."
+  partner_note: zapier.com/apps/outreach/integrations/marketo links https://marketo.com/ (301 -> business.adobe.com/products/marketo);
+    registrable marketo.com is held only by marketo (Portal developers.marketo.com) (verified 2026-10-13).
   type: marketplace
   evidence: https://zapier.com/apps/outreach/integrations
   marketplace: Zapier
